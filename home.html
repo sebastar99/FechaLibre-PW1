@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <title>Fecha Libre </title>
+</head>
+
+<body>
+    <!--Inicio Header-->
+    <header class="header">
+        <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
+
+        <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+        <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
+
+
+        <nav class="navbar">
+            <a href="#lista__cursos">Cursos</a>
+            <a href="./pages/contacto.html">Contacto</a>
+            <a href="./pages/giftcard.html">GiftCards</a>
+            <a href="./pages/calendario.html">Calendario</a>
+
+            <form class="header__buscador" action="#" method="get">
+                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <datalist id="cursos">
+                    <option value="Introduccion a JavaScript"></option>
+                    <option value="Introduccion a la IA"></option>
+                    <option value="Introduccion a Java"></option>
+                    <option value="Desarrollo web"></option>
+                    <option value="JavaScript avanzado"></option>
+                </datalist>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </nav>
+
+
+        <div class="header__iconos">
+            <a href="" class="fas fa-heart"></a>
+            <a href="" class="fas fa-shopping-cart"></a>
+            <a href="" class="fas fa-user"></a>
+        </div>
+    </header>
+    <!--Fin Header-->
+    <!--Inicio Main-->
+    <div class="foto-fondo">
+        <div class="main">
+            <h1>Aprende algo nuevo <span>cada dia</span></h1>
+            <p>Con nuestros cursos online, podras aprender a tu ritmo y desde cualquier lugar.</p>
+        </div>
+    </div>
+
+    <section class="inscripcion">
+        <h2>Descubrí la formación <span>perfecta</span> para vos</h2>
+        <div class="inscripcion-pasos">
+            <div class="paso-1">
+                <h3>Paso 1: Selecciona tu curso</h3>
+                <p>Explora nuestra amplia variedad de cursos y elige el que mejor se adapte a tus intereses y objetivos.
+                </p>
+            </div>
+            <div class="paso-2">
+                <h3>Paso 2: Completa el formulario de inscripción</h3>
+                <p>Rellena nuestro sencillo formulario de inscripción con tus datos personales y preferencias de curso.
+                </p>
+            </div>
+            <div class="paso-3">
+                <h3>Paso 3: Confirma tu inscripción</h3>
+                <p>Revisa los detalles de tu inscripción y confirma tu participación en el curso seleccionado.</p>
+            </div>
+    </section>
+    <section class="cursos" id="lista__cursos">
+        <h2> Nuestros cursos</h2>
+        <div class="cursos-contenedor">
+            <div class="curso-1-frente">
+                <div class="header-curso-info">
+                    <div class="usuarios">
+                        <h6>+1000 usuarios recibidos</h6>
+                    </div>
+                    <div class="estrellas">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <img src="./multimedia/cursoDestacado.png" alt="foto-curso-1">
+                <h3>Introduccion a JavaScript</h3>
+                <a href="/pages/detalleCurso.html"><button class="caracteristicas">Ver Curso</button></a>
+            </div>
+            <div class="curso-2-frente">
+                <div class="header-curso-info">
+                    <div class="usuarios">
+                        <h6>+800 usuarios recibidos</h6>
+                    </div>
+                    <div class="estrellas">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <img src="./multimedia/cursoIA.png" alt="foto-curso-2">
+                <h3>Introduccion a la IA</h3>
+                <a href="/pages/cursoIA.html"><button class="caracteristicas">Ver Curso</button></a>
+            </div>
+            <div class="curso-3-frente">
+                <div class="header-curso-info">
+                    <div class="usuarios">
+                        <h6>+600 usuarios recibidos</h6>
+                    </div>
+                    <div class="estrellas">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <img src="./multimedia/cursoPoo.png" alt="foto-curso-3">
+                <h3>Introduccion a Java</h3>
+                <a href="/pages/introJava.html"><button class="caracteristicas">Ver Curso</button></a>
+            </div>
+            <div class="curso-4-frente">
+                <div class="header-curso-info">
+                    <div class="usuarios">
+                        <h6>+400 usuarios recibidos</h6>
+                    </div>
+                    <div class="estrellas">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <img src="./multimedia/cursoDiseñoWeb.png" alt="foto-curso-4">
+                <h3>Curso Desarrollo Web</h3>
+                <a href="/pages/diseñoWeb.html"><button class="caracteristicas">Ver Curso</button></a>
+            </div>
+            <div class="curso-5-frente">
+                <div class="header-curso-info">
+                    <div class="usuarios">
+                        <h6>+200 usuarios recibidos</h6>
+                    </div>
+                    <div class="estrellas">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <img src="./multimedia/cursoJavaScript.png" alt="foto-curso-5">
+                <h3>Curso JavaScript Avanzado</h3>
+                <a href="/pages/javaScript.html"><button class="caracteristicas">Ver Curso</button></a>
+            </div>
+        </div>
+    </section>
+    <section class="medios-de-pago">
+        <h2> Medios de pago </h2>
+        <div class="medios-de-pago-contenedor">
+            <div class="tarj-credito">
+                <div class="contenedor-bancos-tc">
+                    <img src="../multimedia/banco-nacion.jpg" alt="banco nacion">
+                    <img src="../multimedia/supervielle,png.png" alt="banco supervielle">
+                    <img src="../multimedia/santander.jpg" alt="banco santander">
+                    <img src="../multimedia/provincia.jpg" alt="banco provincia">
+                </div>
+                <h3> Tarjetas de <span>crédito</span></h3>
+
+                <h4>6 cuotas sin interes</h4>
+            </div>
+            <div class="tarj-debito">
+                <div class="contenedor-bancos-td">
+                    <img src="../multimedia/banco-nacion.jpg" alt="banco nacion">
+                    <img src="../multimedia/supervielle,png.png" alt="banco supervielle">
+                    <img src="../multimedia/santander.jpg" alt="banco santander">
+                    <img src="../multimedia/provincia.jpg" alt="banco provincia">
+                </div>
+                <h3> Tarjetas de <span>débito</span></h3>
+
+                <h4>5% de descuento</h4>
+            </div>
+            <div class="transf-bancaria">
+                <div class="contenedor-transf">
+                    <img src="../multimedia/banco.png" alt="banco">
+                </div>
+                <h3> Transferencia <span>bancaria</span></h3>
+
+                <h4>5% de descuento</h4>
+            </div>
+            <div class="mercado-pago">
+                <div class="contenedor-mp">
+                    <img src="../multimedia/mp.png" alt="banco">
+                </div>
+                <h3> Mercado pago</h3>
+
+                <h4>Solicitar link de pago</h4>
+            </div>
+            <div class="paypal">
+                <div class="contenedor-ppal">
+                    <img src="../multimedia/paypal.png" alt="banco">
+                </div>
+                <h3> PayPal</h3>
+
+                <h4>Solicitar link de pago</h4>
+            </div>
+        </div>
+
+    </section>
+
+    <!--Fin Main-->
+    <!--Inicio Footer-->
+    <footer class="footer">
+        <div class="footer__datos">
+            <div class="footer__datos__contenedores">
+                <h3>Datos del Grupo</h3>
+                <p>Martina Diaz: 43718797</p>
+                <p>Oriana Casteluche: 45871864</p>
+                <p>Sebastian Staropoli: 41543579</p>
+                <p>Ramiro Velardez: 43103976</p>
+                <p>Tomas Amaya: 42673374</p>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Nuestros Links</h3>
+                <a href="../home.html">Home</a>
+                <a href="/pages/calendario.html">Cursos</a>
+                <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target=_blank">
+                    Mapa
+                </a>
+                <a href="./pages/contacto.html">Preguntas</a>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Redes Sociales</h3>
+                <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkeDin</a>
+                <a href="#">Gmail</a>
+            </div>
+        </div>
+
+        <div class="footer__creditos">
+            <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <!--Fin Footer-->
+</body>
+
+</html>

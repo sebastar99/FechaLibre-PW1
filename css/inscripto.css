@@ -1,0 +1,46 @@
+:root {
+    --color__boton: #5499c7;
+    --color__boton-hover: #0277bd;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    width: 90%;
+    max-width: 45.3125em;
+    margin-top: 6em;
+    background-color: white;
+    padding: 2em;
+    border-radius: 0.5em;
+}
+
+section {
+    margin: 2em 2.5em 0;
+    text-align: center;
+}
+
+.volver {
+    display: block;
+    width: 100%;
+    max-width: 16em;
+    padding: 1em;
+    border-radius: 0.5em;
+    background-color: var(--color__boton);
+    color: black;
+    margin: 2em auto 0;
+}
+
+.volver:hover {
+    background-color: var(--color__boton-hover);
+    color: white;
+    cursor: pointer;
+}
+
+footer {
+    width: 100%;
+}

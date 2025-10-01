@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/giftcard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <title>Personalización de Giftcard</title>
+</head>
+
+<body>
+
+    <!--Inicio Header-->
+    <header class="header">
+        <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
+
+        <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+        <a href="../home.html" class="logo">FechaLibre <span>.</span></a>
+
+
+        <nav class="navbar">
+            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="./contacto.html">Contacto</a>
+            <a href="./giftcard.html">GiftCards</a>
+            <a href="./calendario.html">Calendario</a>
+
+            <form class="header__buscador" action="#" method="get">
+                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <datalist id="cursos">
+                    <option value="Introduccion a JavaScript"></option>
+                    <option value="Introduccion a la IA"></option>
+                    <option value="Introduccion a Java"></option>
+                    <option value="Desarrollo web"></option>
+                    <option value="JavaScript avanzado"></option>
+                </datalist>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </nav>
+
+
+        <div class="header__iconos">
+            <a href="" class="fas fa-heart"></a>
+            <a href="" class="fas fa-shopping-cart"></a>
+            <a href="" class="fas fa-user"></a>
+        </div>
+    </header>
+    <!--Fin Header-->
+    <main>
+
+        <div class="container">
+
+            <div class="preview-column">
+                <div class="giftcard-preview">
+                    <div class="giftcard-price">$0000.-</div>
+                    <p class="giftcard-text">GIFT CARD para</p>
+                    <p class="giftcard-recipient">Destinatario</p>
+                </div>
+                <p class="preview-title">VISTA PREVIA DE RESULTADO DE PERSONALIZACIÓN</p>
+            </div>
+
+            <div class="form-column">
+                <h2>Personalización de Giftcard</h2>
+                <form action="./giftcardCreada.html" method="get">
+                    <div class="form-group">
+                        <label for="recipient-name">Nombre Destinatario</label>
+                        <input type="text" id="recipient-name" placeholder="Nombre Destinatario" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Color de la fuente</label>
+                        <div class="options-group">
+                            <input type="radio" id="color1" name="color" checked required>
+                            <label for="color1" class="radio-label">
+                                <div class="color-option" style="background-color: #f9f9f9;"></div>
+                            </label>
+                            <input type="radio" id="color2" name="color" required>
+                            <label for="color2" class="radio-label">
+                                <div class="color-option" style="background-color: #000000;"></div>
+                            </label>
+                            <input type="radio" id="color3" name="color" required>
+                            <label for="color3" class="radio-label">
+                                <div class="color-option" style="background-color: #cccccc;"></div>
+                            </label>
+                            <input type="radio" id="color4" name="color" required>
+                            <label for="color4" class="radio-label">
+                                <div class="color-option" style="background-color: #676767;"></div>
+                            </label>
+                            <input type="radio" id="color5" name="color" required>
+                            <label for="color5" class="radio-label">
+                                <div class="color-option" style="background-color: #2f2f2f;"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tamaño de fuente</label>
+                        <div class="options-group">
+                            <input type="radio" id="font20" name="fontsize"><label for="font20"
+                                class="radio-label"><span class="font-size-option">20px</span></label>
+                            <input type="radio" id="font28" name="fontsize" checked><label for="font28"
+                                class="radio-label"><span class="font-size-option">28px</span></label>
+                            <input type="radio" id="font32" name="fontsize"><label for="font32"
+                                class="radio-label"><span class="font-size-option">32px</span></label>
+                            <input type="radio" id="font48" name="fontsize"><label for="font48"
+                                class="radio-label"><span class="font-size-option">48px</span></label>
+                            <input type="radio" id="font60" name="fontsize"><label for="font60"
+                                class="radio-label"><span class="font-size-option">60px</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Monto $</label>
+                        <input type="number" id="amount" placeholder="Ingrese el monto" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación</label>
+                        <div class="options-group">
+                            <input type="radio" id="loc-tl" name="location" checked required>
+                            <label for="loc-tl" class="radio-label">
+                                <div class="location-option top-left">
+                                    <div class="inner-box"></div>
+                                </div>
+                            </label>
+                            <input type="radio" id="loc-tr" name="location" required>
+                            <label for="loc-tr" class="radio-label">
+                                <div class="location-option top-right">
+                                    <div class="inner-box"></div>
+                                </div>
+                            </label>
+                            <input type="radio" id="loc-c" name="location" required>
+                            <label for="loc-c" class="radio-label">
+                                <div class="location-option center">
+                                    <div class="inner-box"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Fondo</label>
+                        <div class="options-group">
+                            <input type="radio" id="bg1" name="background" required><label for="bg1" class="radio-label">
+                                <div class="background-option" style="background-color: #1565c0;"></div>
+                            </label>
+                            <input type="radio" id="bg2" name="background" checked required><label for="bg2" class="radio-label">
+                                <div class="background-option" style="background-color: #2a2b3f;"></div>
+                            </label>
+                            <input type="radio" id="bg3" name="background" required><label for="bg3" class="radio-label">
+                                <div class="background-option" style="background-color: #171717;"></div>
+                            </label>
+                            <input type="radio" id="bg4" name="background" required><label for="bg4" class="radio-label">
+                                <div class="background-option" style="background-color: #5499c7;"></div>
+                            </label>
+                            <input type="radio" id="bg5" name="background" required><label for="bg5" class="radio-label">
+                                <div class="background-option" style="background-color: #0a0a0a;"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="confirm-button">CONFIRMAR</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__datos">
+            <div class="footer__datos__contenedores">
+                <h3>Datos del Grupo</h3>
+                <p>Martina Diaz: 43718797</p>
+                <p>Oriana Casteluche: 45871864</p>
+                <p>Sebastian Staropoli: 41543579</p>
+                <p>Ramiro Velardez: 43103976</p>
+                <p>Tomas Amaya: 42673374</p>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Nuestros Links</h3>
+                <a href="../home.html">Home</a>
+                <a href="./calendario.html">Cursos</a>
+                <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target="_blank">
+                    Mapa
+                </a>
+                <a href="./contacto.html">Preguntas</a>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Redes Sociales</h3>
+                <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkeDin</a>
+                <a href="#">Gmail</a>
+            </div>
+        </div>
+
+        <div class="footer__creditos">
+            <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

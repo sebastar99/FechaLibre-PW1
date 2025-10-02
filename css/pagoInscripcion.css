@@ -1,0 +1,165 @@
+/* ================= PAGO / TARJETA MEJORADA ================= */
+.pago {
+    margin-top: 8em; /* respeta header fijo */
+    display: flex;
+    justify-content: center;
+    padding: 2em 1em;
+    font-family: "SUSE Mono", sans-serif;
+}
+
+.pago__contenedor {
+    display: grid;
+    grid-template-columns: 22em 1fr;
+    gap: 2em;
+    width: 100%;
+    max-width: 69em;
+    background: #fff;
+    padding: 1.6rem;
+    border-radius: 10px;
+    box-shadow: 0 0.5em 1.25em rgba(0,0,0,0.06);
+    align-items: start;
+}
+
+.pago__tarjeta {
+    width: 100%;
+    max-width: 22em;
+    height: 14em;
+    border-radius: 0.875em;
+    padding: 1.125em;
+    color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(42,43,63,0.95) 10%, rgba(21,101,192,1) 100%);
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(21,101,192,0.12);
+    transition: transform .25s ease;
+    font-weight: 600;
+}
+
+.pago__tarjeta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pago__chip {
+    width: 3em;
+    height: 2.25em;
+    border-radius: 6px;
+    background: linear-gradient(180deg,#f6d60a,#c79b00);
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.08);
+    border: 2px solid rgba(255,255,255,0.15);
+}
+
+.pago__brand {
+    font-size: 0.95em;
+    font-weight: 800;
+    opacity: 0.95;
+}
+
+.pago__numero {
+    font-family: "SUSE Mono", monospace;
+    font-size: 1.15rem;
+    letter-spacing: 3px;
+    margin-top: 6px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    -webkit-font-smoothing: antialiased;
+}
+
+.pago__tarjeta-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.pago__nombre {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    opacity: 0.95;
+}
+
+.pago__fecha {
+    font-size: 0.85em;
+    opacity: 0.95;
+}
+
+
+.pago__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.pago__formulario h2 {
+    margin: 0 0 0.4em 0;
+    color: #222;
+    font-size: 1.2em;
+}
+
+.pago__formulario label {
+    margin-top: 0.4em;
+    color: #444;
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.pago__formulario input {
+    margin-top: 0.3em;
+    padding: 0.72em 0.9em;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.12);
+    font-size: 0.95em;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pago__fila {
+    display: flex;
+    gap: 1em;
+}
+
+.pago__campo--pequeno {
+    flex: 1 1 0;
+}
+
+.pago__campo--pequeno:nth-child(2) input { text-align: center; }
+
+/* Boton */
+.pago__boton {
+    margin-top: 1rem;
+    padding: 0.95rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--color__boton, #5499c7);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s ease, transform .08s ease;
+}
+
+.pago__boton:active { transform: translateY(1px); }
+.pago__boton:hover { background: var(--color__span, #1565c0); }
+
+
+/* ====== Responsive ====== */
+@media (max-width: 900px) {
+  .pago__contenedor { grid-template-columns: 1fr; padding: 1.2em; max-width: 720px; }
+  .pago__tarjeta { margin: 0 auto; width: 85%; max-width: 420px; height: 200px; }
+  .pago__numero { font-size: 1.05rem; letter-spacing: 2.5px; }
+  .pago__tarjeta-bottom { gap: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .pago { padding: 1rem; margin-top: 7.5rem; }
+  .pago__tarjeta { height: 180px; border-radius: 12px; padding: 14px; }
+  .pago__numero { font-size: 0.98rem; letter-spacing: 2px; }
+  .pago__brand { font-size: 0.85rem; }
+  .pago__formulario input { font-size: 0.92rem; padding: 0.6rem; }
+  .pago__fila { flex-direction: row; gap: 0.6rem; }
+}
+
+

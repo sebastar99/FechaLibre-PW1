@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/detalleCurso.css">
+    <link rel="stylesheet" href="../css/ingreso.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <title>Personalización de Giftcard</title>
+</head>
+
+<body>
+
+    <!--Inicio Header-->
+    <header class="header">
+        <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
+
+        <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+        <a href="../home.html" class="logo">FechaLibre <span>.</span></a>
+
+
+        <nav class="navbar">
+            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="./contacto.html">Contacto</a>
+            <a href="./giftcard.html">GiftCards</a>
+            <a href="./calendario.html">Calendario</a>
+
+            <form class="header__buscador" action="#" method="get">
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+                <datalist id="cursos">
+                    <option value="Introduccion a JavaScript"></option>
+                    <option value="Introduccion a la IA"></option>
+                    <option value="Introduccion a Java"></option>
+                    <option value="Desarrollo web"></option>
+                    <option value="JavaScript avanzado"></option>
+                </datalist>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </nav>
+
+
+        <div class="header__iconos">
+            <a href="" class="fas fa-heart"></a>
+            <a href="" class="fas fa-shopping-cart"></a>
+            <a href="" class="fas fa-user"></a>
+        </div>
+    </header>
+    <!--Fin Header-->
+    <main class="auth">
+        <section class="auth__container" role="region" aria-label="Autenticación">
+            <!-- SIGN UP -->
+            <div class="auth__card auth__signup" aria-labelledby="signupTitle">
+                <h2 id="signupTitle">Crear cuenta</h2>
+                <p class="auth__sub">Regístrate gratis y accede a tus cursos.</p>
+ 
+                <form id="signupForm" class="auth__form" novalidate>
+                    <label for="su-name">Nombre completo</label>
+                    <input id="su-name" name="name" type="text" placeholder="Ej: Juan Pérez" required>
+
+                    <label for="su-email">Correo electrónico</label>
+                    <input id="su-email" name="email" type="email" placeholder="tu@correo.com" required>
+
+                    <label for="su-pass">Contraseña</label>
+                    <div class="input-with-btn">
+                        <input id="su-pass" name="password" type="password" placeholder="********" required>
+                    </div>
+
+                    <label for="su-pass2">Confirmar contraseña</label>
+                    <div class="input-with-btn">
+                        <input id="su-pass2" name="password2" type="password" placeholder="********" required>
+                    </div>
+
+                    <div class="auth__actions">
+                        <button type="submit" class="btn btn--primary">CREAR CUENTA</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- LOGIN -->
+            <div class="auth__card auth__login" aria-labelledby="loginTitle">
+                <h2 id="loginTitle">Iniciar sesión</h2>
+                <p class="auth__sub">¿Ya tienes cuenta? Inicia sesión aquí.</p>
+
+                <form id="loginForm" class="auth__form" autocomplete="on" novalidate>
+                    <label for="li-email">Correo electrónico</label>
+                    <input id="li-email" name="email" type="email" placeholder="tu@correo.com" required>
+
+                    <label for="li-pass">Contraseña</label>
+                    <div class="input-with-btn">
+                        <input id="li-pass" name="password" type="password" placeholder="********" required>
+                    </div>
+
+                    <div class="auth__row">
+                        <label class="auth__remember">
+                            <input type="checkbox" id="remember" name="remember"> Recuérdame
+                        </label>
+                        <a href="#" class="auth__forgot">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <div class="auth__actions">
+                        <button type="submit" class="btn btn--primary">INICIAR SESIÓN</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!--Inicio Footer-->
+    <footer class="footer">
+        <div class="footer__datos">
+            <div class="footer__datos__contenedores">
+                <h3>Datos del Grupo</h3>
+                <p>Martina Diaz: 43718797</p>
+                <p>Oriana Casteluche: 45871864</p>
+                <p>Sebastian Staropoli: 41543579</p>
+                <p>Ramiro Velardez: 43103976</p>
+                <p>Tomas Amaya: 42673374</p>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Nuestros Links</h3>
+                <a href="../home.html">Home</a>
+                <a href="./calendario.html">Cursos</a>
+                <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target="_blank">
+                    Mapa
+                </a>
+                <a href="./contacto.html">Preguntas</a>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Redes Sociales</h3>
+                <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkeDin</a>
+                <a href="#">Gmail</a>
+            </div>
+        </div>
+
+        <div class="footer__creditos">
+            <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

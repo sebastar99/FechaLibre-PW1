@@ -14,8 +14,10 @@ a {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: var(--color__principal);
-    height: 100vh;
 }
 
 * {
@@ -33,6 +35,7 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: 6em;
     overflow-x: hidden;
+    height: 100%;
 }
 
 /*INICIO HEADER*/
@@ -141,6 +144,21 @@ html {
     font-size: 1em;
     color: #333;
     margin-left: 0.8em;
+    position: relative;
+}
+
+.header .header__iconos .fa-shopping-cart::after {
+    content: "0"; 
+    position: absolute;
+    top: -0.5em; 
+    right: -0.625em;
+    background: var(--color__span);
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 0.125em 0.3125em;
+    border-radius: 50%;
+    line-height: 1;
 }
 
 .header .header__iconos a:hover {
@@ -153,6 +171,8 @@ html {
 
 .main__calendario {
     margin-top: 8em;
+    flex: 1 0 auto;
+    /* permite que este elemento ocupe el espacio restante */
 }
 
 .calendario__titulo {
@@ -176,32 +196,35 @@ html {
     color: var(--color__span);
 }
 
-
 .calendario__año {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2em;
-    width: 90%;
-    margin: 0 auto;
+    width: 95%;
+    max-width: 1000px;
+    margin: 1.5em auto;
 }
 
+
 .calendario__mes {
-    background: white;
-    padding: 1em;
-    border-radius: 0.5em;
-    box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1);
+    padding: 1.5em;
+    background: white; padding: 1em;
+     border-radius: 0.5em;
+      box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1);
+    border-radius: 0.6em;
 }
 
 .calendario__mes h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-family: 'SUSE Mono", sans-serif';
-    color: var(--color__span);
-    font-size: 2em;
+    font-size: 2.2em;
+    margin-bottom: 1.2em;
 }
 
-.calendario__semanas,
 .calendario__dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(7.5em, 14vh);
+    gap: 0;
+    
+}
+
+.calendario__semanas {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: start;
@@ -213,24 +236,28 @@ html {
     white-space: normal;
     text-align: center;
     vertical-align: top;
-    padding: 0.3em;
+    font-weight: 600;
+    padding: 0.5em 0;
     font-size: 0.9em;
     line-height: 1.2;
 }
 
 .calendario__dias div {
-    padding: 0.75em 0.5em;
-    border: 0.0625em solid #ddd;
-    min-height: 6.25em;
+    padding: 0.9em 0.6em;
+    min-height: auto;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid black;
 }
+
 
 .calendario__dias div a {
     color: var(--color__span);
-    flex-wrap: wrap;
-    font-size: 0.75em;
-    padding-top: 0.5em;
+    font-size: 0.85rem;
+    padding-top: 0.6em;
+    word-break: break-word;
+    line-height: 1.1;
 }
 
 .vacio {
@@ -249,7 +276,8 @@ html {
 
 /*INICIO FOOTER*/
 .footer {
-    margin-top: 2em;
+    margin-top: auto;
+    width: 100%;
 }
 
 .footer__datos {
@@ -399,13 +427,11 @@ html {
     }
 
     /*FIN RESPONSIVE HEADER*/
-    .calendario__año {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2em;
-        width: 90%;
-        margin: 0 auto;
-    }
+    .calendario__año { width: 96%; max-width: 700px; }
+    .calendario__mes { padding: 1.1em; }
+    .calendario__dias { grid-auto-rows: minmax(6rem, 12vh); }
+    .calendario__mes h2 { font-size: 1.9rem; }
+    .calendario__dias div a { font-size: 0.8rem; }
 
 }
 
@@ -418,27 +444,16 @@ html {
         padding: 2em;
     }
 
-    .calendario__titulo{
+    .calendario__titulo {
         width: 90%;
         margin: 1em auto;
         font-size: 0.700em;
-        
+
     }
 
-    .calendario__año {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2em;
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .calendario__mes div{
-        font-size: 0.75em;
-        /* Reduce tamaño del texto */
-        padding: 0.2em;
-        /* Reduce espacio interno */
-    }
+    .calendario__año { max-width: 480px; }
+    .calendario__dias { grid-auto-rows: minmax(5.5rem, 11vh); }
+    .calendario__mes h2 { font-size: 1.5rem; }
 }
 
 /*FIN RESPONSIVE*/

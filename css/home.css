@@ -139,6 +139,21 @@ html {
     font-size: 1em;
     color: #333;
     margin-left: 0.8em;
+    position: relative;
+}
+
+.header .header__iconos .fa-shopping-cart::after {
+    content: "0"; 
+    position: absolute;
+    top: -0.5em; 
+    right: -0.625em;
+    background: var(--color__span);
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 0.125em 0.3125em;
+    border-radius: 50%;
+    line-height: 1;
 }
 
 .header .header__iconos a:hover {

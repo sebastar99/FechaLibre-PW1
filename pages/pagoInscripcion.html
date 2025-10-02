@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/detalleCurso.css">
+    <link rel="stylesheet" href="../css/pagoInscripcion.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <title>Personalización de Giftcard</title>
+</head>
+
+<body>
+
+    <!--Inicio Header-->
+    <header class="header">
+        <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
+
+        <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+        <a href="../home.html" class="logo">FechaLibre <span>.</span></a>
+
+
+        <nav class="navbar">
+            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="./contacto.html">Contacto</a>
+            <a href="./giftcard.html">GiftCards</a>
+            <a href="./calendario.html">Calendario</a>
+
+            <form class="header__buscador" action="#" method="get">
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+                <datalist id="cursos">
+                    <option value="Introduccion a JavaScript"></option>
+                    <option value="Introduccion a la IA"></option>
+                    <option value="Introduccion a Java"></option>
+                    <option value="Desarrollo web"></option>
+                    <option value="JavaScript avanzado"></option>
+                </datalist>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </nav>
+
+
+        <div class="header__iconos">
+            <a href="" class="fas fa-heart"></a>
+            <a href="" class="fas fa-shopping-cart"></a>
+            <a href="" class="fas fa-user"></a>
+        </div>
+    </header>
+    <!--Fin Header-->
+    <main class="pago">
+        <section class="pago__contenedor">
+            <!-- Vista previa de tarjeta -->
+            <div class="pago__tarjeta" aria-hidden="true">
+                <div class="pago__tarjeta-top">
+                    <div class="pago__chip"></div>
+                    <div class="pago__brand">VISA</div>
+                </div>
+
+                <div class="pago__numero" id="cardNumberPreview">**** **** **** 1234</div>
+
+                <div class="pago__tarjeta-bottom">
+                    <div class="pago__nombre" id="cardNamePreview">JUAN PEREZ</div>
+                    <div class="pago__fecha" id="cardExpiryPreview">12/27</div>
+                </div>
+            </div>
+
+            <!-- Formulario de pago -->
+            <form class="pago__formulario" id="paymentForm" action="./inscripto.html">
+                <h2>Pago con Tarjeta</h2>
+
+                <label for="nombre">Nombre en la tarjeta</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Perez" required>
+
+                <label for="numero">Número de tarjeta</label>
+                <input type="number" id="numero" name="numero" inputmode="numeric" maxlength="16"
+                    placeholder="**** **** **** 1234" required>
+
+                <div class="pago__fila">
+                    <div class="pago__campo--pequeno">
+                        <label for="fecha">Fecha de vencimiento</label>
+                        <input type="text" id="fecha" name="fecha" placeholder="MM/AA" maxlength="4" inputmode="numeric"
+                            required>
+                    </div>
+
+                    <div class="pago__campo--pequeno">
+                        <label for="cvv">CVV</label>
+                        <input type="password" id="cvv" name="cvv" placeholder="CVV" maxlength="4" inputmode="numeric"
+                            required>
+                    </div>
+                </div>
+
+                <label for="monto">Monto $</label>
+                <input type="number" id="monto" name="monto" placeholder="Ingrese el monto" required>
+
+                <button type="submit" class="pago__boton">CONFIRMAR PAGO</button>
+            </form>
+        </section>
+    </main>
+
+    <!--Inicio Footer-->
+    <footer class="footer">
+        <div class="footer__datos">
+            <div class="footer__datos__contenedores">
+                <h3>Datos del Grupo</h3>
+                <p>Martina Diaz: 43718797</p>
+                <p>Oriana Casteluche: 45871864</p>
+                <p>Sebastian Staropoli: 41543579</p>
+                <p>Ramiro Velardez: 43103976</p>
+                <p>Tomas Amaya: 42673374</p>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Nuestros Links</h3>
+                <a href="../home.html">Home</a>
+                <a href="./calendario.html">Cursos</a>
+                <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target="_blank">
+                    Mapa
+                </a>
+                <a href="./contacto.html">Preguntas</a>
+            </div>
+            <div class="footer__datos__contenedores">
+                <h3>Redes Sociales</h3>
+                <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkeDin</a>
+                <a href="#">Gmail</a>
+            </div>
+        </div>
+
+        <div class="footer__creditos">
+            <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

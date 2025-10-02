@@ -142,6 +142,21 @@ html {
     font-size: 1em;
     color: #333;
     margin-left: 0.8em;
+    position: relative;
+}
+
+.header .header__iconos .fa-shopping-cart::after {
+    content: "0"; 
+    position: absolute;
+    top: -0.5em; 
+    right: -0.625em;
+    background: var(--color__span);
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 0.125em 0.3125em;
+    border-radius: 50%;
+    line-height: 1;
 }
 
 .header .header__iconos a:hover {
@@ -153,12 +168,12 @@ html {
     color: #000000;
     justify-content: center;
     margin-top: 3em;
-    padding: 20px 10px;
+    padding: 1.25em 0.625em;
 }
 
 h3 {
     text-align: center;
-    padding: 15px 0px;
+    padding: 0.9375em 0;
 }
 
 .seccion_datos_oficial {
@@ -182,7 +197,7 @@ h3 {
 }
 
 p {
-    padding: 10px 5px;
+    padding: 0.625em 0.3125em;
 }
 
 .completa_el_form {
@@ -201,7 +216,7 @@ p {
     background-color: whitesmoke;
     border-radius: 3px;
     margin: 2%;
-    padding: 5px 3px
+    padding: 0.3125em 0.1875em
 }
 
 .formulario_submit {
@@ -230,14 +245,14 @@ p {
 
 .formulario_consulta {
     min-width: 100%;
-    min-height: 50px;
+    min-height: 3.125em;
     resize: none;
     border: 1px solid black
 }
 
 .seccion_contacto {
 
-    width: 400px;
+    width: 25em;
     height: auto;
     text-align: left;
 
@@ -256,7 +271,7 @@ p {
     display: flex;
     background-color: #1565c0d5;
     color: white;
-    padding: 0 10px;
+    padding: 0 0.625em;
     align-items: center;
     justify-content: space-between;
     width: 70%;
@@ -277,7 +292,7 @@ p {
 
 .boton {
     display: flex;
-    padding: 10px 30px;
+    padding: 0.625em 1.875em;
     border: 2px solid white;
     color: white;
     text-decoration: none;
@@ -296,17 +311,17 @@ p {
 .ubicacion2 {
     flex: 1;
     max-width: 50%;
-    padding: 20px;
+    padding: 1.25em;
 
 }
 
 .ubicacion2 iframe {
     width: 100%;
-    height: 350px;
+    height: 21.875em;
     border: 0;
 }
 
-/*INICIO FOOTER*/
+
 .footer{
     margin-top: 2em;
 }
@@ -363,9 +378,6 @@ p {
     color: var(--color__span);
 }
 
-/*FIN FOOTER*/
-
-/*INICIO RESPONSIVE*/
 @media (max-width:60em) {
     html {
         font-size: 70%;
@@ -379,7 +391,7 @@ p {
 
 @media (max-width: 47em) {
 
-    /*INICIO RESPONSIVE HEADER*/
+    
     .header .header__menu {
         display: block;
     }
@@ -449,7 +461,7 @@ p {
         font-size: 0.95em;
     }
 
-    /*FIN RESPONSIVE HEADER*/
+   
 
     .seccion_datos_oficial {
         display: grid;
@@ -516,5 +528,3 @@ p {
     }
 
 }
-
-/*FIN RESPONSIVE*/

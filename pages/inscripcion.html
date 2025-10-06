@@ -13,6 +13,7 @@
         rel="stylesheet">
     <title>Inscripción</title>
 </head>
+
 <body>
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
@@ -28,7 +29,7 @@
             <a href="./calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
                 <datalist id="cursos">
                     <option value="Introduccion a JavaScript"></option>
                     <option value="Introduccion a la IA"></option>
@@ -47,45 +48,90 @@
             <a href="" class="fas fa-user"></a>
         </div>
     </header>
-    
+
     <main>
-        <h1>Inscripción</h1>
-        <form action="./pagoInscripcion.html" method="get">
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre" required/>
+        <section class="inscripcion">
+            <h2>Inscripción</h2>
+            <form action="#personas_cargados" method="get">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" value="Nombre" required />
+                </div>
+
+                <div>
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Apellido" value="Apellido" required />
+                </div>
+
+                <div>
+                    <label for="dni">DNI:</label>
+                    <input type="number" id="dni" name="dni" placeholder="22333444" value="22333444" required />
+                </div>
+
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="nombre" name="email" placeholder="hola@unlam.com" value="hola@unlam.com"
+                        required />
+                </div>
+
+                <div>
+                    <label for="curso">Curso:</label>
+                    <select id="curso" name="curso" required>
+                        <option value="Desarrollo Web" selected>Desarrollo Web</option>
+                        <option value="Introducción a IA">Introducción a IA</option>
+                        <option value="Introducción a Java">Introducción a Java</option>
+                        <option value="Introducción a JavaScript">Introducción a JavaScript</option>
+                        <option value="JavaScript Avanzado">JavaScript Avanzado</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button class="agregar" type="submit">Agregar persona</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="personas_cargados" id="personas_cargados">
+            <h2>Datos cargados</h2>
+            <div class="persona">
+                <div class="datos_persona">
+                    <p class="dato">Juan</p>
+                    <p class="dato">Perez</p>
+                    <p class="dato">22333444</p>
+                </div>
+                <div class="circulo">
+                    <div class="menos"></div>
+                </div>
             </div>
 
-            <div>
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" placeholder="Apellido" required/>
+            <div class="persona">
+                <div class="datos_persona">
+                    <p class="dato">Juan</p>
+                    <p class="dato">Perez</p>
+                    <p class="dato">22333444</p>
+                </div>
+                <div class="circulo">
+                    <div class="menos"></div>
+                </div>
             </div>
 
-            <div>
-                <label for="dni">DNI:</label>
-                <input type="number" id="dni" name="dni" placeholder="22333444" required/>
+            <div class="persona">
+                <div class="datos_persona">
+                    <p class="dato">Juan</p>
+                    <p class="dato">Perez</p>
+                    <p class="dato">22333444</p>
+                </div>
+                <div class="circulo">
+                    <div class="menos"></div>
+                </div>
             </div>
-            
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="nombre" name="email" placeholder="hola@unlam.com" required/>
-            </div>
-            
-            <div>
-                <label for="curso">Curso:</label>
-                <select id="curso" name="curso" required>
-                    <option value="Desarrollo Web" selected>Desarrollo Web</option>
-                    <option value="Introducción a IA">Introducción a IA</option>
-                    <option value="Introducción a Java">Introducción a Java</option>
-                    <option value="Introducción a JavaScript">Introducción a JavaScript</option>
-                    <option value="JavaScript Avanzado">JavaScript Avanzado</option>
-                </select>
-            </div>
-    
-            <div>
-                <button class="inscribirme" type="submit">Inscribirme</button>
-            </div>
-        </form>
+
+        </section>
+        <section class="total">
+            <h2>Total:</h2>
+            <p class="precio">$300.000</p>
+            <a class="inscribir" href="./pagoInscripcion.html">Inscribir</a>
+        </section>
     </main>
 
     <footer class="footer">

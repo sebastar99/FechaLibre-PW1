@@ -1,8 +1,4 @@
-html,
-body,
-a {
-    font-family: "SUSE Mono", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=SUSE+Mono:wght@400;600&display=swap');
 
 :root {
     --color__principal: #0000001a;
@@ -29,10 +25,8 @@ body {
     transition: .2s linear;
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 6em;
-    overflow-x: hidden;
+a {
+    font-family: 'SUSE Mono', monospace;
 }
 
 

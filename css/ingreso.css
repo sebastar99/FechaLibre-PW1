@@ -1,5 +1,5 @@
 /* ================= AUTH (Sign up + Login) ================= */
-.auth {
+.autenticacion {
     margin-top: 8em;
     /* respeta header fijo */
     padding: 2rem 1rem;
@@ -8,7 +8,7 @@
     font-family: "SUSE Mono", sans-serif;
 }
 
-.auth__container {
+.autenticacion__container {
     width: 100%;
     max-width: 980px;
     display: grid;
@@ -19,7 +19,7 @@
 }
 
 /* Reusar look de tarjetas: fondo blanco, sombra suave */
-.auth__card {
+.autenticacion__card {
     background: #fff;
     padding: 1.4rem;
     border-radius: 10px;
@@ -28,35 +28,35 @@
 }
 
 /* Titles */
-.auth__card h2 {
+.autenticacion__card h2 {
     margin: 0 0 0.25rem 0;
     color: #222;
     font-size: 1.15rem;
 }
 
-.auth__sub {
+.autenticacion__sub {
     margin: 0 0 1rem 0;
     color: #666;
     font-size: 0.92rem;
 }
 
 /* Form common */
-.auth__form {
+.autenticacion__form {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
 }
 
-.auth__form label {
+.autenticacion__form label {
     font-weight: 700;
     color: #444;
     font-size: 0.88rem;
 }
 
-.auth__form input[type="text"],
-.auth__form input[type="email"],
-.auth__form input[type="password"],
-.auth__form input[type="number"] {
+.autenticacion__form input[type="text"],
+.autenticacion__form input[type="email"],
+.autenticacion__form input[type="password"],
+.autenticacion__form input[type="number"] {
     padding: 0.7rem 0.9rem;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -87,14 +87,14 @@
 }
 
 /* row: remember + forgot */
-.auth__row {
+.autenticacion__row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 0.3rem;
 }
 
-.auth__remember {
+.autenticacion__remember {
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -102,13 +102,13 @@
     font-size: 0.9rem;
 }
 
-.auth__forgot {
+.autenticacion__forgot {
     color: var(--color__span, #1565c0);
     font-size: 0.9rem;
 }
 
 /* actions (boton) */
-.auth__actions {
+.autenticacion__actions {
     margin-top: 0.8rem;
 }
 
@@ -134,7 +134,7 @@
 }
 
 /* mínimo feedback para inputs inválidos */
-.auth__form input:invalid {
+.autenticacion__form input:invalid {
     box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.04);
 }
 

@@ -17,19 +17,18 @@
     <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
-
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+
         <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
-
         <nav class="navbar">
-            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
             <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
                 <datalist id="cursos">
                     <option value="Introduccion a JavaScript"></option>
                     <option value="Introduccion a la IA"></option>
@@ -41,20 +40,22 @@
             </form>
         </nav>
 
-
         <div class="header__iconos">
-            <a href="" class="fas fa-heart"></a>
-            <a href="" class="fas fa-shopping-cart"></a>
-            <a href="" class="fas fa-user"></a>
+            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+                    id="userName"></strong></span>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+
+            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
+            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
     <!--Fin Header-->
     <!--Inicio Main-->
     <main>
         <section class="curso">
-
             <div class="curso__inicio">
-                <img src="/multimedia/cursoDestacado.png" alt="" class="curso__foto">
+                <img src="/multimedia/cursoDestacado.png" alt="Imagen del curso" class="curso__foto">
                 <div class="curso__barra__info" style="margin-top: 2em;">
                     <div>
                         <i class="curso__barra__icono fa-solid fa-credit-card"></i>
@@ -79,10 +80,8 @@
                 </div>
             </div>
 
-            <!-- Información -->
             <div class="curso__info">
-                <h1 class="titulo">Introduccion a JavaScript</h1>
-
+                <h1 class="titulo"></h1>
                 <div class="curso__info__descripcion">
                     <p><strong>Valor:</strong> $150.000</p>
                     <p><strong>Tiempo de dedicación necesario:</strong> 38 horas</p>
@@ -93,16 +92,7 @@
                             Ver ejemplo de certificado
                         </a>
                     </p>
-                    <p>En este curso aprenderás los fundamentos de JavaScript y cómo usarlos para crear páginas web
-                        interactivas.
-                        Verás sintaxis básica, variables, tipos de datos, operadores y estructuras de control
-                        (condicionales y bucles).
-                        Aprenderás a crear y usar funciones, manejar arreglos y objetos, y trabajar con el DOM para
-                        responder a eventos del usuario.
-                        También cubrirás conceptos modernos de ES6+ (let/const, arrow functions, template literals) y
-                        técnicas básicas de depuración.
-                        Al final desarrollarás pequeños proyectos prácticos (calculadoras, listas interactivas y consumo
-                        de APIs) que te permitirán aplicar lo aprendido y empezar a construir tu portafolio.</p>
+                    <p>Cargando descripción completa...</p>
                 </div>
 
                 <a href="./inscripcion.html">
@@ -112,11 +102,9 @@
                     <button class="curso__boton">REGALAR CURSO</button>
                 </a>
 
-                <!-- Contenidos -->
                 <h2>CONTENIDOS POR CLASE</h2>
 
                 <div class="curso__info__contenido">
-
                     <details>
                         <summary>UNIDAD 1</summary>
                         <ul>
@@ -126,37 +114,9 @@
                             <li><strong>Primer entrega de proyecto</strong></li>
                         </ul>
                     </details>
-
-                    <details>
-                        <summary>UNIDAD 2</summary>
-                        <ul>
-                            <li>Array – 160 min</li>
-                            <li>Objetos – 160 min</li>
-                            <li>Funciones del orden superior – 160 min</li>
-                            <li> <strong>Segunda entrega de proyecto</strong></li>
-                        </ul>
-                    </details>
-
-                    <details>
-                        <summary>UNIDAD 3</summary>
-                        <ul>
-                            <li>DOM y eventos – 160 min</li>
-                            <li>Asincronismo y peticiones – 160 min</li>
-                            <li>Promesas y librerias – 160 min</li>
-                            <li><strong>Entrega final del proyecto</strong></li>
-                        </ul>
-                    </details>
-
-                    <details>
-                        <summary>UNIDAD 4</summary>
-                        <ul>
-                            <li>Puesta en Comun – 160 min</li>
-                            <li>Correcciones del proyecto – 160 min</li>
-                            <li><strong>Entrega de notas</strong></li>
-                        </ul>
-                    </details>
                 </div>
             </div>
+
             <div class="curso__barra__info">
                 <div>
                     <i class="curso__barra__icono fa-solid fa-calendar-days"></i>
@@ -210,75 +170,7 @@
             </div>
         </section>
 
-        <section class="curso__recomendados">
-            <div class="curso__tarjeta">
-                <div class="curso__tarjeta__img">
-                    <img src="/multimedia/cursoIA.png" alt="foto_curso">
-                    <div class="curso__tarjeta__precio">$130.000</div>
-                    <div class="curso__tarjeta__hora"><strong>20</strong> <span
-                            style="font-weight:400;font-size:11px">hs</span></div>
-                </div>
-                <div class="curso__tarjeta__info">
-                    <h3>Introduccion a la IA</h3>
-                    <div class="curso__tarjeta__links">
-                        <a href="./cursoIA.html">Ver Detalle</a>
-                        <a href="./inscripcion.html">
-                            <button type="button">Inscribirse</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="curso__tarjeta">
-                <div class="curso__tarjeta__img">
-                    <img src="/multimedia/cursoPoo.png" alt="foto_curso">
-                    <div class="curso__tarjeta__precio">$120.000</div>
-                    <div class="curso__tarjeta__hora"><strong>36</strong> <span
-                            style="font-weight:400;font-size:11px">hs</span></div>
-                </div>
-                <div class="curso__tarjeta__info">
-                    <h3>Introduccion a Java</h3>
-                    <div class="curso__tarjeta__links">
-                        <a href="./introJava.html">Ver Detalle</a>
-                        <a href="./inscripcion.html">
-                            <button type="button">Inscribirse</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="curso__tarjeta">
-                <div class="curso__tarjeta__img">
-                    <img src="/multimedia/cursoDiseñoWeb.png" alt="foto_curso">
-                    <div class="curso__tarjeta__precio">$150.000</div>
-                    <div class="curso__tarjeta__hora"><strong>38</strong> <span
-                            style="font-weight:400;font-size:11px">hs</span></div>
-                </div>
-                <div class="curso__tarjeta__info">
-                    <h3>Diseño Web</h3>
-                    <div class="curso__tarjeta__links">
-                        <a href="./diseñoWeb.html">Ver Detalle</a>
-                        <a href="./inscripcion.html">
-                            <button type="button">Inscribirse</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="curso__tarjeta">
-                <div class="curso__tarjeta__img">
-                    <img src="/multimedia/cursoJavaScript.png" alt="foto_curso">
-                    <div class="curso__tarjeta__precio">$180.000</div>
-                    <div class="curso__tarjeta__hora"><strong>30</strong> <span
-                            style="font-weight:400;font-size:11px">hs</span></div>
-                </div>
-                <div class="curso__tarjeta__info">
-                    <h3>JavaScript Avanzado</h3>
-                    <div class="curso__tarjeta__links">
-                        <a href="./javaScript.html">Ver Detalle</a>
-                        <a href="./inscripcion.html">
-                            <button type="button">Inscribirse</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <section class="curso__recomendados" id="recomendadosContenedor">
         </section>
 
         <section class="curso__opiniones">
@@ -355,6 +247,7 @@
         </div>
     </footer>
     <!--Fin Footer-->
+    <script type="module" src="../js/script.js"></script>
 </body>
 
 </html>

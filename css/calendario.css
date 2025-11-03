@@ -148,9 +148,9 @@ html {
 }
 
 .header .header__iconos .fa-shopping-cart::after {
-    content: "0"; 
+    content: "0";
     position: absolute;
-    top: -0.5em; 
+    top: -0.5em;
     right: -0.625em;
     background: var(--color__span);
     color: white;
@@ -168,107 +168,234 @@ html {
 /*FIN HEADER*/
 
 /*INICIO CALENDARIO*/
+.container{
+    margin-top: 5em;
+}
 
 .main__calendario {
-    margin-top: 8em;
-    flex: 1 0 auto;
-    /* permite que este elemento ocupe el espacio restante */
+    margin-top: 5em;
+}
+
+main.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 28px auto;
+    flex: 1;
 }
 
 .calendario__titulo {
-    margin-bottom: 2em;
+    margin-top: 5em;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
 }
 
 .calendario__titulo h1 {
-    font-size: 3em;
-    font-family: 'SUSE Mono", sans-serif';
+    font-size: 1.6rem;
+    margin: 0;
 }
 
 .calendario__titulo p {
-    font-size: 2em;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
 }
 
-.calendario__titulo span {
-    color: var(--color__span);
-}
-
-.calendario__año {
-    width: 95%;
-    max-width: 1000px;
-    margin: 1.5em auto;
-}
-
-
+/* calendario card */
 .calendario__mes {
-    padding: 1.5em;
-    background: white; padding: 1em;
-     border-radius: 0.5em;
-      box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1);
-    border-radius: 0.6em;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), var(--card));
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(15, 23, 42, 0.04);
+    overflow: hidden;
 }
 
-.calendario__mes h2 {
-    font-size: 2.2em;
-    margin-bottom: 1.2em;
+/* nav */
+.calendario__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-.calendario__dias {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: minmax(7.5em, 14vh);
-    gap: 0;
-    
+.calendario__nav .controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
+.btn {
+    background: var(--card);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(11, 22, 60, 0.04);
+    transition: transform .15s ease, box-shadow .15s ease, background .12s;
+    font-weight: 600;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 22, 60, 0.07);
+}
+
+.month-title {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+/* week labels */
 .calendario__semanas {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    text-align: start;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .calendario__semanas div {
-    word-wrap: break-word;
-    word-break: break-word;
-    white-space: normal;
     text-align: center;
-    vertical-align: top;
-    font-weight: 600;
-    padding: 0.5em 0;
-    font-size: 0.9em;
-    line-height: 1.2;
+    padding: 6px 0;
 }
 
-.calendario__dias div {
-    padding: 0.9em 0.6em;
-    min-height: auto;
+/* days grid */
+.calendario__dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    align-items: start;
+}
+
+.calendario__dias .dia {
+    min-height: 76px;
+    background: transparent;
+    padding: 8px;
+    border-radius: 10px;
+    position: relative;
+    transition: background .12s linear, transform .12s ease;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border: 1px solid black;
+    align-items: flex-start;
 }
 
+.calendario__dias .dia:hover {
+    transform: translateY(-3px);
+}
 
-.calendario__dias div a {
-    color: var(--color__span);
+.calendario__dias .vacio {
+    background: transparent;
+    min-height: 40px;
+}
+
+.dia .numero {
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* evento */
+.evento {
+    display: inline-block;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(91, 135, 214, 0.12), rgba(111, 211, 199, 0.08));
+    color: var(--accent);
+    text-decoration: none;
     font-size: 0.85rem;
-    padding-top: 0.6em;
-    word-break: break-word;
-    line-height: 1.1;
+    border: 1px solid rgba(91, 135, 214, 0.12);
+    transition: background .12s, color .12s, box-shadow .12s;
+    box-shadow: 0 4px 14px rgba(91, 135, 214, 0.06);
 }
 
-.vacio {
-    background-color: transparent;
-    border: none;
+.evento:hover {
+    background: linear-gradient(90deg, rgba(91, 135, 214, 0.18), rgba(111, 211, 199, 0.12));
+    color: #2b4f8c;
+    text-decoration: underline;
 }
 
+/* hoy */
 .hoy {
-    background-color: #007BFF;
+    box-shadow: 0 8px 26px rgba(88, 101, 242, 0.08);
+    border: 1px solid rgba(91, 135, 214, 0.12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 249, 255, 0.8));
+}
+
+/* tooltip */
+.tooltip {
+    position: fixed;
+    z-index: 2000;
+    min-width: 220px;
+    max-width: 320px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 12px 30px rgba(11, 22, 60, 0.12);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    transform-origin: top left;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease, transform .15s ease;
+    font-size: 0.92rem;
+    color: var(--text);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(6px) scale(1);
+    pointer-events: auto;
+}
+
+.tooltip h4 {
+    margin: 0 0 6px 0;
+    font-size: 0.98rem;
+}
+
+.tooltip p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.3;
+}
+
+/* small arrow */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    transform: rotate(45deg);
+    top: -6px;
+    left: 18px;
+    border-left: 1px solid rgba(15, 23, 42, 0.06);
+    border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+/* Estilos para el nuevo botón en el popup */
+.btn-inscribirse {
+    display: inline-block;
+    padding: 8px 15px;
+    background: linear-gradient(90deg, #007bff, #0056b3); /* Color de ejemplo */
     color: white;
-    border-radius: 50%;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-inscribirse:hover {
+    background: linear-gradient(90deg, #0056b3, #007bff);
 }
 
 /*FIN CALENDARIO*/
@@ -427,11 +554,26 @@ html {
     }
 
     /*FIN RESPONSIVE HEADER*/
-    .calendario__año { width: 96%; max-width: 700px; }
-    .calendario__mes { padding: 1.1em; }
-    .calendario__dias { grid-auto-rows: minmax(6rem, 12vh); }
-    .calendario__mes h2 { font-size: 1.9rem; }
-    .calendario__dias div a { font-size: 0.8rem; }
+    .calendario__año {
+        width: 96%;
+        max-width: 700px;
+    }
+
+    .calendario__mes {
+        padding: 1.1em;
+    }
+
+    .calendario__dias {
+        grid-auto-rows: minmax(6rem, 12vh);
+    }
+
+    .calendario__mes h2 {
+        font-size: 1.9rem;
+    }
+
+    .calendario__dias div a {
+        font-size: 0.8rem;
+    }
 
 }
 
@@ -451,9 +593,17 @@ html {
 
     }
 
-    .calendario__año { max-width: 480px; }
-    .calendario__dias { grid-auto-rows: minmax(5.5rem, 11vh); }
-    .calendario__mes h2 { font-size: 1.5rem; }
+    .calendario__año {
+        max-width: 480px;
+    }
+
+    .calendario__dias {
+        grid-auto-rows: minmax(5.5rem, 11vh);
+    }
+
+    .calendario__mes h2 {
+        font-size: 1.5rem;
+    }
 }
 
 /*FIN RESPONSIVE*/

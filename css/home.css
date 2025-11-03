@@ -143,9 +143,9 @@ html {
 }
 
 .header .header__iconos .fa-shopping-cart::after {
-    content: "0"; 
+    content: "0";
     position: absolute;
-    top: -0.5em; 
+    top: -0.5em;
     right: -0.625em;
     background: var(--color__span);
     color: white;
@@ -262,6 +262,7 @@ html {
     text-shadow: #85f2fa91 0.1em 0.1em 0.1em;
 }
 
+
 .cursos {
     text-align: center;
     display: flex;
@@ -280,40 +281,63 @@ html {
 
 .cursos-contenedor {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     width: 100%;
     padding: 0 1em;
     margin: 1em auto;
-    height: auto;
-
 }
 
-.curso-1-frente,
-.curso-2-frente,
-.curso-3-frente,
-.curso-4-frente,
-.curso-5-frente {
+.curso-card {
     width: 100%;
-    max-width: 26em;
-    min-width: 0;
-    height: auto;
+    height: 100%;
     margin: 0 auto;
     background-color: #5499c731;
     border-radius: 1em;
     box-shadow: 0 .5em 1em var(--color__sombra);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.curso-1-frente img,
-.curso-2-frente img,
-.curso-3-frente img,
-.curso-4-frente img,
-.curso-5-frente img {
+
+.curso-card img {
     width: 100%;
     height: auto;
+
     object-fit: cover;
     aspect-ratio: 16/9;
 }
+
+.curso-card h3 {
+    padding: 1.5em 1em 1em 1em;
+    margin: 0;
+    font-size: 1.1em;
+    color: #131313;
+    text-align: center;
+    font-weight: bold;
+
+    flex-grow: 1;
+}
+
+.curso-card a {
+    display: block;
+    text-align: center;
+    padding-bottom: 1.5em;
+}
+
+.caracteristicas {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 2em;
+    background: var(--color__span);
+    color: #ffffffda;
+    cursor: pointer;
+    font-size: 1em;
+
+}
+
+
 
 .header-curso-info {
     display: flex;
@@ -351,30 +375,6 @@ html {
 
 .estrellas i {
     color: #0277BD;
-}
-
-.curso-1-frente h3,
-.curso-2-frente h3,
-.curso-3-frente h3,
-.curso-4-frente h3,
-.curso-5-frente h3 {
-    padding-top: 2em;
-    margin: 0.2em;
-    font-size: 1.1em;
-    color: #131313;
-    text-align: center;
-    font-weight: bold;
-}
-
-.caracteristicas {
-    padding: 0.5em 1em;
-    border-left: none;
-    border-radius: 2em;
-    background: var(--color__span);
-    color: #ffffffda;
-    cursor: pointer;
-    font-size: 1em;
-    margin-bottom: 1em;
 }
 
 
@@ -451,12 +451,12 @@ html {
 
 /*INICIO FOOTER*/
 
-.footer{
+.footer {
     margin-top: 2em;
 }
 
 .footer__datos {
-    
+
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -504,20 +504,17 @@ html {
 
 /*FIN FOOTER*/
 
-/*INICIO RESPONSIVE*/
-@media (max-width:60em) {
-    html {
-        font-size: 70%;
-    }
+/* --- INICIO RESPONSIVE --- */
 
-    header {
-        padding: 2em;
+
+@media (max-width: 60em) {
+    html {
+        font-size: 70%; 
     }
 }
 
 @media (max-width: 47em) {
 
-    /*INICIO RESPONSIVE HEADER*/
     .header .header__menu {
         display: block;
     }
@@ -586,87 +583,40 @@ html {
         font-size: 0.95em;
     }
 
-    .cursos-contenedor,
-    .medios-de-pago-contenedor {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.9em;
-        width: calc(100% - 2em);
-        margin: 0.8em auto;
-        padding: 0 1em;
-        box-sizing: border-box;
-        height: auto;
+
+    .cursos-contenedor {
+        grid-template-columns: 1fr; 
+        gap: 1.5em; 
+        width: 90%;
+        padding: 0 1.5em; 
+        margin: 1.5em auto; 
     }
 
-
-    .curso-1-frente,
-    .curso-2-frente,
-    .curso-3-frente,
-    .curso-4-frente,
-    .curso-5-frente {
+    .curso-card {
         max-width: none;
-        width: 100%;
-        min-width: 0;
+        width: 100%; 
         margin: 0;
-        padding-bottom: 0.6em;
     }
-
-    .curso-1-frente img,
-    .curso-2-frente img,
-    .curso-3-frente img,
-    .curso-4-frente img,
-    .curso-5-frente img {
-        height: auto;
-        max-height: 40vh;
-    }
-}
-
-@media (max-width:28em) {
-    html {
-        font-size: 50%;
-    }
-
-    header {
-        padding: 2em;
-    }
-
-    .cursos-contenedor,
-    .medios-de-pago-contenedor {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.9rem;
-        width: calc(100% - 2rem);
-        margin: 0.8em auto;
-        padding: 0 1em;
-        box-sizing: border-box;
-        height: auto;
-    }
-
     .medios-de-pago-contenedor {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: calc(100% - 2em);
+        margin: 0.8em auto;
+        padding: 0 1em;
+    }
+}
+
+@media (max-width: 28em) {
+    html {
+
+        font-size: 50%;
     }
 
-    .curso-1-frente,
-    .curso-2-frente,
-    .curso-3-frente,
-    .curso-4-frente,
-    .curso-5-frente {
-        max-width: none;
-        width: 100%;
-        min-width: 0;
-        margin: 0;
-        padding-bottom: 0.6em;
+    header {
+        padding: 1em; 
     }
 
-    .curso-1-frente img,
-    .curso-2-frente img,
-    .curso-3-frente img,
-    .curso-4-frente img,
-    .curso-5-frente img {
-        height: auto;
-    }
 }
 
 /*FIN RESPONSIVE*/

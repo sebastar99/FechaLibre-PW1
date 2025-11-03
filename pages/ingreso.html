@@ -15,17 +15,15 @@
 </head>
 
 <body>
-
     <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
-
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
-        <a href="../home.html" class="logo">FechaLibre <span>.</span></a>
 
+        <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
         <nav class="navbar">
-            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
             <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
@@ -43,66 +41,63 @@
             </form>
         </nav>
 
-
         <div class="header__iconos">
-            <a href="" class="fas fa-heart"></a>
-            <a href="" class="fas fa-shopping-cart"></a>
-            <a href="" class="fas fa-user"></a>
+            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+                    id="userName"></strong></span>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+
+            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
+            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
     <!--Fin Header-->
-    <main class="auth">
-        <section class="auth__container" role="region" aria-label="Autenticación">
+    <main class="autenticacion">
+        <section class="autenticacion__container" role="region" aria-label="Autenticación">
             <!-- SIGN UP -->
-            <div class="auth__card auth__signup" aria-labelledby="signupTitle">
-                <h2 id="signupTitle">Crear cuenta</h2>
-                <p class="auth__sub">Regístrate gratis y accede a tus cursos.</p>
- 
-                <form id="signupForm" class="auth__form" novalidate>
+            <div class="autenticacion__card autenticacion__signup" aria-labelledby="signupTitle">
+                <h2 id="titulo">Crear cuenta</h2>
+                <p class="autenticacion__sub">Regístrate gratis y accede a tus cursos.</p>
+
+                <form id="signupForm" class="autenticacion__form" novalidate>
                     <label for="su-name">Nombre completo</label>
-                    <input id="su-name" name="name" type="text" placeholder="Ej: Juan Pérez" required>
+                    <input id="RegistroNombre" name="name" type="text" placeholder="Ej: Juan Pérez" required>
 
                     <label for="su-email">Correo electrónico</label>
-                    <input id="su-email" name="email" type="email" placeholder="tu@correo.com" required>
+                    <input id="RegistroEmail" name="email" type="email" placeholder="tu@correo.com" required>
 
                     <label for="su-pass">Contraseña</label>
                     <div class="input-with-btn">
-                        <input id="su-pass" name="password" type="password" placeholder="********" required>
+                        <input id="RegistroContraseña" name="password" type="password" placeholder="********" required>
                     </div>
-
-                    <label for="su-pass2">Confirmar contraseña</label>
-                    <div class="input-with-btn">
-                        <input id="su-pass2" name="password2" type="password" placeholder="********" required>
-                    </div>
-
-                    <div class="auth__actions">
+                    <div class="autenticacion__actions">
                         <button type="submit" class="btn btn--primary">CREAR CUENTA</button>
                     </div>
                 </form>
             </div>
 
             <!-- LOGIN -->
-            <div class="auth__card auth__login" aria-labelledby="loginTitle">
+            <div class="autenticacion__card autenticacion__login" aria-labelledby="loginTitle">
                 <h2 id="loginTitle">Iniciar sesión</h2>
-                <p class="auth__sub">¿Ya tienes cuenta? Inicia sesión aquí.</p>
+                <p class="autenticacion__sub">¿Ya tienes cuenta? Inicia sesión aquí.</p>
 
-                <form id="loginForm" class="auth__form" autocomplete="on" novalidate>
+                <form id="loginForm" class="autenticacion__form" autocomplete="on" novalidate>
                     <label for="li-email">Correo electrónico</label>
-                    <input id="li-email" name="email" type="email" placeholder="tu@correo.com" required>
+                    <input id="loginEmail" name="email" type="email" placeholder="tu@correo.com" required>
 
                     <label for="li-pass">Contraseña</label>
                     <div class="input-with-btn">
-                        <input id="li-pass" name="password" type="password" placeholder="********" required>
+                        <input id="loginPass" name="password" type="password" placeholder="********" required>
                     </div>
 
-                    <div class="auth__row">
+                    <div class="autenticacion__row">
                         <label class="auth__remember">
                             <input type="checkbox" id="remember" name="remember"> Recuérdame
                         </label>
                         <a href="#" class="auth__forgot">¿Olvidaste tu contraseña?</a>
                     </div>
 
-                    <div class="auth__actions">
+                    <div class="autenticacion__actions">
                         <button type="submit" class="btn btn--primary">INICIAR SESIÓN</button>
                     </div>
                 </form>
@@ -143,6 +138,7 @@
             <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
         </div>
     </footer>
+    <script type="module" src="../js/script.js"></script>
 </body>
 
 </html>

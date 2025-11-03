@@ -10,21 +10,21 @@
 </head>
 
 <body>
+    <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
-
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+
         <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
-
         <nav class="navbar">
-            <a href="../home.html/#lista__cursos">Cursos</a>
+            <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
             <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
                 <datalist id="cursos">
                     <option value="Introduccion a JavaScript"></option>
                     <option value="Introduccion a la IA"></option>
@@ -36,13 +36,17 @@
             </form>
         </nav>
 
-
         <div class="header__iconos">
-            <a href="" class="fas fa-heart"></a>
-            <a href="" class="fas fa-shopping-cart"></a>
-            <a href="" class="fas fa-user"></a>
+            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+                    id="userName"></strong></span>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+
+            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
+            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
+    <!--Fin Header-->
     <main>
         <section>
 
@@ -162,6 +166,7 @@
             <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
         </div>
     </footer>
+    <script type="module" src="../js/script.js"></script>
 </body>
 
 </html>

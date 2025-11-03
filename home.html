@@ -17,10 +17,9 @@
     <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
-
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
-        <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
+        <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
         <nav class="navbar">
             <a href="#lista__cursos">Cursos</a>
@@ -29,7 +28,7 @@
             <a href="./pages/calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos"/>
+                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
                 <datalist id="cursos">
                     <option value="Introduccion a JavaScript"></option>
                     <option value="Introduccion a la IA"></option>
@@ -41,11 +40,14 @@
             </form>
         </nav>
 
-
         <div class="header__iconos">
-            <a href="" class="fas fa-heart"></a>
-            <a href="" class="fas fa-shopping-cart"></a>
-            <a href="./pages/ingreso.html" class="fas fa-user"></a>
+            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+                    id="userName"></strong></span>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+
+            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
+            <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
     <!--Fin Header-->
@@ -77,92 +79,8 @@
     </section>
     <section class="cursos" id="lista__cursos">
         <h2> Nuestros cursos</h2>
-        <div class="cursos-contenedor">
-            <div class="curso-1-frente">
-                <div class="header-curso-info">
-                    <div class="usuarios">
-                        <h6>+1000 usuarios recibidos</h6>
-                    </div>
-                    <div class="estrellas">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-                <img src="./multimedia/cursoDestacado.png" alt="foto-curso-1">
-                <h3>Introduccion a JavaScript</h3>
-                <a href="/pages/detalleCurso.html"><button class="caracteristicas">Ver Curso</button></a>
-            </div>
-            <div class="curso-2-frente">
-                <div class="header-curso-info">
-                    <div class="usuarios">
-                        <h6>+800 usuarios recibidos</h6>
-                    </div>
-                    <div class="estrellas">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-                <img src="./multimedia/cursoIA.png" alt="foto-curso-2">
-                <h3>Introduccion a la IA</h3>
-                <a href="/pages/cursoIA.html"><button class="caracteristicas">Ver Curso</button></a>
-            </div>
-            <div class="curso-3-frente">
-                <div class="header-curso-info">
-                    <div class="usuarios">
-                        <h6>+600 usuarios recibidos</h6>
-                    </div>
-                    <div class="estrellas">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-                <img src="./multimedia/cursoPoo.png" alt="foto-curso-3">
-                <h3>Introduccion a Java</h3>
-                <a href="/pages/introJava.html"><button class="caracteristicas">Ver Curso</button></a>
-            </div>
-            <div class="curso-4-frente">
-                <div class="header-curso-info">
-                    <div class="usuarios">
-                        <h6>+400 usuarios recibidos</h6>
-                    </div>
-                    <div class="estrellas">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-                <img src="./multimedia/cursoDiseñoWeb.png" alt="foto-curso-4">
-                <h3>Curso Desarrollo Web</h3>
-                <a href="/pages/diseñoWeb.html"><button class="caracteristicas">Ver Curso</button></a>
-            </div>
-            <div class="curso-5-frente">
-                <div class="header-curso-info">
-                    <div class="usuarios">
-                        <h6>+200 usuarios recibidos</h6>
-                    </div>
-                    <div class="estrellas">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
-                <img src="./multimedia/cursoJavaScript.png" alt="foto-curso-5">
-                <h3>Curso JavaScript Avanzado</h3>
-                <a href="/pages/javaScript.html"><button class="caracteristicas">Ver Curso</button></a>
-            </div>
+        <div class="cursos-contenedor" id="cursosContenedor">
+            <!-- Los cursos se generarán dinámicamente aquí -->
         </div>
     </section>
     <section class="medios-de-pago">
@@ -253,6 +171,7 @@
         </div>
     </footer>
     <!--Fin Footer-->
+    <script src="./js/script.js" type="module"></script>
 </body>
 
 </html>

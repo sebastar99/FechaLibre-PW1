@@ -1,99 +1,20 @@
-/*export class Ingreso {
-
-    constructor() {
-        // Definimos la "llave" que usará nuestro array en localStorage
-        this.storageKey = 'Usuarios';
-    }
-
-    registrarse() {
-        const registro = document.getElementById('signupForm');
-        registro.addEventListener('submit', (evento) => {
-            evento.preventDefault();
-
-            const nombre = document.getElementById('RegistroNombre').value;
-            const email = document.getElementById('RegistroEmail').value;
-            const pass = document.getElementById('RegistroContraseña').value;
-
-            if (!nombre || !email || !pass) {
-                alert('Completa todos los campos.');
-                return;
-            }
-
-            // 1. LEER: Obtenemos el array actual de localStorage.
-            // Usamos JSON.parse para convertir el string guardado de vuelta a un array.
-            // Si no existe nada (||), usamos un array vacío [].
-            const usuariosGuardados = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-
-            // 2. MODIFICAR (B): Creamos el objeto del nuevo usuario
-            const nuevoUsuario = {
-                nombre: nombre,
-                email: email,
-                pass: pass // (¡Ver advertencia de seguridad abajo!)
-            };
-
-            // 2. MODIFICAR (C): Agregamos el nuevo usuario al array
-            usuariosGuardados.push(nuevoUsuario);
-
-            // 3. GUARDAR: Guardamos el array actualizado en localStorage.
-            // Usamos JSON.stringify para convertir el array de JS a un string.
-            localStorage.setItem(this.storageKey, JSON.stringify(usuariosGuardados));
-
-            alert('¡Usuario registrado con éxito!');
-
-            reset();
-        });
-    }
-
-
-    iniciarSesion() {
-        const iniciarSesion = document.getElementById("loginForm");
-        iniciarSesion.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            const emailLogin = document.getElementById('loginEmail').value;
-            const passLogin = document.getElementById('loginPass').value;
-
-            const usuariosGuardados = JSON.parse(localStorage.getItem('Usuarios')) || [];
-            const usuarioEncontrado = usuariosGuardados.find(Usuarios => Usuarios.email === emailLogin)
-            if (!usuarioEncontrado) {
-                alert("No se encontro el usuario");
-            } else {
-                if (usuarioEncontrado.pass === passLogin) {
-                    alert("Usuario Logueado con exito");
-                } else {
-                    alert("Contraseña incorrecta.");
-                }
-            }
-        });
-    }
-
-
-    reset() {
-        document.getElementById('RegistroNombre').value = '';
-        document.getElementById('RegistroEmail').value = '';
-        document.getElementById('RegistroContraseña').value = '';
-    }
-}*/
-/* /js/ingreso.js */
 export class Ingreso {
   constructor(options = {}) {
-    // claves en localStorage
     this.storageKey = options.storageKey || 'Usuarios';
     this.sessionKey = options.sessionKey || 'UsuarioActual';
 
-    // ids de elementos del header — asegúrate que el header tenga estos ids
     this.ids = {
       welcomeMsg: 'welcomeMsg',
       userName: 'userName',
       userIcon: 'userIcon',
       favIcon: 'favIcon',
       cartIcon: 'cartIcon',
-      btnLogout: 'btnLogout' // si existe en profile.html
+      btnLogout: 'btnLogout',
+      btnEliminar: 'btnEliminar'
     };
 
-    // inicializo listeners y actualizo header si corresponde
     this.setupEventListeners();
-    this.updateHeader(); // seguro: chequea existencia de elementos
+    this.updateHeader();
   }
 
   // ---------- EVENT LISTENERS ----------
@@ -115,6 +36,21 @@ export class Ingreso {
     if (btnLogout) {
       btnLogout.addEventListener('click', () => this.logout());
     }
+
+    // eliminar button (puede estar en profile.html)
+    const btnEliminar = document.getElementById(this.ids.btnEliminar);
+    if (btnEliminar) {
+      btnEliminar.addEventListener('click', () => this.eliminar());
+    }
+
+    // Recuperar contraseña
+    const forgotLink = document.querySelector(".auth__forgot");
+    if (forgotLink) {
+      forgotLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.recuperarContrasena();
+      });
+    }
   }
 
   // ---------- REGISTRO ----------
@@ -135,12 +71,12 @@ export class Ingreso {
       return;
     }
 
-    // estructura del usuario (puedes añadir favoritos/compras aquí)
+
     const nuevoUsuario = {
       nombre,
       email,
       pass,
-      favoritos: [],
+      carrito: [],
       compras: []
     };
 
@@ -197,6 +133,152 @@ export class Ingreso {
     this.updateHeader();
     if (redirect) window.location.href = redirect;
   }
+
+  async eliminar() {
+    const usuarioActual = JSON.parse(localStorage.getItem(this.sessionKey));
+    const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+
+    if (!usuarioActual) {
+      Swal.fire({
+        icon: "error",
+        title: "Sin sesión activa",
+        text: "No hay ningún usuario logueado actualmente.",
+      });
+      return;
+    }
+
+    // Mostrar modal para pedir contraseña
+    const { value: passConfirm } = await Swal.fire({
+      title: "Eliminar cuenta",
+      input: "password",
+      inputLabel: "Confirma tu contraseña para eliminar tu cuenta",
+      inputPlaceholder: "Escribe tu contraseña...",
+      inputAttributes: {
+        autocapitalize: "off",
+        autocorrect: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Eliminar cuenta",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#6c757d",
+      showLoaderOnConfirm: true,
+      preConfirm: (pass) => {
+        if (!pass) {
+          Swal.showValidationMessage("Debes ingresar tu contraseña");
+        }
+        return pass;
+      },
+    });
+
+    if (!passConfirm) return;
+
+    // Buscar usuario en la lista
+    const usuarioEncontrado = usuarios.find(u => u.email === usuarioActual.email);
+    if (!usuarioEncontrado) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se encontró el usuario actual.",
+      });
+      return;
+    }
+
+    // Validar contraseña
+    if (usuarioEncontrado.pass !== passConfirm) {
+      Swal.fire({
+        icon: "error",
+        title: "Contraseña incorrecta",
+        text: "No se eliminó la cuenta.",
+      });
+      return;
+    }
+
+    // Confirmación final
+    const confirmacion = await Swal.fire({
+      icon: "warning",
+      title: "¿Seguro que deseas eliminar tu cuenta?",
+      text: "Esta acción no se puede deshacer.",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#e74c3c",
+    });
+
+    if (!confirmacion.isConfirmed) return;
+
+    const nuevosUsuarios = usuarios.filter(u => u.email !== usuarioActual.email);
+    localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
+    localStorage.removeItem(this.sessionKey);
+
+    // Mostrar mensaje final
+    await Swal.fire({
+      icon: "success",
+      title: "Cuenta eliminada",
+      text: "Tu cuenta se eliminó correctamente.",
+      confirmButtonColor: "#5499c7",
+    });
+
+    this.updateHeader();
+    window.location.href = "/home.html";
+  }
+
+
+  //Recuperar Contraseña
+  async recuperarContrasena() {
+    const { value: formValues } = await Swal.fire({
+      title: "Recuperar contraseña",
+      html: `
+      <input type="email" id="recuperarEmail" class="swal2-input" placeholder="Correo electrónico">
+      <input type="password" id="recuperarPass" class="swal2-input" placeholder="Nueva contraseña">
+    `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: "Actualizar contraseña",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#5499c7",
+      preConfirm: () => {
+        const email = document.getElementById("recuperarEmail").value.trim();
+        const nuevaPass = document.getElementById("recuperarPass").value.trim();
+
+        if (!email || !nuevaPass) {
+          Swal.showValidationMessage("Completa ambos campos");
+          return false;
+        }
+
+        return { email, nuevaPass };
+      },
+    });
+
+    if (!formValues) return;
+
+    // Buscar usuario
+    const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+    const usuario = usuarios.find(u => u.email === formValues.email);
+
+    if (!usuario) {
+      Swal.fire({
+        icon: "error",
+        title: "Correo no encontrado",
+        text: "No existe una cuenta asociada a ese correo.",
+      });
+      return;
+    }
+
+    // Actualizar contraseña (sin validación)
+    usuario.pass = formValues.nuevaPass;
+    localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+
+    Swal.fire({
+      icon: "success",
+      title: "Contraseña actualizada",
+      text: "Tu nueva contraseña fue guardada correctamente.",
+      confirmButtonColor: "#5499c7"
+    });
+  }
+
+
+
 
   updateHeader() {
     const welcomeMsg = document.getElementById(this.ids.welcomeMsg);
@@ -266,6 +348,12 @@ export class Ingreso {
     if (btnLogout && !btnLogout._hasHandler) {
       btnLogout.addEventListener('click', () => this.logout('/pages/ingreso.html'));
       btnLogout._hasHandler = true;
+    }
+
+    const btnEliminar = document.getElementById(this.ids.btnEliminar);
+    if (btnEliminar && !btnEliminar._hasHandler) {
+      btnEliminar.addEventListener('click', () => this.eliminar('/pages/ingreso.html'));
+      btnEliminar._hasHandler = true;
     }
   }
 

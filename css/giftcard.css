@@ -1,62 +1,10 @@
-/* --- ESTILOS GLOBALES Y VARIABLES --- */
-html,
-body,
-a {
-    font-family: "SUSE Mono", sans-serif;
-}
-
-:root {
-    --color__principal: #0000001a;
-    --color__header: #fff;
-    --color__navbar: #1565c0;
-    --color__footer: #2a2b3f;
-    --color__span: #1565c0;
-    --color__newsletter: #171717;
-    --color__sombra: #e0f3ff;
-    --color__boton: #5499c7;
-    --color__boton-hover: #0277BD;
-}
-
-
 body {
     background-color: var(--color__principal);
     display: flex;
     flex-direction: column; 
     min-height: 100vh;
-    padding-top: 4.5em; 
+    margin-top: 8em; 
 }
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    transition: .2s linear;
-}
-
-
-
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
-    overflow-x: hidden;
-    font-size: 16px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    transition: .2s linear;
-}
-
 
 main {
     flex-grow: 1; 

@@ -1,56 +1,58 @@
-/* ================= AUTH (Sign up + Login) ================= */
 .autenticacion {
     margin-top: 8em;
-    /* respeta header fijo */
     padding: 2rem 1rem;
     display: flex;
     justify-content: center;
     font-family: "SUSE Mono", sans-serif;
+    background: transparent;
 }
 
 .autenticacion__container {
     width: 100%;
-    max-width: 980px;
+    max-width: 1100px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.6rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
     background: transparent;
-    align-items: start;
+    align-items: flex-start;
 }
 
-/* Reusar look de tarjetas: fondo blanco, sombra suave */
+/* === Tarjetas === */
 .autenticacion__card {
     background: #fff;
-    padding: 1.4rem;
+    padding: 1.6rem;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Titles */
+
+/* === Títulos === */
 .autenticacion__card h2 {
     margin: 0 0 0.25rem 0;
     color: #222;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .autenticacion__sub {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1.2rem 0;
     color: #666;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
 }
 
-/* Form common */
+/* === Form === */
 .autenticacion__form {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.7rem;
 }
 
 .autenticacion__form label {
     font-weight: 700;
     color: #444;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
 }
 
 .autenticacion__form input[type="text"],
@@ -66,7 +68,7 @@
     box-sizing: border-box;
 }
 
-/* input con botón (mostrar pass) */
+/* Input con botón (mostrar pass) */
 .input-with-btn {
     display: flex;
     align-items: center;
@@ -86,12 +88,12 @@
     font-size: 0.95rem;
 }
 
-/* row: remember + forgot */
+/* Row: remember + forgot */
 .autenticacion__row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
 }
 
 .autenticacion__remember {
@@ -105,11 +107,16 @@
 .autenticacion__forgot {
     color: var(--color__span, #1565c0);
     font-size: 0.9rem;
+    text-decoration: none;
 }
 
-/* actions (boton) */
+.autenticacion__forgot:hover {
+    text-decoration: underline;
+}
+
+/* Botones */
 .autenticacion__actions {
-    margin-top: 0.8rem;
+    margin-top: 1rem;
 }
 
 .btn {
@@ -133,27 +140,51 @@
     background: var(--color__span, #1565c0);
 }
 
-/* mínimo feedback para inputs inválidos */
+/* Inputs inválidos */
 .autenticacion__form input:invalid {
     box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.04);
 }
 
-/* Responsive: apilar en móvil */
-@media (max-width: 900px) {
-    .auth__container {
+/* ================= RESPONSIVE ================= */
+
+/* Tablets (pantallas medianas) */
+@media (max-width: 60em) {
+    .autenticacion__container {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        max-width: 700px;
+        gap: 2rem;
     }
 }
 
-/* Pequeños ajustes móviles */
-@media (max-width: 480px) {
-    .auth {
-        padding: 1rem;
-        margin-top: 7.5rem;
+/* Móviles grandes */
+@media (max-width: 47em) {
+    .autenticacion {
+        margin-top: 7em;
+        padding: 1.5rem;
     }
 
-    .pass-toggle {
-        padding: 0.4rem 0.5rem;
+    .autenticacion__container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .autenticacion__card {
+        padding: 1.3rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 30em) {
+    .autenticacion__container {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .autenticacion__card {
+        padding: 1.1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
     }
 }

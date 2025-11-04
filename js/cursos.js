@@ -75,7 +75,7 @@ export class Cursos {
         nombre: "Introduccion a C#",
         duracion: "30 horas",
         precio: "$180.000",
-        img: "/multimedia/cursoPoo.png",
+        img: "/multimedia/cursoC.png",
         imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
           "Sumérgete en C# y aprende los fundamentos esenciales de la programación moderna. Este curso cubre la sintaxis básica, el manejo de variables y tipos de datos, y el uso de estructuras de control como condicionales y bucles. Adquirirás una introducción práctica a la Programación Orientada a Objetos (POO), creando clases y objetos, preparándote para construir tus primeras aplicaciones en el ecosistema .NET.",

@@ -1,11 +1,11 @@
 export class Calendario {
   constructor(options = {}) {
     this.detailPage = options.detailPage || './detalleCurso.html';
-    this.inscripcionPage = options.inscripcionPage || './inscripcion.html';
+    this.inscripcionPage = options.inscripcionPage || './perfil.html';
 
     this.contenedorDias = document.getElementById('calendarioDias');
     this.mesTitulo = document.getElementById('mesTitulo');
-    this.tooltip = document.getElementById('tooltip');
+    this.tooltip = document.getElementById('calendario');
     this.todayBtn = document.getElementById('todayBtn');
     this.prevMesBtn = document.getElementById('prevMes');
     this.nextMesBtn = document.getElementById('nextMes');
@@ -55,7 +55,7 @@ export class Calendario {
       "2025-11-12",
       "2025-12-05",
       "2025-12-15",
-      "2025-12-22"
+      "2025-12-25"
     ];
 
     const diaCurso = new Set(Object.values(eventosMapeados).map(e => Number(e.cursoData.id)));

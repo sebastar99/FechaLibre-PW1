@@ -22,13 +22,13 @@ export class Ingreso {
     // registro
     const registroForm = document.getElementById('signupForm');
     if (registroForm) {
-      registroForm.addEventListener('submit', (e) => this.handleRegistro(e));
+      registroForm.addEventListener('submit', (e) => this.registro(e));
     }
 
     // login
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-      loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+      loginForm.addEventListener('submit', (e) => this.login(e));
     }
 
     // logout button (puede estar en profile.html)
@@ -44,7 +44,7 @@ export class Ingreso {
     }
 
     // Recuperar contraseña
-    const forgotLink = document.querySelector(".auth__forgot");
+    const forgotLink = document.querySelector(".olvidar");
     if (forgotLink) {
       forgotLink.addEventListener("click", (e) => {
         e.preventDefault();
@@ -54,7 +54,7 @@ export class Ingreso {
   }
 
   // ---------- REGISTRO ----------
-  handleRegistro(evento) {
+  registro(evento) {
     evento.preventDefault();
     const nombre = (document.getElementById('RegistroNombre')?.value || '').trim();
     const email = (document.getElementById('RegistroEmail')?.value || '').trim();
@@ -82,7 +82,6 @@ export class Ingreso {
 
     usuarios.push(nuevoUsuario);
     localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
-    alert(`¡Usuario ${nombre} registrado con éxito!`);
     this.resetRegistroForm();
   }
 
@@ -93,7 +92,7 @@ export class Ingreso {
   }
 
   // ---------- LOGIN ----------
-  handleLogin(evento) {
+  login(evento) {
     evento.preventDefault();
     const emailLogin = (document.getElementById('loginEmail')?.value || '').trim();
     const passLogin = (document.getElementById('loginPass')?.value || '').trim();
@@ -111,14 +110,9 @@ export class Ingreso {
       return;
     }
 
-    // Guardar sesión (solo los datos públicos, sin contraseña)
     const usuarioSesion = { nombre: usuario.nombre, email: usuario.email };
     localStorage.setItem(this.sessionKey, JSON.stringify(usuarioSesion));
-
-    // actualizar header (por si el login ocurrió en la misma página)
     this.updateHeader();
-
-    // redirigir a home
     window.location.href = '/home.html';
   }
 
@@ -139,102 +133,165 @@ export class Ingreso {
     const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
 
     if (!usuarioActual) {
-      Swal.fire({
-        icon: "error",
-        title: "Sin sesión activa",
-        text: "No hay ningún usuario logueado actualmente.",
-      });
+      alert('No hay sesión activa.');
       return;
     }
 
-    // Mostrar modal para pedir contraseña
-    const { value: passConfirm } = await Swal.fire({
-      title: "Eliminar cuenta",
-      input: "password",
-      inputLabel: "Confirma tu contraseña para eliminar tu cuenta",
-      inputPlaceholder: "Escribe tu contraseña...",
-      inputAttributes: {
-        autocapitalize: "off",
-        autocorrect: "off",
-      },
-      showCancelButton: true,
-      confirmButtonText: "Eliminar cuenta",
-      cancelButtonText: "Cancelar",
-      confirmButtonColor: "#e74c3c",
-      cancelButtonColor: "#6c757d",
-      showLoaderOnConfirm: true,
-      preConfirm: (pass) => {
-        if (!pass) {
-          Swal.showValidationMessage("Debes ingresar tu contraseña");
-        }
-        return pass;
-      },
-    });
-
-    if (!passConfirm) return;
-
-    // Buscar usuario en la lista
     const usuarioEncontrado = usuarios.find(u => u.email === usuarioActual.email);
     if (!usuarioEncontrado) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se encontró el usuario actual.",
-      });
+      alert('Error: no se encontró el usuario actual.');
       return;
     }
 
-    // Validar contraseña
-    if (usuarioEncontrado.pass !== passConfirm) {
-      Swal.fire({
-        icon: "error",
-        title: "Contraseña incorrecta",
-        text: "No se eliminó la cuenta.",
-      });
+    if (typeof HTMLDialogElement !== 'function') {
+      const passConfirm = prompt('Confirma tu contraseña para eliminar la cuenta:');
+      if (!passConfirm) return;
+      if (passConfirm !== usuarioEncontrado.pass) {
+        alert('Contraseña incorrecta. No se eliminó la cuenta.');
+        return;
+      }
+      const ok = confirm('¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
+      if (!ok) return;
+      const nuevosUsuarios = usuarios.filter(u => u.email !== usuarioActual.email);
+      localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
+      localStorage.removeItem(this.sessionKey);
+      alert('Cuenta eliminada correctamente.');
+      this.updateHeader();
+      window.location.href = '/home.html';
       return;
     }
 
-    // Confirmación final
-    const confirmacion = await Swal.fire({
-      icon: "warning",
-      title: "¿Seguro que deseas eliminar tu cuenta?",
-      text: "Esta acción no se puede deshacer.",
-      showCancelButton: true,
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-      confirmButtonColor: "#e74c3c",
+    if (!document.getElementById('style-dialog-eliminar')) {
+      const style = document.createElement('style');
+      style.id = 'style-dialog-eliminar';
+      style.textContent = `
+      .dlg-eliminar { position: fixed; top:50%; left:50%; transform: translate(-50%,-50%); max-width:480px; width:92%; border-radius:10px; box-shadow: 0 20px 50px rgba(0,0,0,.35); border:1px solid rgba(0,0,0,.06); background:#fff; z-index:12000; }
+      .dlg-eliminar::backdrop { background: rgba(0,0,0,0.45); }
+      .dlg-eliminar .body { padding:1rem; display:flex; flex-direction:column; gap:0.6rem; }
+      .dlg-eliminar h3 { margin:0; font-size:1.05rem; }
+      .dlg-eliminar .input { width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:6px; font-size:0.95rem; box-sizing:border-box; }
+      .dlg-eliminar .feedback { min-height:1.2em; color:#e74c3c; font-size:0.95rem; }
+      .dlg-eliminar .actions { display:flex; justify-content:flex-end; gap:0.6rem; padding:0.8rem 1rem; background:#fafafa; border-top:1px solid rgba(0,0,0,0.03); border-radius:0 0 10px 10px; }
+      .dlg-eliminar .btn { padding:0.55rem 0.9rem; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; cursor:pointer; }
+      .dlg-eliminar .btn.primary { background: var(--color__boton, #5499c7); color:#fff; border:none; }
+    `;
+      document.head.appendChild(style);
+    }
+
+    // --- DIALOG 1: pedir contraseña ---
+    const dlg1 = document.createElement('dialog');
+    dlg1.className = 'dlg-eliminar';
+    dlg1.id = 'dlgEliminarPass';
+    dlg1.innerHTML = `
+    <div class="body" role="document" aria-labelledby="dlgEliminarTitle">
+      <h3 id="dlgEliminarTitle">Eliminar cuenta</h3>
+      <div class="feedback" id="dlgEliminarFeedback"></div>
+      <label style="font-size:0.95rem;color:#222;">Confirma tu contraseña
+        <input id="dlgEliminarPassInput" class="input" type="password" placeholder="Escribe tu contraseña..." />
+      </label>
+    </div>
+    <div class="actions" role="toolbar">
+      <button id="dlgEliminarCancel" type="button" class="btn">Cancelar</button>
+      <button id="dlgEliminarNext" type="button" class="btn primary">Eliminar cuenta</button>
+    </div>
+  `;
+    document.body.appendChild(dlg1);
+
+    // showModal con try/catch
+    try { dlg1.showModal(); } catch (e) { try { dlg1.show(); } catch (e) { } }
+
+    const inp = dlg1.querySelector('#dlgEliminarPassInput');
+    const feedback = dlg1.querySelector('#dlgEliminarFeedback');
+    const btnCancel = dlg1.querySelector('#dlgEliminarCancel');
+    const btnNext = dlg1.querySelector('#dlgEliminarNext');
+
+    // helpers
+    const closeRemove = (el) => { try { el.close(); } catch (e) { } el.remove(); };
+
+    // cerrar al clicar fuera
+    dlg1.addEventListener('click', (ev) => { if (ev.target === dlg1) closeRemove(dlg1); });
+
+    // cancelar
+    btnCancel.addEventListener('click', () => closeRemove(dlg1));
+
+    // submit con Enter
+    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') btnNext.click(); });
+
+    // manejar siguiente: validar campo y contraseña
+    const proceedToConfirm = () => {
+      feedback.textContent = '';
+      const passValue = (inp.value || '').trim();
+      if (!passValue) {
+        feedback.textContent = 'Debes ingresar tu contraseña';
+        inp.focus();
+        return false;
+      }
+      if (passValue !== usuarioEncontrado.pass) {
+        feedback.textContent = 'Contraseña incorrecta';
+        inp.focus();
+        return false;
+      }
+      return true;
+    };
+
+    // Si la validación es correcta, cerramos dlg1 y abrimos dlg2
+    btnNext.addEventListener('click', async () => {
+      if (!proceedToConfirm()) return;
+
+      // cerrar primer dialog
+      closeRemove(dlg1);
+
+      // --- DIALOG 2: confirmación final ---
+      const dlg2 = document.createElement('dialog');
+      dlg2.className = 'dlg-eliminar';
+      dlg2.id = 'dlgEliminarConfirm';
+      dlg2.innerHTML = `
+      <div class="body" role="document" aria-labelledby="dlgEliminarConfirmTitle">
+        <h3 id="dlgEliminarConfirmTitle">¿Estás seguro?</h3>
+        <p style="margin:0;color:#333;">Esta acción eliminará tu cuenta permanentemente y no se podrá deshacer.</p>
+      </div>
+      <div class="actions" role="toolbar">
+        <button id="dlgEliminarConfirmCancel" type="button" class="btn">Cancelar</button>
+        <button id="dlgEliminarConfirmOk" type="button" class="btn primary">Sí, eliminar</button>
+      </div>
+    `;
+      document.body.appendChild(dlg2);
+      try { dlg2.showModal(); } catch (e) { try { dlg2.show(); } catch (e) { } }
+
+      const btnCancel2 = dlg2.querySelector('#dlgEliminarConfirmCancel');
+      const btnOk2 = dlg2.querySelector('#dlgEliminarConfirmOk');
+
+      dlg2.addEventListener('click', (ev) => { if (ev.target === dlg2) closeRemove(dlg2); });
+      btnCancel2.addEventListener('click', () => closeRemove(dlg2));
+
+      btnOk2.addEventListener('click', () => {
+        // eliminar usuario
+        const nuevosUsuarios = usuarios.filter(u => u.email !== usuarioActual.email);
+        localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
+        localStorage.removeItem(this.sessionKey);
+        closeRemove(dlg2);
+        this.updateHeader();
+        window.location.href = '/home.html';
+      });
     });
 
-    if (!confirmacion.isConfirmed) return;
-
-    const nuevosUsuarios = usuarios.filter(u => u.email !== usuarioActual.email);
-    localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
-    localStorage.removeItem(this.sessionKey);
-
-    // Mostrar mensaje final
-    await Swal.fire({
-      icon: "success",
-      title: "Cuenta eliminada",
-      text: "Tu cuenta se eliminó correctamente.",
-      confirmButtonColor: "#5499c7",
-    });
-
-    this.updateHeader();
-    window.location.href = "/home.html";
+    // permitir cerrar con ESC
+    dlg1.addEventListener('cancel', () => closeRemove(dlg1));
   }
 
 
-  // Reemplazar recuperarContrasena() por ESTE método
-async recuperarContrasena() {
-  // Si ya existe un dialog previo, lo eliminamos para evitar duplicados
-  const prev = document.getElementById('dlgRecuperar');
-  if (prev) prev.remove();
 
-  // --- Crear estilos (si no existen) ---
-  if (!document.getElementById('dlgRecuperarStyles')) {
-    const style = document.createElement('style');
-    style.id = 'dlgRecuperarStyles';
-    style.textContent = `
+  // Reemplazar recuperarContrasena() por ESTE método
+  async recuperarContrasena() {
+    // Si ya existe un dialog previo, lo eliminamos para evitar duplicados
+    const prev = document.getElementById('dlgRecuperar');
+    if (prev) prev.remove();
+
+    // --- Crear estilos (si no existen) ---
+    if (!document.getElementById('dlgRecuperarStyles')) {
+      const style = document.createElement('style');
+      style.id = 'dlgRecuperarStyles';
+      style.textContent = `
       /* centrado y apariencia del dialog */
       .custom-dialog {
         position: fixed;
@@ -299,14 +356,14 @@ async recuperarContrasena() {
         border:none;
       }
     `;
-    document.head.appendChild(style);
-  }
+      document.head.appendChild(style);
+    }
 
-  // --- Crear el dialog DOM ---
-  const dialog = document.createElement('dialog');
-  dialog.id = 'dlgRecuperar';
-  dialog.className = 'custom-dialog';
-  dialog.innerHTML = `
+    // --- Crear el dialog DOM ---
+    const dialog = document.createElement('dialog');
+    dialog.id = 'dlgRecuperar';
+    dialog.className = 'custom-dialog';
+    dialog.innerHTML = `
     <div class="dlg-body" role="document" aria-labelledby="dlgRecuperarTitle">
       <h3 id="dlgRecuperarTitle">Recuperar contraseña</h3>
       <div class="dlg-feedback" id="dlgFeedback"></div>
@@ -328,84 +385,84 @@ async recuperarContrasena() {
     </div>
   `;
 
-  document.body.appendChild(dialog);
+    document.body.appendChild(dialog);
 
-  // Mostrar (try/catch por compatibilidad)
-  try {
-    dialog.showModal();
-  } catch (err) {
-    // algunos navegadores requieren append antes de showModal; ya lo hicimos
-    try { dialog.show(); } catch (e) { /* fallback silencioso */ }
-  }
+    // Mostrar (try/catch por compatibilidad)
+    try {
+      dialog.showModal();
+    } catch (err) {
+      // algunos navegadores requieren append antes de showModal; ya lo hicimos
+      try { dialog.show(); } catch (e) { /* fallback silencioso */ }
+    }
 
-  // Referencias
-  const emailInput = dialog.querySelector('#dlgEmail');
-  const passInput = dialog.querySelector('#dlgPass');
-  const feedback = dialog.querySelector('#dlgFeedback');
-  const btnCancel = dialog.querySelector('#dlgCancel');
-  const btnSubmit = dialog.querySelector('#dlgSubmit');
+    // Referencias
+    const emailInput = dialog.querySelector('#dlgEmail');
+    const passInput = dialog.querySelector('#dlgPass');
+    const feedback = dialog.querySelector('#dlgFeedback');
+    const btnCancel = dialog.querySelector('#dlgCancel');
+    const btnSubmit = dialog.querySelector('#dlgSubmit');
 
-  // Helper para cerrar y eliminar dialog
-  const closeAndRemove = () => {
-    try { dialog.close(); } catch (e) {}
-    dialog.remove();
-  };
+    // Helper para cerrar y eliminar dialog
+    const closeAndRemove = () => {
+      try { dialog.close(); } catch (e) { }
+      dialog.remove();
+    };
 
-  // Click fuera del dialog cierra (backdrop)
-  dialog.addEventListener('click', (ev) => {
-    if (ev.target === dialog) closeAndRemove();
-  });
-
-  // Cancel
-  btnCancel.addEventListener('click', () => {
-    closeAndRemove();
-  });
-
-  // Enter en inputs submit
-  [emailInput, passInput].forEach(input => {
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        btnSubmit.click();
-      }
+    // Click fuera del dialog cierra (backdrop)
+    dialog.addEventListener('click', (ev) => {
+      if (ev.target === dialog) closeAndRemove();
     });
-  });
 
-  // Submit
-  btnSubmit.addEventListener('click', () => {
-    feedback.textContent = '';
-    const email = (emailInput.value || '').trim();
-    const nuevaPass = (passInput.value || '');
-
-    if (!email || !nuevaPass) {
-      feedback.textContent = 'Completa ambos campos.';
-      if (!email) emailInput.focus(); else passInput.focus();
-      return;
-    }
-
-    // cargar usuarios
-    const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    const usuario = usuarios.find(u => u.email === email);
-
-    if (!usuario) {
-      feedback.textContent = 'No existe una cuenta asociada a ese correo.';
-      emailInput.focus();
-      return;
-    }
-
-    // feedback positivo
-    feedback.style.color = '#2ecc71';
-    feedback.textContent = 'Contraseña actualizada correctamente.';
-
-    // cerrar y notificar (pequeño delay para que el usuario vea el mensaje)
-    setTimeout(() => {
+    // Cancel
+    btnCancel.addEventListener('click', () => {
       closeAndRemove();
-    }, 700);
-  });
+    });
 
-  // cerrar con ESC (si el navegador soporta el evento 'cancel')
-  dialog.addEventListener('cancel', () => closeAndRemove());
-}
+    // Enter en inputs submit
+    [emailInput, passInput].forEach(input => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          btnSubmit.click();
+        }
+      });
+    });
+
+    // Submit
+    btnSubmit.addEventListener('click', () => {
+      feedback.textContent = '';
+      const email = (emailInput.value || '').trim();
+      const nuevaPass = (passInput.value || '');
+
+      if (!email || !nuevaPass) {
+        feedback.textContent = 'Completa ambos campos.';
+        if (!email) emailInput.focus(); else passInput.focus();
+        return;
+      }
+
+      // cargar usuarios
+      const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+      const usuario = usuarios.find(u => u.email === email);
+
+      if (!usuario) {
+        feedback.textContent = 'No existe una cuenta asociada a ese correo.';
+        emailInput.focus();
+        return;
+      }
+
+      // feedback positivo
+      feedback.style.color = '#2ecc71';
+      feedback.textContent = 'Contraseña actualizada correctamente.';
+
+      // cerrar y notificar (pequeño delay para que el usuario vea el mensaje)
+      setTimeout(() => {
+        closeAndRemove();
+      }, 700);
+    });
+
+    // cerrar con ESC (si el navegador soporta el evento 'cancel')
+    dialog.addEventListener('cancel', () => closeAndRemove());
+  }
 
 
 

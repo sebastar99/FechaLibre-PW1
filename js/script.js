@@ -1,36 +1,28 @@
-// /js/script.js
 import { Ingreso } from "./ingreso.js";
-import { Cursos } from "./cursos.js"; // Importa la clase Cursos
+import { Cursos } from "./cursos.js";
 import { Calendario } from "./calendario.js";
 import { Home } from "./home.js";
 
-export let ingreso; // será inicializado en DOMContentLoaded
+export let ingreso;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // INICIALIZACIÓN DE DATOS (Cursos)
+    // 1. Inicializacion de los cursos
     const cursos = new Cursos();
-
-    // Si Cursos.inicializarDetalle es un método estático, lo llamamos con chequeo
-    if (typeof Cursos.inicializarDetalle === 'function') {
-        Cursos.inicializarDetalle();
-    }
-
+    cursos.inicializarDetalle();
     cursos.mostrarRecomendados('#recomendadosContenedor', '/pages/detalleCurso.html');
 
-    // 2. Lógica de Ingreso/Formularios
+    // 2. Funcionamiento de la sesion
     ingreso = new Ingreso();
-
-    // Si estamos en profile.html (añade class="profile-page" al <body>)
-    // o si detectamos el elemento #perfilNombre, rellenamos el perfil
     if (document.body.classList.contains('profile-page') || document.getElementById('perfilNombre')) {
         ingreso.populateProfile();
     }
 
-    // 3. Lógica de Calendario
+    // 3. Carga de cursos en el calendario
     const calendario = new Calendario();
+    
 
-    // 4. Lógica para cargar los cursos recomendados (home)
+    // 4. Carga de cursos en el Home
     const cursosHome = new Home('#cursosContenedor', '/pages/detalleCurso.html');
     cursosHome.mostrarCursosHome();
 

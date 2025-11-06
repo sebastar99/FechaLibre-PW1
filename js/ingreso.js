@@ -224,58 +224,188 @@ export class Ingreso {
   }
 
 
-  //Recuperar Contraseña
-  async recuperarContrasena() {
-    const { value: formValues } = await Swal.fire({
-      title: "Recuperar contraseña",
-      html: `
-      <input type="email" id="recuperarEmail" class="swal2-input" placeholder="Correo electrónico">
-      <input type="password" id="recuperarPass" class="swal2-input" placeholder="Nueva contraseña">
-    `,
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: "Actualizar contraseña",
-      cancelButtonText: "Cancelar",
-      confirmButtonColor: "#5499c7",
-      preConfirm: () => {
-        const email = document.getElementById("recuperarEmail").value.trim();
-        const nuevaPass = document.getElementById("recuperarPass").value.trim();
+  // Reemplazar recuperarContrasena() por ESTE método
+async recuperarContrasena() {
+  // Si ya existe un dialog previo, lo eliminamos para evitar duplicados
+  const prev = document.getElementById('dlgRecuperar');
+  if (prev) prev.remove();
 
-        if (!email || !nuevaPass) {
-          Swal.showValidationMessage("Completa ambos campos");
-          return false;
-        }
+  // --- Crear estilos (si no existen) ---
+  if (!document.getElementById('dlgRecuperarStyles')) {
+    const style = document.createElement('style');
+    style.id = 'dlgRecuperarStyles';
+    style.textContent = `
+      /* centrado y apariencia del dialog */
+      .custom-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 460px;
+        width: 92%;
+        border-radius: 10px;
+        padding: 0;
+        box-sizing: border-box;
+        z-index: 12000;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        border: 1px solid rgba(0,0,0,0.08);
+        background: #fff;
+      }
+      .custom-dialog::backdrop {
+        background: rgba(0,0,0,0.45);
+      }
+      .custom-dialog .dlg-body {
+        padding: 1.1rem;
+        display:flex;
+        flex-direction:column;
+        gap:0.6rem;
+      }
+      .custom-dialog h3 {
+        margin: 0 0 0.2rem 0;
+        font-size: 1.05rem;
+      }
+      .custom-dialog .dlg-input {
+        width:100%;
+        padding:0.6rem;
+        border:1px solid #ddd;
+        border-radius:6px;
+        box-sizing:border-box;
+        font-size:0.95rem;
+      }
+      .custom-dialog .dlg-feedback {
+        min-height:1.2em;
+        font-size:0.92rem;
+        color: #e74c3c;
+      }
+      .custom-dialog .dlg-actions {
+        display:flex;
+        justify-content:flex-end;
+        gap:0.6rem;
+        padding: 0.8rem 1.1rem;
+        background: #fafafa;
+        border-top: 1px solid rgba(0,0,0,0.03);
+        border-radius: 0 0 10px 10px;
+      }
+      .custom-dialog .dlg-btn {
+        padding:0.55rem 0.9rem;
+        border-radius:6px;
+        border:1px solid #ddd;
+        background:#f5f5f5;
+        cursor:pointer;
+      }
+      .custom-dialog .dlg-btn.primary {
+        background: var(--color__boton, #5499c7);
+        color:#fff;
+        border:none;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
-        return { email, nuevaPass };
-      },
+  // --- Crear el dialog DOM ---
+  const dialog = document.createElement('dialog');
+  dialog.id = 'dlgRecuperar';
+  dialog.className = 'custom-dialog';
+  dialog.innerHTML = `
+    <div class="dlg-body" role="document" aria-labelledby="dlgRecuperarTitle">
+      <h3 id="dlgRecuperarTitle">Recuperar contraseña</h3>
+      <div class="dlg-feedback" id="dlgFeedback"></div>
+
+      <label style="font-size:0.92rem;color:#333;">
+        Correo electrónico
+        <input id="dlgEmail" class="dlg-input" type="email" placeholder="tu@correo.com" />
+      </label>
+
+      <label style="font-size:0.92rem;color:#333;">
+        Nueva contraseña
+        <input id="dlgPass" class="dlg-input" type="password" placeholder="Nueva contraseña" />
+      </label>
+    </div>
+
+    <div class="dlg-actions" role="toolbar">
+      <button type="button" id="dlgCancel" class="dlg-btn">Cancelar</button>
+      <button type="button" id="dlgSubmit" class="dlg-btn primary">Actualizar contraseña</button>
+    </div>
+  `;
+
+  document.body.appendChild(dialog);
+
+  // Mostrar (try/catch por compatibilidad)
+  try {
+    dialog.showModal();
+  } catch (err) {
+    // algunos navegadores requieren append antes de showModal; ya lo hicimos
+    try { dialog.show(); } catch (e) { /* fallback silencioso */ }
+  }
+
+  // Referencias
+  const emailInput = dialog.querySelector('#dlgEmail');
+  const passInput = dialog.querySelector('#dlgPass');
+  const feedback = dialog.querySelector('#dlgFeedback');
+  const btnCancel = dialog.querySelector('#dlgCancel');
+  const btnSubmit = dialog.querySelector('#dlgSubmit');
+
+  // Helper para cerrar y eliminar dialog
+  const closeAndRemove = () => {
+    try { dialog.close(); } catch (e) {}
+    dialog.remove();
+  };
+
+  // Click fuera del dialog cierra (backdrop)
+  dialog.addEventListener('click', (ev) => {
+    if (ev.target === dialog) closeAndRemove();
+  });
+
+  // Cancel
+  btnCancel.addEventListener('click', () => {
+    closeAndRemove();
+  });
+
+  // Enter en inputs submit
+  [emailInput, passInput].forEach(input => {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        btnSubmit.click();
+      }
     });
+  });
 
-    if (!formValues) return;
+  // Submit
+  btnSubmit.addEventListener('click', () => {
+    feedback.textContent = '';
+    const email = (emailInput.value || '').trim();
+    const nuevaPass = (passInput.value || '');
 
-    // Buscar usuario
-    const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    const usuario = usuarios.find(u => u.email === formValues.email);
-
-    if (!usuario) {
-      Swal.fire({
-        icon: "error",
-        title: "Correo no encontrado",
-        text: "No existe una cuenta asociada a ese correo.",
-      });
+    if (!email || !nuevaPass) {
+      feedback.textContent = 'Completa ambos campos.';
+      if (!email) emailInput.focus(); else passInput.focus();
       return;
     }
 
-    // Actualizar contraseña (sin validación)
-    usuario.pass = formValues.nuevaPass;
-    localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+    // cargar usuarios
+    const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+    const usuario = usuarios.find(u => u.email === email);
 
-    Swal.fire({
-      icon: "success",
-      title: "Contraseña actualizada",
-      text: "Tu nueva contraseña fue guardada correctamente.",
-      confirmButtonColor: "#5499c7"
-    });
-  }
+    if (!usuario) {
+      feedback.textContent = 'No existe una cuenta asociada a ese correo.';
+      emailInput.focus();
+      return;
+    }
+
+    // feedback positivo
+    feedback.style.color = '#2ecc71';
+    feedback.textContent = 'Contraseña actualizada correctamente.';
+
+    // cerrar y notificar (pequeño delay para que el usuario vea el mensaje)
+    setTimeout(() => {
+      closeAndRemove();
+    }, 700);
+  });
+
+  // cerrar con ESC (si el navegador soporta el evento 'cancel')
+  dialog.addEventListener('cancel', () => closeAndRemove());
+}
 
 
 

@@ -31,13 +31,13 @@ export class Ingreso {
       loginForm.addEventListener('submit', (e) => this.login(e));
     }
 
-    // logout 
+    // logout
     const btnLogout = document.getElementById(this.ids.btnLogout);
     if (btnLogout) {
       btnLogout.addEventListener('click', () => this.logout());
     }
 
-    // eliminar 
+    // eliminar
     const btnEliminar = document.getElementById(this.ids.btnEliminar);
     if (btnEliminar) {
       btnEliminar.addEventListener('click', () => this.eliminar());
@@ -71,7 +71,6 @@ export class Ingreso {
       return;
     }
 
-
     const nuevoUsuario = {
       nombre,
       email,
@@ -83,6 +82,13 @@ export class Ingreso {
     usuarios.push(nuevoUsuario);
     localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
     this.resetRegistroForm();
+
+    // Notificar creación (pequeño diálogo)
+    if (typeof Swal !== 'undefined') {
+      Swal.fire({ icon: 'success', title: 'Usuario creado', text: 'Tu cuenta fue creada correctamente.', confirmButtonColor: '#5499c7' });
+    } else {
+      alert('Usuario creado correctamente.');
+    }
   }
 
   resetRegistroForm() {
@@ -116,7 +122,6 @@ export class Ingreso {
     window.location.href = '/home.html';
   }
 
-
   getCurrentUser() {
     const json = localStorage.getItem(this.sessionKey);
     return json ? JSON.parse(json) : null;
@@ -143,6 +148,7 @@ export class Ingreso {
       return;
     }
 
+    // Fallback si no soporta <dialog>
     if (typeof HTMLDialogElement !== 'function') {
       const passConfirm = prompt('Confirma tu contraseña para eliminar la cuenta:');
       if (!passConfirm) return;
@@ -161,6 +167,7 @@ export class Ingreso {
       return;
     }
 
+    // dialog con contraseña y confirmación (ya está correctamente implementado en tu código)
     if (!document.getElementById('style-dialog-eliminar')) {
       const style = document.createElement('style');
       style.id = 'style-dialog-eliminar';
@@ -178,23 +185,23 @@ export class Ingreso {
       document.head.appendChild(style);
     }
 
-
+    const usuariosLista = usuarios; // alias
     const dlg1 = document.createElement('dialog');
     dlg1.className = 'dlg-eliminar';
     dlg1.id = 'dlgEliminarPass';
     dlg1.innerHTML = `
-    <div class="body" role="document" aria-labelledby="dlgEliminarTitle">
-      <h3 id="dlgEliminarTitle">Eliminar cuenta</h3>
-      <div class="feedback" id="dlgEliminarFeedback"></div>
-      <label style="font-size:0.95rem;color:#222;">Confirma tu contraseña
-        <input id="dlgEliminarPassInput" class="input" type="password" placeholder="Escribe tu contraseña..." />
-      </label>
-    </div>
-    <div class="actions" role="toolbar">
-      <button id="dlgEliminarCancel" type="button" class="btn">Cancelar</button>
-      <button id="dlgEliminarNext" type="button" class="btn primary">Eliminar cuenta</button>
-    </div>
-  `;
+      <div class="body" role="document" aria-labelledby="dlgEliminarTitle">
+        <h3 id="dlgEliminarTitle">Eliminar cuenta</h3>
+        <div class="feedback" id="dlgEliminarFeedback"></div>
+        <label style="font-size:0.95rem;color:#222;">Confirma tu contraseña
+          <input id="dlgEliminarPassInput" class="input" type="password" placeholder="Escribe tu contraseña..." />
+        </label>
+      </div>
+      <div class="actions" role="toolbar">
+        <button id="dlgEliminarCancel" type="button" class="btn">Cancelar</button>
+        <button id="dlgEliminarNext" type="button" class="btn primary">Eliminar cuenta</button>
+      </div>
+    `;
     document.body.appendChild(dlg1);
 
     try { dlg1.showModal(); } catch (e) { try { dlg1.show(); } catch (e) { } }
@@ -204,18 +211,13 @@ export class Ingreso {
     const btnCancel = dlg1.querySelector('#dlgEliminarCancel');
     const btnNext = dlg1.querySelector('#dlgEliminarNext');
 
-
     const closeRemove = (el) => { try { el.close(); } catch (e) { } el.remove(); };
-
 
     dlg1.addEventListener('click', (ev) => { if (ev.target === dlg1) closeRemove(dlg1); });
 
-
     btnCancel.addEventListener('click', () => closeRemove(dlg1));
 
-
     inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') btnNext.click(); });
-
 
     const proceedToConfirm = () => {
       feedback.textContent = '';
@@ -236,22 +238,21 @@ export class Ingreso {
     btnNext.addEventListener('click', async () => {
       if (!proceedToConfirm()) return;
 
-
       closeRemove(dlg1);
 
       const dlg2 = document.createElement('dialog');
       dlg2.className = 'dlg-eliminar';
       dlg2.id = 'dlgEliminarConfirm';
       dlg2.innerHTML = `
-      <div class="body" role="document" aria-labelledby="dlgEliminarConfirmTitle">
-        <h3 id="dlgEliminarConfirmTitle">¿Estás seguro?</h3>
-        <p style="margin:0;color:#333;">Esta acción eliminará tu cuenta permanentemente y no se podrá deshacer.</p>
-      </div>
-      <div class="actions" role="toolbar">
-        <button id="dlgEliminarConfirmCancel" type="button" class="btn">Cancelar</button>
-        <button id="dlgEliminarConfirmOk" type="button" class="btn primary">Sí, eliminar</button>
-      </div>
-    `;
+        <div class="body" role="document" aria-labelledby="dlgEliminarConfirmTitle">
+          <h3 id="dlgEliminarConfirmTitle">¿Estás seguro?</h3>
+          <p style="margin:0;color:#333;">Esta acción eliminará tu cuenta permanentemente y no se podrá deshacer.</p>
+        </div>
+        <div class="actions" role="toolbar">
+          <button id="dlgEliminarConfirmCancel" type="button" class="btn">Cancelar</button>
+          <button id="dlgEliminarConfirmOk" type="button" class="btn primary">Sí, eliminar</button>
+        </div>
+      `;
       document.body.appendChild(dlg2);
       try { dlg2.showModal(); } catch (e) { try { dlg2.show(); } catch (e) { } }
 
@@ -263,7 +264,7 @@ export class Ingreso {
 
       btnOk2.addEventListener('click', () => {
         // eliminar usuario
-        const nuevosUsuarios = usuarios.filter(u => u.email !== usuarioActual.email);
+        const nuevosUsuarios = usuariosLista.filter(u => u.email !== usuarioActual.email);
         localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
         localStorage.removeItem(this.sessionKey);
         closeRemove(dlg2);
@@ -275,9 +276,7 @@ export class Ingreso {
     dlg1.addEventListener('cancel', () => closeRemove(dlg1));
   }
 
-
-
-
+  // Recuperar contraseña (dialog personalizado)
   async recuperarContrasena() {
     // eliminar dialog anterior si existe
     const prev = document.getElementById('dlgRecuperar');
@@ -365,7 +364,7 @@ export class Ingreso {
       feedback.style.color = '#e74c3c';
 
       const email = (emailInput.value || '').trim();
-      const nuevaPass = (passInput.value || '');
+      const nuevaPass = (passInput.value || '').trim();
 
       if (!email || !nuevaPass) {
         feedback.textContent = 'Completa ambos campos.';
@@ -393,14 +392,18 @@ export class Ingreso {
       // cerrar y mostrar confirmación
       setTimeout(() => {
         closeAndRemove();
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({ icon: 'success', title: 'Contraseña actualizada', text: 'Tu nueva contraseña fue guardada correctamente.', confirmButtonColor: '#5499c7' });
+        } else {
+          alert('Contraseña actualizada correctamente.');
+        }
       }, 800);
     });
 
     dialog.addEventListener('cancel', () => closeAndRemove());
   }
 
-
-
+  // ---------- HEADER ----------
   updateHeader() {
     const mensaje = document.getElementById(this.ids.mensaje);
     const userNameSpan = document.getElementById(this.ids.userName);
@@ -434,6 +437,7 @@ export class Ingreso {
     }
   }
 
+  // ---------- PERFIL (carrito & compras) ----------
   populateProfile(selectors = {}) {
     const s = Object.assign({
       perfilNombre: 'perfilNombre',
@@ -457,10 +461,11 @@ export class Ingreso {
     if (perfilNombre) perfilNombre.textContent = usuario.nombre;
     if (perfilEmail) perfilEmail.textContent = usuario.email;
 
-    // obtengo el usuario completo del array para acceder a favoritos/compras
+    // obtengo el usuario completo del array para acceder a carrito/compras
     const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    const usuarioCompleto = usuarios.find(u => u.email === usuario.email) || { carrito: [], compras: [] };
+    const usuarioCompleto = usersFindSafe(usuarios, usuario.email);
 
+    // renderizar carrito y compras
     this._renderLista(listaFav, usuarioCompleto.carrito || [], 'No tienes cursos en el carrito aun.');
     this._renderLista(listaComp, usuarioCompleto.compras || [], 'No has comprado cursos aun.');
 
@@ -476,25 +481,207 @@ export class Ingreso {
       btnEliminar.addEventListener('click', () => this.eliminar('/pages/ingreso.html'));
       btnEliminar._hasHandler = true;
     }
+
+    // helper local: evita crash si usuarios es undefined
+    function usersFindSafe(list, email) {
+      if (!Array.isArray(list)) return { carrito: [], compras: [] };
+      return list.find(u => u.email === email) || { carrito: [], compras: [] };
+    }
   }
 
+  // ---------- RENDER LIST (carrito / compras) ----------
   _renderLista(ulElement, items = [], textoVacio = '') {
     if (!ulElement) return;
     ulElement.innerHTML = '';
+
+    // Necesitamos referencia a this dentro de closures
+    const self = this;
+
+    // Insertar estilos si aún no existen
+    if (!document.getElementById('carritoStyles')) {
+      const style = document.createElement('style');
+      style.id = 'carritoStyles';
+      style.textContent = `
+      #listaCarrito, #listaCompras {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .carrito-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        transition: transform .15s ease, box-shadow .15s ease;
+      }
+      .carrito-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      }
+      .carrito-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        max-width: 65%;
+      }
+      .carrito-nombre {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #222;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .carrito-precio {
+        font-size: 0.95rem;
+        color: #555;
+      }
+      .carrito-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .carrito-btn {
+        padding: 0.45rem 0.8rem;
+        border-radius: 6px;
+        border: none;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background .2s ease, transform .1s ease;
+      }
+      .carrito-btn:hover { transform: translateY(-1px); }
+      .btn-pagar { background: #2ecc71; color: white; }
+      .btn-eliminar { background: #e74c3c; color: white; }
+      .btn-gift { background: #f1c40f; color: #333; }
+      .small-muted { font-size:0.82rem; color:#888; }
+    `;
+      document.head.appendChild(style);
+    }
+
     if (!items.length) {
       const li = document.createElement('li');
       li.textContent = textoVacio;
+      li.className = 'small-muted';
       ulElement.appendChild(li);
       return;
     }
-    items.forEach(it => {
+
+    items.forEach(item => {
       const li = document.createElement('li');
-      li.textContent = typeof it === 'string' ? it : (it.titulo || JSON.stringify(it));
+      li.className = 'carrito-item';
+
+      // estructura amigable (no JSON crudo)
+      li.innerHTML = `
+        <div class="carrito-info" title="${escapeHtml(item.nombre || '')}">
+          <span class="carrito-nombre">${item.nombre || 'Curso sin título'}</span>
+          <span class="carrito-precio">${item.precio || ''}</span>
+        </div>
+        <div class="carrito-actions">
+          <button class="carrito-btn btn-gift" type="button">🎁 Giftcard</button>
+          <button class="carrito-btn btn-pagar" type="button">💳 Pagar</button>
+          <button class="carrito-btn btn-eliminar" type="button">🗑 Eliminar</button>
+        </div>
+      `;
+
+      const btnEliminar = li.querySelector('.btn-eliminar');
+      const btnPagar = li.querySelector('.btn-pagar');
+      const btnGift = li.querySelector('.btn-gift');
+
+      // Eliminar del carrito
+      btnEliminar.addEventListener('click', () => {
+        const usuario = self.getCurrentUser();
+        if (!usuario) return notify('Debes iniciar sesión.');
+
+        const usuarios = JSON.parse(localStorage.getItem(self.storageKey)) || [];
+        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
+        if (uIndex === -1) return notify('Usuario no encontrado.');
+
+        usuarios[uIndex].carrito = (usuarios[uIndex].carrito || []).filter(c => c.id !== item.id);
+        localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
+        // re-renderizar lista actual
+        self._renderLista(ulElement, usuarios[uIndex].carrito || [], textoVacio);
+      });
+
+      // Pagar -> mover a compras
+      btnPagar.addEventListener('click', () => {
+        const usuario = self.getCurrentUser();
+        if (!usuario) return notify('Debes iniciar sesión.');
+
+        const usuarios = JSON.parse(localStorage.getItem(self.storageKey)) || [];
+        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
+        if (uIndex === -1) return notify('Usuario no encontrado.');
+
+        // quitar del carrito
+        usuarios[uIndex].carrito = (usuarios[uIndex].carrito || []).filter(c => c.id !== item.id);
+        // agregar a compras (si no está)
+        usuarios[uIndex].compras = usuarios[uIndex].compras || [];
+        if (!usuarios[uIndex].compras.some(c => c.id === item.id)) {
+          usuarios[uIndex].compras.push(item);
+        }
+        localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
+        // re-render ambos lists si están en el DOM
+        const listaCarritoEl = document.getElementById('listaCarrito');
+        const listaComprasEl = document.getElementById('listaCompras');
+        if (listaCarritoEl) self._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
+        if (listaComprasEl) self._renderLista(listaComprasEl, usuarios[uIndex].compras || [], 'No has comprado cursos aun.');
+
+        notify(`Pago simulado: ${item.nombre} añadido a tus compras.`);
+      });
+
+      // Asignar giftcard (simulado)
+      btnGift.addEventListener('click', () => {
+        const code = prompt('Ingresa el código de giftcard:');
+        if (!code) return;
+        const usuario = self.getCurrentUser();
+        if (!usuario) return notify('Debes iniciar sesión.');
+
+        const usuarios = JSON.parse(localStorage.getItem(self.storageKey)) || [];
+        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
+        if (uIndex === -1) return notify('Usuario no encontrado.');
+
+        // aplicar giftcard: añadimos propiedad giftcard al item en carrito
+        usuarios[uIndex].carrito = usuarios[uIndex].carrito || [];
+        const ci = usuarios[uIndex].carrito.find(c => c.id === item.id);
+        if (ci) {
+          ci.giftcard = code;
+        } else {
+          // si no está en carrito (raro), lo agregamos con giftcard
+          usuarios[uIndex].carrito.push(Object.assign({}, item, { giftcard: code }));
+        }
+        localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
+        // re-render carrito
+        const listaCarritoEl = document.getElementById('listaCarrito');
+        if (listaCarritoEl) self._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
+
+        notify(`Giftcard "${code}" aplicada a ${item.nombre}`);
+      });
+
       ulElement.appendChild(li);
     });
+
+    // pequeño helper para notificaciones (usa Swal si está)
+    function notify(msg) {
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({ icon: 'success', title: msg, toast: true, position: 'bottom-end', showConfirmButton: false, timer: 1800 });
+      } else {
+        alert(msg);
+      }
+    }
+
+    // escapar texto para title
+    function escapeHtml(str = '') {
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
   }
 
-
+  // FAVORITOS / COMPRAS helpers (los dejas como tenías)
   addFavorito(curso) {
     const usuario = this.getCurrentUser();
     if (!usuario) { alert('Debes iniciar sesión'); return; }

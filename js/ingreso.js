@@ -4,7 +4,7 @@ export class Ingreso {
     this.sessionKey = options.sessionKey || 'UsuarioActual';
 
     this.ids = {
-      welcomeMsg: 'welcomeMsg',
+      mensaje: 'mensaje',
       userName: 'userName',
       userIcon: 'userIcon',
       favIcon: 'favIcon',
@@ -31,13 +31,13 @@ export class Ingreso {
       loginForm.addEventListener('submit', (e) => this.login(e));
     }
 
-    // logout button (puede estar en profile.html)
+    // logout 
     const btnLogout = document.getElementById(this.ids.btnLogout);
     if (btnLogout) {
       btnLogout.addEventListener('click', () => this.logout());
     }
 
-    // eliminar button (puede estar en profile.html)
+    // eliminar 
     const btnEliminar = document.getElementById(this.ids.btnEliminar);
     if (btnEliminar) {
       btnEliminar.addEventListener('click', () => this.eliminar());
@@ -116,7 +116,7 @@ export class Ingreso {
     window.location.href = '/home.html';
   }
 
-  // ---------- SESSION & HEADER ----------
+
   getCurrentUser() {
     const json = localStorage.getItem(this.sessionKey);
     return json ? JSON.parse(json) : null;
@@ -178,7 +178,7 @@ export class Ingreso {
       document.head.appendChild(style);
     }
 
-    // --- DIALOG 1: pedir contraseña ---
+
     const dlg1 = document.createElement('dialog');
     dlg1.className = 'dlg-eliminar';
     dlg1.id = 'dlgEliminarPass';
@@ -197,7 +197,6 @@ export class Ingreso {
   `;
     document.body.appendChild(dlg1);
 
-    // showModal con try/catch
     try { dlg1.showModal(); } catch (e) { try { dlg1.show(); } catch (e) { } }
 
     const inp = dlg1.querySelector('#dlgEliminarPassInput');
@@ -205,19 +204,19 @@ export class Ingreso {
     const btnCancel = dlg1.querySelector('#dlgEliminarCancel');
     const btnNext = dlg1.querySelector('#dlgEliminarNext');
 
-    // helpers
+
     const closeRemove = (el) => { try { el.close(); } catch (e) { } el.remove(); };
 
-    // cerrar al clicar fuera
+
     dlg1.addEventListener('click', (ev) => { if (ev.target === dlg1) closeRemove(dlg1); });
 
-    // cancelar
+
     btnCancel.addEventListener('click', () => closeRemove(dlg1));
 
-    // submit con Enter
+
     inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') btnNext.click(); });
 
-    // manejar siguiente: validar campo y contraseña
+
     const proceedToConfirm = () => {
       feedback.textContent = '';
       const passValue = (inp.value || '').trim();
@@ -234,14 +233,12 @@ export class Ingreso {
       return true;
     };
 
-    // Si la validación es correcta, cerramos dlg1 y abrimos dlg2
     btnNext.addEventListener('click', async () => {
       if (!proceedToConfirm()) return;
 
-      // cerrar primer dialog
+
       closeRemove(dlg1);
 
-      // --- DIALOG 2: confirmación final ---
       const dlg2 = document.createElement('dialog');
       dlg2.className = 'dlg-eliminar';
       dlg2.id = 'dlgEliminarConfirm';
@@ -275,91 +272,36 @@ export class Ingreso {
       });
     });
 
-    // permitir cerrar con ESC
     dlg1.addEventListener('cancel', () => closeRemove(dlg1));
   }
 
 
 
-  // Reemplazar recuperarContrasena() por ESTE método
+
   async recuperarContrasena() {
-    // Si ya existe un dialog previo, lo eliminamos para evitar duplicados
+    // eliminar dialog anterior si existe
     const prev = document.getElementById('dlgRecuperar');
     if (prev) prev.remove();
 
-    // --- Crear estilos (si no existen) ---
+    // estilos (se agregan solo una vez)
     if (!document.getElementById('dlgRecuperarStyles')) {
       const style = document.createElement('style');
       style.id = 'dlgRecuperarStyles';
       style.textContent = `
-      /* centrado y apariencia del dialog */
-      .custom-dialog {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 460px;
-        width: 92%;
-        border-radius: 10px;
-        padding: 0;
-        box-sizing: border-box;
-        z-index: 12000;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-        border: 1px solid rgba(0,0,0,0.08);
-        background: #fff;
-      }
-      .custom-dialog::backdrop {
-        background: rgba(0,0,0,0.45);
-      }
-      .custom-dialog .dlg-body {
-        padding: 1.1rem;
-        display:flex;
-        flex-direction:column;
-        gap:0.6rem;
-      }
-      .custom-dialog h3 {
-        margin: 0 0 0.2rem 0;
-        font-size: 1.05rem;
-      }
-      .custom-dialog .dlg-input {
-        width:100%;
-        padding:0.6rem;
-        border:1px solid #ddd;
-        border-radius:6px;
-        box-sizing:border-box;
-        font-size:0.95rem;
-      }
-      .custom-dialog .dlg-feedback {
-        min-height:1.2em;
-        font-size:0.92rem;
-        color: #e74c3c;
-      }
-      .custom-dialog .dlg-actions {
-        display:flex;
-        justify-content:flex-end;
-        gap:0.6rem;
-        padding: 0.8rem 1.1rem;
-        background: #fafafa;
-        border-top: 1px solid rgba(0,0,0,0.03);
-        border-radius: 0 0 10px 10px;
-      }
-      .custom-dialog .dlg-btn {
-        padding:0.55rem 0.9rem;
-        border-radius:6px;
-        border:1px solid #ddd;
-        background:#f5f5f5;
-        cursor:pointer;
-      }
-      .custom-dialog .dlg-btn.primary {
-        background: var(--color__boton, #5499c7);
-        color:#fff;
-        border:none;
-      }
+      .custom-dialog { position: fixed; top:50%; left:50%; transform: translate(-50%,-50%); max-width:460px; width:92%; border-radius:10px; box-shadow:0 20px 50px rgba(0,0,0,0.35); border:1px solid rgba(0,0,0,0.08); background:#fff; z-index:12000; }
+      .custom-dialog::backdrop { background: rgba(0,0,0,0.45); }
+      .custom-dialog .dlg-body { padding:1.1rem; display:flex; flex-direction:column; gap:0.6rem; }
+      .custom-dialog h3 { margin:0 0 0.2rem 0; font-size:1.05rem; }
+      .custom-dialog .dlg-input { width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:6px; box-sizing:border-box; font-size:0.95rem; }
+      .custom-dialog .dlg-feedback { min-height:1.2em; font-size:0.92rem; color:#e74c3c; }
+      .custom-dialog .dlg-actions { display:flex; justify-content:flex-end; gap:0.6rem; padding:0.8rem 1.1rem; background:#fafafa; border-top:1px solid rgba(0,0,0,0.03); border-radius:0 0 10px 10px; }
+      .custom-dialog .dlg-btn { padding:0.55rem 0.9rem; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; cursor:pointer; }
+      .custom-dialog .dlg-btn.primary { background: var(--color__boton, #5499c7); color:#fff; border:none; }
     `;
       document.head.appendChild(style);
     }
 
-    // --- Crear el dialog DOM ---
+    // crear dialog
     const dialog = document.createElement('dialog');
     dialog.id = 'dlgRecuperar';
     dialog.className = 'custom-dialog';
@@ -384,41 +326,31 @@ export class Ingreso {
       <button type="button" id="dlgSubmit" class="dlg-btn primary">Actualizar contraseña</button>
     </div>
   `;
-
     document.body.appendChild(dialog);
 
-    // Mostrar (try/catch por compatibilidad)
-    try {
-      dialog.showModal();
-    } catch (err) {
-      // algunos navegadores requieren append antes de showModal; ya lo hicimos
-      try { dialog.show(); } catch (e) { /* fallback silencioso */ }
-    }
+    // mostrar (compatibilidad)
+    try { dialog.showModal(); } catch (e) { try { dialog.show(); } catch (e) { /* fallback silencioso */ } }
 
-    // Referencias
+    // referencias
     const emailInput = dialog.querySelector('#dlgEmail');
     const passInput = dialog.querySelector('#dlgPass');
     const feedback = dialog.querySelector('#dlgFeedback');
     const btnCancel = dialog.querySelector('#dlgCancel');
     const btnSubmit = dialog.querySelector('#dlgSubmit');
 
-    // Helper para cerrar y eliminar dialog
+    // helper para cerrar y eliminar
     const closeAndRemove = () => {
       try { dialog.close(); } catch (e) { }
       dialog.remove();
     };
 
-    // Click fuera del dialog cierra (backdrop)
-    dialog.addEventListener('click', (ev) => {
-      if (ev.target === dialog) closeAndRemove();
-    });
+    // close on backdrop click
+    dialog.addEventListener('click', (ev) => { if (ev.target === dialog) closeAndRemove(); });
 
-    // Cancel
-    btnCancel.addEventListener('click', () => {
-      closeAndRemove();
-    });
+    // cancelar
+    btnCancel.addEventListener('click', () => closeAndRemove());
 
-    // Enter en inputs submit
+    // submit on Enter
     [emailInput, passInput].forEach(input => {
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -428,9 +360,10 @@ export class Ingreso {
       });
     });
 
-    // Submit
     btnSubmit.addEventListener('click', () => {
       feedback.textContent = '';
+      feedback.style.color = '#e74c3c';
+
       const email = (emailInput.value || '').trim();
       const nuevaPass = (passInput.value || '');
 
@@ -440,35 +373,36 @@ export class Ingreso {
         return;
       }
 
-      // cargar usuarios
+      // cargar usuarios y buscar
       const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-      const usuario = usuarios.find(u => u.email === email);
+      const usuarioIndex = usuarios.findIndex(u => u.email === email);
 
-      if (!usuario) {
+      if (usuarioIndex === -1) {
         feedback.textContent = 'No existe una cuenta asociada a ese correo.';
         emailInput.focus();
         return;
       }
 
+      usuarios[usuarioIndex].pass = nuevaPass;
+      localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+
       // feedback positivo
       feedback.style.color = '#2ecc71';
-      feedback.textContent = 'Contraseña actualizada correctamente.';
+      feedback.textContent = 'Contraseña actualizada correctamente';
 
-      // cerrar y notificar (pequeño delay para que el usuario vea el mensaje)
+      // cerrar y mostrar confirmación
       setTimeout(() => {
         closeAndRemove();
-      }, 700);
+      }, 800);
     });
 
-    // cerrar con ESC (si el navegador soporta el evento 'cancel')
     dialog.addEventListener('cancel', () => closeAndRemove());
   }
 
 
 
-
   updateHeader() {
-    const welcomeMsg = document.getElementById(this.ids.welcomeMsg);
+    const mensaje = document.getElementById(this.ids.mensaje);
     const userNameSpan = document.getElementById(this.ids.userName);
     const userIcon = document.getElementById(this.ids.userIcon);
     const favIcon = document.getElementById(this.ids.favIcon);
@@ -478,7 +412,7 @@ export class Ingreso {
 
     if (usuario) {
       if (userNameSpan) userNameSpan.textContent = usuario.nombre;
-      if (welcomeMsg) welcomeMsg.style.display = 'inline';
+      if (mensaje) mensaje.style.display = 'inline';
 
       if (userIcon) {
         userIcon.href = '/pages/perfil.html';
@@ -490,7 +424,7 @@ export class Ingreso {
       }
     } else {
       if (userNameSpan) userNameSpan.textContent = '';
-      if (welcomeMsg) welcomeMsg.style.display = 'none';
+      if (mensaje) mensaje.style.display = 'none';
       if (userIcon) {
         userIcon.href = '/pages/ingreso.html';
         userIcon.title = 'Iniciar sesión';
@@ -504,7 +438,7 @@ export class Ingreso {
     const s = Object.assign({
       perfilNombre: 'perfilNombre',
       perfilEmail: 'perfilEmail',
-      listaFavoritos: 'listaFavoritos',
+      listaCarrito: 'listaCarrito',
       listaCompras: 'listaCompras'
     }, selectors);
 
@@ -517,7 +451,7 @@ export class Ingreso {
     // cargar elementos y pintar
     const perfilNombre = document.getElementById(s.perfilNombre);
     const perfilEmail = document.getElementById(s.perfilEmail);
-    const listaFav = document.getElementById(s.listaFavoritos);
+    const listaFav = document.getElementById(s.listaCarrito);
     const listaComp = document.getElementById(s.listaCompras);
 
     if (perfilNombre) perfilNombre.textContent = usuario.nombre;
@@ -525,9 +459,9 @@ export class Ingreso {
 
     // obtengo el usuario completo del array para acceder a favoritos/compras
     const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-    const usuarioCompleto = usuarios.find(u => u.email === usuario.email) || { favoritos: [], compras: [] };
+    const usuarioCompleto = usuarios.find(u => u.email === usuario.email) || { carrito: [], compras: [] };
 
-    this._renderLista(listaFav, usuarioCompleto.favoritos || [], 'No tienes cursos en el carrito aun.');
+    this._renderLista(listaFav, usuarioCompleto.carrito || [], 'No tienes cursos en el carrito aun.');
     this._renderLista(listaComp, usuarioCompleto.compras || [], 'No has comprado cursos aun.');
 
     // aseguro que el logout del profile llame al método
@@ -560,8 +494,7 @@ export class Ingreso {
     });
   }
 
-  // ---------- FAVORITOS / COMPRAS helpers ----------
-  // agrega favorito al usuario logueado (guarda dentro del array Usuarios)
+
   addFavorito(curso) {
     const usuario = this.getCurrentUser();
     if (!usuario) { alert('Debes iniciar sesión'); return; }

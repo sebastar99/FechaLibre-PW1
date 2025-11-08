@@ -37,7 +37,7 @@
         </nav>
 
         <div class="header__iconos" aria-hidden="false">
-            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+            <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none; margin-right:8px;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito"
@@ -46,29 +46,29 @@
         </div>
     </header>
 
-    <main class="profile-container" role="main">
+    <main class="perfil-contenedor" role="main">
 
         <!-- Información del usuario y acciones -->
-        <section class="profile-info" aria-labelledby="infoTitle">
-            <h1 id="infoTitle">Mi perfil</h1>
+        <section class="perfil-info" aria-labelledby="infoTitle">
+            <h1 id="infoTitulo">Mi perfil</h1>
             <p><strong>Nombre:</strong> <span id="perfilNombre">-</span></p>
             <p><strong>Email:</strong> <span id="perfilEmail">-</span></p>
             <div style="margin-top:12px;">
                 <button id="btnLogout" aria-label="Cerrar sesión">Cerrar sesión</button>
-                <button id="btnEliminar" aria-label="Eliminar cuenta">Eliminar cuenta</button>
+                <button id="EliminarCuenta" aria-label="Eliminar cuenta">Eliminar cuenta</button>
             </div>
         </section>
 
-        <!-- Favoritos -->
-        <section class="profile-favoritos" aria-labelledby="favTitle">
-            <h2 id="favTitle">Carrito</h2>
-            <ul id="listaFavoritos" aria-live="polite">
+        <!-- Carrtio -->
+        <section class="perfil-carrito" aria-labelledby="carTiulo">
+            <h2 id="carTiulo">Carrito</h2>
+            <ul id="listaCarrito" aria-live="polite">
             </ul>
         </section>
 
         <!-- Compras -->
-        <section class="profile-compras" aria-labelledby="compTitle">
-            <h2 id="compTitle">Cursos</h2>
+        <section class="perfil-compras" aria-labelledby="compTitulo">
+            <h2 id="compTitulo">Cursos</h2>
             <ul id="listaCompras" aria-live="polite">
             </ul>
         </section>

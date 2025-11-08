@@ -296,14 +296,46 @@ export class Cursos {
         const btn = botones[0].cloneNode(true);
         botones[0].parentNode.replaceChild(btn, botones[0]);
         btn.addEventListener("click", () => {
-          // Guardar curso en el carrito
-          localStorage.setItem(
-            "cursoEnElCarrito",
-            JSON.stringify({ id: curso.id, nombre: curso.nombre, precio: curso.precio })
-          );
+          // Verificar usuario logueado
+          const usuarioActual = JSON.parse(localStorage.getItem("UsuarioActual"));
+          if (!usuarioActual) {
+            mostrarDialogoVerde("Debes iniciar sesión para inscribirte");
+            return;
+          }
 
-          // Mostrar diálogo de confirmación
-          mostrarDialogoVerde("Curso agregado");
+          // Obtener todos los usuarios
+          const usuarios = JSON.parse(localStorage.getItem("Usuarios")) || [];
+          const indiceUsuario = usuarios.findIndex(us => us.email === usuarioActual.email);
+
+          if (indiceUsuario === -1) {
+            mostrarDialogoVerde("Error al cargar usuario");
+            return;
+          }
+
+          const usuario = usuarios[indiceUsuario];
+          usuario.carrito = usuario.carrito || [];
+
+          // Verificar si el curso ya está en el carrito
+          const yaEsta = usuario.carrito.some(c => Number(c.id) === Number(curso.id));
+          if (yaEsta) {
+            mostrarDialogoVerde("El curso ya está en tu carrito");
+            return;
+          }
+
+          // Agregar el curso
+          usuario.carrito.push({
+            id: curso.id,
+            nombre: curso.nombre,
+            precio: curso.precio
+          });
+
+          // ✅ Actualizar el usuario en el array
+          usuarios[indiceUsuario] = usuario;
+
+          // ✅ Guardar cambios en localStorage
+          localStorage.setItem("Usuarios", JSON.stringify(usuarios));
+
+          mostrarDialogoVerde("Curso agregado al carrito ✅");
         });
       }
     }

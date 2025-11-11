@@ -3,6 +3,7 @@ import { Ingreso } from "./ingreso.js";
 import { Cursos } from "./cursos.js"; // Importa la clase Cursos
 import { Calendario } from "./calendario.js";
 import { Home } from "./home.js";
+import { Contacto } from "./contacto.js";
 
 export let ingreso; // será inicializado en DOMContentLoaded
 
@@ -33,5 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Lógica para cargar los cursos recomendados (home)
     const cursosHome = new Home('#cursosContenedor', '/pages/detalleCurso.html');
     cursosHome.mostrarCursosHome();
+
+   // 5. Lógica para contacto
+    const contacto = new Contacto();
+   
+
 
 });

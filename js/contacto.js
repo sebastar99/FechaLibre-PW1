@@ -4,12 +4,18 @@ export class Contacto{
         const form= document.querySelector ("#form");
         const consulta= document.querySelector("#consulta");
         const contador = document.querySelector("#contadorConsulta");
+        const dialogo = document.querySelector("#dialogo");
+        const mensaje = document.querySelector("#dialogoMensaje");
+        const btnCerrar = document.querySelector("#dialogoCerrar");
 
-        // ✅ Contador de caracteres en tiempo real
+        
        consulta.addEventListener("input", () => {
          const total = consulta.value.length;
          contador.textContent = `${total} / 1000 caracteres`;
        });
+
+         // Cerrar el diálogo
+         btnCerrar.addEventListener("click", () => dialogo.close());
 
 
         form.addEventListener("submit", (event)=>{
@@ -19,12 +25,17 @@ export class Contacto{
             const apellido=document.querySelector ("#surname");
             const email=document.querySelector ("#email");
             const numeroTel=document.querySelector ("#phone");
+            
+           function mostrarDialogo(texto) {
+             mensaje.textContent = texto;
+             dialogo.showModal();
+            }
 
-            function validaCampos (){
+           function validaCampos (){
                 const nomAValidar= nombre.value.trim();
                 const apeAValidar= apellido.value.trim();
                 if(!nomAValidar || !apeAValidar){
-                 alert ("Nombre y apellido no pueden estar vacios")
+                 mostrarDialogo ("Nombre y apellido no pueden estar vacios")
                  return false;
 
                  }
@@ -32,7 +43,7 @@ export class Contacto{
                 const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                 if (!emailValido.test(emailAValidar)) {
-                 alert("Por favor ingresá un email válido");
+                 mostrarDialogo("Por favor ingresá un email válido");
                  return false;
                 } 
 
@@ -41,7 +52,7 @@ export class Contacto{
 
                 if(telAValidar !== ""){
                     if(!telValido.test(telAValidar)){
-                        alert("El teléfono debe tener 8 dígitos seprados por un guión en el medio (ej: 1234-5678)");
+                        mostrarDialogo("El teléfono debe tener 8 dígitos seprados por un guión en el medio (ej: 1234-5678)");
                         return false;
                     }
                 }

@@ -8,7 +8,7 @@ export class Contacto{
         const mensaje = document.querySelector("#dialogoMensaje");
         const btnCerrar = document.querySelector("#dialogoCerrar");
 
-        
+        let esValido = false;
        consulta.addEventListener("input", () => {
          const total = consulta.value.length;
          contador.textContent = `${total} / 1000 caracteres`;
@@ -17,7 +17,9 @@ export class Contacto{
         
          btnCerrar.addEventListener("click", () => {
             dialogo.close()
-         window.location.href = "/home.html"
+            if(esValido){
+             window.location.href = "/home.html"
+            }
         });
 
 
@@ -29,7 +31,8 @@ export class Contacto{
             const email=document.querySelector ("#email");
             const numeroTel=document.querySelector ("#phone");
             
-           function mostrarDialogo(texto) {
+           function mostrarDialogo(texto, valido=false) {
+            esValido=valido;
              mensaje.textContent = texto;
              dialogo.showModal();
             }
@@ -71,7 +74,7 @@ export class Contacto{
 
         
          if (validaCampos()){
-             mostrarDialogo("Consulta enviada");
+             mostrarDialogo("Consulta enviada", true);
 
             }
             

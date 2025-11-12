@@ -18,6 +18,8 @@ export class Home {
         const claseCurso = `curso-card curso-${index + 1}-frente`;
         const usuarios = this.usuariosArr[index] || this.usuariosArr[this.usuariosArr.length - 1];
         const link = `${this.detailPage}?id=${curso.id}`;
+        const esPresencial = curso.tipo === 'Presencial';
+        const textoBoton = esPresencial ? 'Inscribirse' : 'Comprar';
         return `
           <div class="${claseCurso}">
             <div class="header-curso-info">
@@ -38,7 +40,7 @@ export class Home {
               <a href="${link}">
                 <button class="caracteristicas">Ver Curso</button>
               </a>
-              <button class="caracteristicas comprar-btn" data-id="${curso.id}">Comprar</button>
+              <button class="caracteristicas comprar-btn" data-id="${curso.id}">${textoBoton}</button>
             </div>
           </div>
         `;

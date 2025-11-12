@@ -1,20 +1,3 @@
-/* Botones de curso en home (Ver Curso y Comprar) */
-.botones-curso-home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5em;
-    width: 100%;
-    margin-bottom: 1.5em;
-}
-
-@media (max-width: 600px) {
-    .botones-curso-home {
-        flex-direction: column;
-        gap: 0.5em;
-        width: 100%;
-    }
-}
 :root {
     --color__principal: #0000001a;
     --color__header: #fff;
@@ -332,6 +315,15 @@ html {
     color: #0277BD;
 }
 
+.botones-curso-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
 
 .medios-de-pago h2 {
     text-align: center;
@@ -423,6 +415,14 @@ html {
         font-size: 50%;
     }
 
+}
+
+@media (max-width: 600px) {
+    .botones-curso-home {
+        flex-direction: column;
+        gap: 0.5em;
+        width: 100%;
+    }
 }
 
 /*FIN RESPONSIVE*/

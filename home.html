@@ -25,7 +25,6 @@
         <nav class="navbar">
             <a href="#lista__cursos">Cursos</a>
             <a href="./pages/contacto.html">Contacto</a>
-            <a href="./pages/giftcard.html">GiftCards</a>
             <a href="./pages/calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
@@ -42,18 +41,32 @@
         </nav>
 
         <div class="header__iconos">
-            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+            <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
-
-            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
             <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
     <!--Fin Header-->
     <!--Inicio Main-->
     <div class="foto-fondo">
+        
+        <div class="slider-container">
+
+            <div class="slide active" style="background-image: url('./multimedia/imagenhero.jpg');"></div>
+            <div class="slide" style="background-image: url('./multimedia/carrusel5.jpg');"></div>
+            <div class="slide" style="background-image: url('./multimedia/carrusel8.jpg');"></div>
+            
+
+            <div class="dots-container">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
+        </div>
+
+
         <div class="main">
             <h1>Aprende algo nuevo <span>cada dia</span></h1>
             <p>Con nuestros cursos online, podras aprender a tu ritmo y desde cualquier lugar.</p>

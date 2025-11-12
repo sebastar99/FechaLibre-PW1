@@ -82,13 +82,6 @@ export class Ingreso {
     usuarios.push(nuevoUsuario);
     localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
     this.resetRegistroForm();
-
-    // Notificar creación (pequeño diálogo)
-    if (typeof Swal !== 'undefined') {
-      Swal.fire({ icon: 'success', title: 'Usuario creado', text: 'Tu cuenta fue creada correctamente.', confirmButtonColor: '#5499c7' });
-    } else {
-      alert('Usuario creado correctamente.');
-    }
   }
 
   resetRegistroForm() {
@@ -519,11 +512,7 @@ export class Ingreso {
         border-radius: 10px;
         padding: 1rem 1.2rem;
         box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        transition: transform .15s ease, box-shadow .15s ease;
-      }
-      .carrito-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        gap: 1em;
       }
       .carrito-info {
         display: flex;
@@ -543,6 +532,9 @@ export class Ingreso {
         font-size: 0.95rem;
         color: #555;
       }
+      #listaCompras .carrito-actions{
+        display: none;
+      }
       .carrito-actions {
         display: flex;
         gap: 0.5rem;
@@ -554,9 +546,7 @@ export class Ingreso {
         border: none;
         font-size: 0.9rem;
         cursor: pointer;
-        transition: background .2s ease, transform .1s ease;
       }
-      .carrito-btn:hover { transform: translateY(-1px); }
       .btn-pagar { background: #2ecc71; color: white; }
       .btn-eliminar { background: #e74c3c; color: white; }
       .btn-gift { background: #f1c40f; color: #333; }
@@ -577,16 +567,15 @@ export class Ingreso {
       const li = document.createElement('li');
       li.className = 'carrito-item';
 
-      // estructura amigable (no JSON crudo)
       li.innerHTML = `
         <div class="carrito-info" title="${escapeHtml(item.nombre || '')}">
           <span class="carrito-nombre">${item.nombre || 'Curso sin título'}</span>
           <span class="carrito-precio">${item.precio || ''}</span>
         </div>
         <div class="carrito-actions">
-          <button class="carrito-btn btn-gift" type="button">🎁 Giftcard</button>
-          <button class="carrito-btn btn-pagar" type="button">💳 Pagar</button>
-          <button class="carrito-btn btn-eliminar" type="button">🗑 Eliminar</button>
+          <button class="carrito-btn btn-gift" type="button">Giftcard</button>
+          <button class="carrito-btn btn-pagar" type="button">Pagar</button>
+          <button class="carrito-btn btn-eliminar" type="button">Eliminar</button>
         </div>
       `;
 
@@ -609,64 +598,25 @@ export class Ingreso {
         self._renderLista(ulElement, usuarios[uIndex].carrito || [], textoVacio);
       });
 
-      // Pagar -> mover a compras
+      // Pagar persona/empresa
       btnPagar.addEventListener('click', () => {
         const usuario = self.getCurrentUser();
         if (!usuario) return notify('Debes iniciar sesión.');
 
-        const usuarios = JSON.parse(localStorage.getItem(self.storageKey)) || [];
-        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
-        if (uIndex === -1) return notify('Usuario no encontrado.');
-
-        // quitar del carrito
-        usuarios[uIndex].carrito = (usuarios[uIndex].carrito || []).filter(c => c.id !== item.id);
-        // agregar a compras (si no está)
-        usuarios[uIndex].compras = usuarios[uIndex].compras || [];
-        if (!usuarios[uIndex].compras.some(c => c.id === item.id)) {
-          usuarios[uIndex].compras.push(item);
-        }
-        localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
-        // re-render ambos lists si están en el DOM
-        const listaCarritoEl = document.getElementById('listaCarrito');
-        const listaComprasEl = document.getElementById('listaCompras');
-        if (listaCarritoEl) self._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
-        if (listaComprasEl) self._renderLista(listaComprasEl, usuarios[uIndex].compras || [], 'No has comprado cursos aun.');
-
-        notify(`Pago simulado: ${item.nombre} añadido a tus compras.`);
+        self._itemSeleccionado = item;
+        self.mostrarOpcionPago();
       });
 
-      // Asignar giftcard (simulado)
       btnGift.addEventListener('click', () => {
-        const code = prompt('Ingresa el código de giftcard:');
-        if (!code) return;
         const usuario = self.getCurrentUser();
         if (!usuario) return notify('Debes iniciar sesión.');
-
-        const usuarios = JSON.parse(localStorage.getItem(self.storageKey)) || [];
-        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
-        if (uIndex === -1) return notify('Usuario no encontrado.');
-
-        // aplicar giftcard: añadimos propiedad giftcard al item en carrito
-        usuarios[uIndex].carrito = usuarios[uIndex].carrito || [];
-        const ci = usuarios[uIndex].carrito.find(c => c.id === item.id);
-        if (ci) {
-          ci.giftcard = code;
-        } else {
-          // si no está en carrito (raro), lo agregamos con giftcard
-          usuarios[uIndex].carrito.push(Object.assign({}, item, { giftcard: code }));
-        }
-        localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
-        // re-render carrito
-        const listaCarritoEl = document.getElementById('listaCarrito');
-        if (listaCarritoEl) self._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
-
-        notify(`Giftcard "${code}" aplicada a ${item.nombre}`);
+        window.location.href = '/pages/giftcard.html';
       });
 
       ulElement.appendChild(li);
     });
 
-    // pequeño helper para notificaciones (usa Swal si está)
+
     function notify(msg) {
       if (typeof Swal !== 'undefined') {
         Swal.fire({ icon: 'success', title: msg, toast: true, position: 'bottom-end', showConfirmButton: false, timer: 1800 });
@@ -674,14 +624,13 @@ export class Ingreso {
         alert(msg);
       }
     }
-
-    // escapar texto para title
+    self.notify = notify;
     function escapeHtml(str = '') {
-      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+      return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
     }
   }
 
-  // FAVORITOS / COMPRAS helpers (los dejas como tenías)
+  // FAVORITOS / COMPRAS
   addFavorito(curso) {
     const usuario = this.getCurrentUser();
     if (!usuario) { alert('Debes iniciar sesión'); return; }
@@ -705,4 +654,222 @@ export class Ingreso {
     localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
     this.updateHeader();
   }
+
+  agregarEstilosModal() {
+    if (document.getElementById('estilosModal')) return;
+    const style = document.createElement('style');
+    style.id = 'estilosModal';
+    style.textContent = `
+    .modal { 
+      position: fixed; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      width: 92vw; 
+      max-width: 30rem; 
+      background: #fff; 
+      border: 1px solid #ddd; 
+      border-radius: 10px; 
+      padding: 0; 
+      z-index: 12000; 
+    }
+
+    .modal::backdrop { 
+      background: rgba(0, 0, 0, .45); 
+    }
+
+    .modal-header { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: .8rem 1rem; 
+      border-bottom: 1px solid #eee; 
+    }
+
+    .modal-titulo { 
+      margin: 0; 
+      font-size: 1rem; 
+      font-weight: 600; 
+    }
+
+    .modal-cerrar { 
+      background: none; 
+      border: none; 
+      font-size: 1rem; 
+      cursor: pointer; 
+      font-weight: bold; 
+    }
+
+    .modal-body { 
+      padding: 1rem; 
+      text-align: center; 
+    }
+
+    .modal-botones { 
+      display: flex; 
+      gap: .6rem; 
+      justify-content: flex-end; 
+      padding: .8rem 1rem; 
+      border-top: 1px solid #eee; 
+    }
+
+    .boton { 
+      padding: .55rem .9rem; 
+      border: 1px solid #ddd; 
+      border-radius: 8px; 
+      background: #f6f6f6; 
+      cursor: pointer; 
+    }
+
+    .boton.principal { 
+      background: #5499c7; 
+      color: #fff; 
+      border: none; 
+    }
+
+    .campo { 
+      display: flex; 
+      flex-direction: column; 
+      gap: .25rem; 
+      margin-bottom: .7rem; 
+    }
+
+    .entrada { 
+      padding: .55rem .7rem; 
+      border: 1px solid #ddd; 
+      border-radius: 8px; 
+      font-size: .95rem; 
+    }
+  `;
+
+    document.head.appendChild(style);
+  }
+
+  mostrarOpcionPago() {
+    this.agregarEstilosModal();
+    const ventana = document.createElement('dialog');
+    ventana.className = 'modal';
+    ventana.innerHTML = `
+      <div class="modal-header">
+        <h3 class="modal-titulo">¿Cómo querés continuar?</h3>
+        <button class="modal-cerrar">X</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Elegí si el pago es para 
+          <button class="boton principal" id="botonEmpresa">empresa</button> 
+          o 
+          <button class="boton" id="botonPersona">persona</button>
+        </p>
+      </div>
+    `;
+    document.body.appendChild(ventana);
+
+    function cerrar() {
+      if (ventana.close) ventana.close();
+      ventana.remove();
+    }
+
+    ventana.querySelector('.modal-cerrar').addEventListener('click', cerrar);
+    ventana.addEventListener('click', (e) => { if (e.target === ventana) cerrar(); });
+
+    // Botones principales
+    ventana.querySelector('#botonEmpresa').addEventListener('click', () => {
+      cerrar();
+      window.location.href = '/pages/inscripcion.html';
+    });
+
+    ventana.querySelector('#botonPersona').addEventListener('click', () => {
+      cerrar();
+      this.mostrarFormularioPersona();
+    });
+
+    // Mostrar el modal
+    ventana.showModal ? ventana.showModal() : ventana.show();
+  }
+
+  mostrarFormularioPersona() {
+    this.agregarEstilosModal();
+    const ventana = document.createElement('dialog');
+    ventana.className = 'modal';
+    ventana.innerHTML = `
+      <form id="formPersona">
+        <div class="modal-header">
+          <h3 class="modal-titulo">Datos de contacto</h3>
+          <button type="button" class="modal-cerrar">X</button>
+        </div>
+        <div class="modal-body">
+          <label class="campo">
+            <span>Nombre</span>
+            <input class="entrada" name="nombre" required placeholder="Juan Pérez">
+          </label>
+          <label class="campo">
+            <span>Email</span>
+            <input class="entrada" type="email" name="email" required placeholder="tu@correo.com">
+          </label>
+          <label class="campo">
+            <span>Teléfono</span>
+            <input class="entrada" name="telefono" required placeholder="+54 9 11 ...">
+          </label>
+        </div>
+        <div class="modal-botones">
+          <button type="button" class="boton" id="botonCancelar">Cancelar</button>
+          <button class="boton principal" type="submit">Enviar y continuar</button>
+        </div>
+      </form>
+    `;
+    document.body.appendChild(ventana);
+
+    // Función para cerrar el cartel
+    function cerrar() {
+      if (ventana.close) ventana.close();
+      ventana.remove();
+    }
+
+    // Botón de cerrar y click fuera del cartel
+    ventana.querySelector('.modal-cerrar').addEventListener('click', cerrar);
+    ventana.addEventListener('click', (e) => { if (e.target === ventana) cerrar(); });
+    ventana.querySelector('#botonCancelar').addEventListener('click', cerrar);
+
+    // Envío del formulario
+    const formulario = ventana.querySelector('#formPersona');
+    formulario.addEventListener('submit', (e) => {
+      e.preventDefault();
+      cerrar();
+
+      // Pagar -> mover a compras
+      const usuario = this.getCurrentUser()
+      if (usuario && this._itemSeleccionado) {
+        const usuarios = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+        const uIndex = usuarios.findIndex(u => u.email === usuario.email);
+        if (uIndex === -1) return notify('Usuario no encontrado.');
+
+        // quitar del carrito
+        const producto = this._itemSeleccionado;
+        usuarios[uIndex].carrito = (usuarios[uIndex].carrito || []).filter(c => c.id !== producto.id);
+        // agregar a compras (si no está)
+        usuarios[uIndex].compras = usuarios[uIndex].compras || [];
+        if (!usuarios[uIndex].compras.some(c => c.id === producto.id)) {
+          usuarios[uIndex].compras.push(producto);
+        }
+        localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+        // re-render ambos lists si están en el DOM
+        const listaCarritoEl = document.getElementById('listaCarrito');
+        const listaComprasEl = document.getElementById('listaCompras');
+        if (listaCarritoEl) this._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
+        if (listaComprasEl) this._renderLista(listaComprasEl, usuarios[uIndex].compras || [], 'No has comprado cursos aun.');
+
+        this.notify(`Pago simulado: ${producto.nombre} añadido a tus compras.`);
+      }
+      this._itemSeleccionado = null;
+
+      setTimeout(() => {
+        window.location.href = '/pages/pagoInscripcion.html';
+      }, 1000);
+    });
+
+    // Mostrar el modal
+    ventana.showModal ? ventana.showModal() : ventana.show();
+  }
+
 }

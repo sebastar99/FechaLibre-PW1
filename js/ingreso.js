@@ -544,6 +544,9 @@ export class Ingreso {
         font-size: 0.95rem;
         color: #555;
       }
+      #listaCompras .carrito-actions{
+        display: none;
+      }
       .carrito-actions {
         display: flex;
         gap: 0.5rem;
@@ -658,7 +661,7 @@ export class Ingreso {
         alert(msg);
       }
     }
-
+    self.notify = notify;
     // escapar texto para title
     function escapeHtml(str = '') {
       return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
@@ -898,10 +901,13 @@ export class Ingreso {
         if (listaCarritoEl) this._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
         if (listaComprasEl) this._renderLista(listaComprasEl, usuarios[uIndex].compras || [], 'No has comprado cursos aun.');
 
-        notify(`Pago simulado: ${producto.nombre} añadido a tus compras.`);
+        this.notify(`Pago simulado: ${producto.nombre} añadido a tus compras.`);
       }
       this._itemSeleccionado = null;
-      window.location.href = '/pages/pagoInscripcion.html';
+
+      setTimeout(() => {
+        window.location.href = '/pages/pagoInscripcion.html';
+      }, 1000);
     });
 
     // Mostrar el modal

@@ -36,6 +36,9 @@ function actualizarIconoCarrito() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    //0. Actualizar el ícono y contador del carrito en todas las páginas
+    actualizarIconoCarrito();
+
     // 1. Inicializacion de los cursos
     const cursos = new Cursos();
     cursos.inicializarDetalle();
@@ -71,8 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. Logica inscripcion para empresas
     new InscripcionEmpresa();
 
-    // 10. Actualizar el ícono y contador del carrito en todas las páginas
-    actualizarIconoCarrito();
+    
 
     // 11. Logica del pago
     const formPago = document.querySelector('#paymentForm');

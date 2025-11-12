@@ -1,6 +1,7 @@
 import { Ingreso } from "./ingreso.js";
 import { Cursos } from "./cursos.js";
 import { Calendario } from "./calendario.js";
+import { Giftcard } from "./giftcard.js";
 import { Home } from "./home.js";
 
 export let ingreso;
@@ -26,4 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursosHome = new Home('#cursosContenedor', '/pages/detalleCurso.html');
     cursosHome.mostrarCursosHome();
 
+    new Giftcard();
 });
+

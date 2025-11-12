@@ -8,13 +8,6 @@ export let ingreso;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
-    
-    const sliderContainer = document.querySelector('.slider-container');
-    if (sliderContainer) {
-        new Slider(sliderContainer, 5000); 
-    }
-
     const cursos = new Cursos();
     cursos.inicializarDetalle();
     cursos.mostrarRecomendados('#recomendadosContenedor', '/pages/detalleCurso.html');
@@ -28,5 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cursosHome = new Home('#cursosContenedor', '/pages/detalleCurso.html');
     cursosHome.mostrarCursosHome();
+
+    const sliderContainer = document.querySelector('.slider-container');
+    if (sliderContainer) {
+        new Slider(sliderContainer, 5000); 
+    }
 
 });

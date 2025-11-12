@@ -5,6 +5,7 @@ export class Cursos {
         id: 1,
         nombre: "Introducción a JavaScript",
         duracion: "38 horas",
+        tipo: "Presencial",
         precio: "$158.000",
         img: "/multimedia/cursoDestacado.png",
         descripcion:
@@ -44,6 +45,7 @@ export class Cursos {
         id: 2,
         nombre: "JavaScript Avanzado",
         duracion: "38 horas",
+        tipo: "Online",
         precio: "$150.000",
         img: "/multimedia/cursoJavaScript.png",
         imgBanner: "/multimedia/cursoDestacado.png",
@@ -84,6 +86,7 @@ export class Cursos {
         id: 3,
         nombre: "Introducción a la IA",
         duracion: "20 horas",
+        tipo: "Presencial",
         precio: "$130.000",
         img: "/multimedia/cursoIA.png",
         descripcion:
@@ -123,6 +126,7 @@ export class Cursos {
         id: 4,
         nombre: "Curso de Diseño Web",
         duracion: "24 horas",
+        tipo: "Online",
         precio: "$100.000",
         img: "/multimedia/cursoDiseñoWeb.png",
         descripcion:
@@ -162,6 +166,7 @@ export class Cursos {
         id: 5,
         nombre: "Introducción a Java",
         duracion: "80 horas",
+        tipo: "Presencial",
         precio: "$200.000",
         img: "/multimedia/cursoPoo.png",
         descripcion:
@@ -201,6 +206,7 @@ export class Cursos {
         id: 6,
         nombre: "Introducción a C#",
         duracion: "30 horas",
+        tipo: "Online",
         precio: "$180.000",
         img: "/multimedia/cursoC.png",
         descripcion:
@@ -276,12 +282,14 @@ export class Cursos {
       const precio = curso.precio || "$0";
       const duracionTexto = curso.duracion || curso.duracionSemanas || "N/D";
       const requisitos = curso.requisitos || "Ninguno";
+      const tipo = curso.tipo || "Sin especificar";
       const descripcion = curso.descripcion || "Descripción no disponible.";
       const certificadoHref = curso.certificadoImage || "/multimedia/ejemploCertificado.png";
 
       descripcionContainer.innerHTML = `
         <p><strong>Valor:</strong> ${precio}</p>
         <p><strong>Tiempo de dedicación necesario:</strong> ${duracionTexto}</p>
+        <p><strong>Modalidad de cursada:</strong> ${tipo}</p>
         <p><strong>Descripción del curso:</strong> ${descripcion}</p>
         <p><strong>Requisitos Previos:</strong> ${requisitos}</p>
         <p><strong>Certificado:</strong>
@@ -348,7 +356,7 @@ export class Cursos {
       dialogo.style.position = "fixed";
       dialogo.style.bottom = "20px";
       dialogo.style.right = "20px";
-      dialogo.style.backgroundColor = "#2ecc71"; // verde
+      dialogo.style.backgroundColor = "#2ecc71";
       dialogo.style.color = "#fff";
       dialogo.style.padding = "10px 16px";
       dialogo.style.borderRadius = "8px";

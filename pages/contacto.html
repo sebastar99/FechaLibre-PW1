@@ -19,19 +19,20 @@
         <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
         <nav class="navbar">
-            <a href="#lista__cursos">Cursos</a>
+            <a href="/home.html#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
-            <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+                <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
+                    autocomplete="off" />
                 <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
+                    <option value="Introducción a JavaScript"></option>
+                    <option value="JavaScript Avanzado"></option>
+                    <option value="Introducción a la IA"></option>
+                    <option value="Curso de Diseño Web"></option>
+                    <option value="Introducción a Java"></option>
+                    <option value="Introducción a C#"></option>
                 </datalist>
                 <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
@@ -42,8 +43,6 @@
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
-
-            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
             <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
@@ -63,14 +62,17 @@
                     Uno de nuestros asesores se comunicará con vos para brindarte mayor información
                 </p>
 
-                <form class="formulario" id= "form"  method="get">
+                <form class="formulario" id="form" method="get">
 
 
 
-                    <input class="formulario_input" type="text" name="username" id="username" required placeholder="Nombre">
-                    <input class="formulario_input" type="text" name="surname" id="surname"  placeholder="Apellido">
-                    <input class="formulario_input" type="email" name="email" id="email" required placeholder="email@gmail.com">
-                    <input class="formulario_input" type="tel" name="phone" id="phone" placeholder="Telefono (formato:4353-7612)">
+                    <input class="formulario_input" type="text" name="username" id="username" required
+                        placeholder="Nombre">
+                    <input class="formulario_input" type="text" name="surname" id="surname" required placeholder="Apellido">
+                    <input class="formulario_input" type="email" name="email" id="email" required
+                        placeholder="email@gmail.com">
+                    <input class="formulario_input" type="tel" name="phone" id="phone"
+                        placeholder="Telefono (formato:4353-7612)">
                     <select class="formulario_input" name="course" required>
                         <option value="" disabled selected> Motivo de consulta </option>
                         <option value="info_curso">Información sobre un curso</option>
@@ -85,7 +87,7 @@
                         maxlength="1000" placeholder="Consulta..."></textarea>
                     <p id="contadorConsulta">0 / 1000 caracteres</p>
                     <input class="formulario_submit" type="submit" value="Enviar ">
-                    
+
                 </form>
             </section>
 
@@ -170,10 +172,10 @@
         </div>
     </footer>
 
-    
+
     <dialog id="dialogo">
-      <p id="dialogoMensaje"></p>
-      <button id="dialogoCerrar">ACEPTAR</button>
+        <p id="dialogoMensaje"></p>
+        <button id="dialogoCerrar">ACEPTAR</button>
     </dialog>
 
 

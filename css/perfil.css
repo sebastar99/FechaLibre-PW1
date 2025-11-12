@@ -83,7 +83,7 @@ html {
     font-weight: 500;
 }
 
-#EliminarCuenta {
+#btnEliminar {
     background: #e74c3c;
     color: #fff;
     border: none;

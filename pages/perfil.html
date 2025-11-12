@@ -11,50 +11,52 @@
 </head>
 
 <body class="profile-page">
+    <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
 
         <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
-        <nav class="navbar" role="navigation" aria-label="Navegación principal">
-            <a href="#lista__cursos">Cursos</a>
+        <nav class="navbar">
+            <a href="/home.html#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
             <a href="./calendario.html">Calendario</a>
-
-            <form class="header__buscador" action="#" method="get" style="display:inline-block; margin-left:12px;">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+                <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
+                    autocomplete="off" />
                 <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
+                    <option value="Introducción a JavaScript"></option>
+                    <option value="JavaScript Avanzado"></option>
+                    <option value="Introducción a la IA"></option>
+                    <option value="Curso de Diseño Web"></option>
+                    <option value="Introducción a Java"></option>
+                    <option value="Introducción a C#"></option>
                 </datalist>
-                <button type="submit" aria-label="Buscar"><i class="fas fa-search" aria-hidden="true"></i></button>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </nav>
 
-        <div class="header__iconos" aria-hidden="false">
+        <div class="header__iconos">
             <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
-            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none; margin-right:8px;"></a>
-            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito"
-                style="display:none; margin-right:8px;"></a>
-            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+            <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
+    <!--Fin Header-->
 
     <main class="perfil-contenedor" role="main">
 
-        <!-- Información del usuario y acciones -->
+        
         <section class="perfil-info" aria-labelledby="infoTitle">
             <h1 id="infoTitulo">Mi perfil</h1>
             <p><strong>Nombre:</strong> <span id="perfilNombre">-</span></p>
             <p><strong>Email:</strong> <span id="perfilEmail">-</span></p>
             <div style="margin-top:12px;">
                 <button id="btnLogout" aria-label="Cerrar sesión">Cerrar sesión</button>
-                <button id="EliminarCuenta" aria-label="Eliminar cuenta">Eliminar cuenta</button>
+                <button id="btnEliminar" aria-label="Eliminar cuenta">Eliminar cuenta</button>
             </div>
         </section>
 

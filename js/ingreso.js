@@ -416,7 +416,7 @@ export class Ingreso {
       }
       if (cartIcon) {
         cartIcon.style.display = 'inline-block';
-        if (!cartIcon.href || cartIcon.href.endsWith('#')) cartIcon.href = '/pages/compras.html';
+        if (!cartIcon.href || cartIcon.href.endsWith('#')) cartIcon.href = '/pages/perfil.html';
       }
     } else {
       if (userNameSpan) userNameSpan.textContent = '';

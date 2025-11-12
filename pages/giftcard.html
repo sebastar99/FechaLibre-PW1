@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/headerFooter.css">
-    <link rel="stylesheet" href="/css/giftcard.css">
+    <link rel="stylesheet" href="../css/headerFooter.css">
+    <link rel="stylesheet" href="../css/giftcard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
@@ -26,7 +26,6 @@
         <nav class="navbar">
             <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
-            <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
             <form class="header__buscador" action="#" method="get">
@@ -43,12 +42,10 @@
         </nav>
 
         <div class="header__iconos">
-            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+            <span id="mensaje" style="display:none; margin-right:10px;">Bienvenido: <strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
-
-            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
             <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
@@ -68,72 +65,81 @@
 
             <div class="form-column">
                 <h2>Personalización de Giftcard</h2>
-                <form action="./giftcardCreada.html" method="get">
+                <form action="./pagoInscripcion.html" method="get">
                     <div class="form-group">
                         <label for="recipient-name">Nombre Destinatario</label>
-                        <input type="text" id="recipient-name" placeholder="Nombre Destinatario" required>
+                        <input type="text" id="recipient-name" placeholder="Nombre Destinatario" maxlength="10" required>
                     </div>
                     <div class="form-group">
                         <label>Color de la fuente</label>
                         <div class="options-group">
                             <input type="radio" id="color1" name="color" checked required>
                             <label for="color1" class="radio-label">
-                                <div class="color-option" style="background-color: #f9f9f9;"></div>
+                                <div class="color-option color-option-white"></div>
                             </label>
                             <input type="radio" id="color2" name="color" required>
                             <label for="color2" class="radio-label">
-                                <div class="color-option" style="background-color: #000000;"></div>
+                                <div class="color-option color-option-lightgrey"></div>
                             </label>
                             <input type="radio" id="color3" name="color" required>
                             <label for="color3" class="radio-label">
-                                <div class="color-option" style="background-color: #cccccc;"></div>
+                                <div class="color-option color-option-grey"></div>
                             </label>
                             <input type="radio" id="color4" name="color" required>
                             <label for="color4" class="radio-label">
-                                <div class="color-option" style="background-color: #676767;"></div>
+                                <div class="color-option color-option-lightblack"></div>
                             </label>
                             <input type="radio" id="color5" name="color" required>
                             <label for="color5" class="radio-label">
-                                <div class="color-option" style="background-color: #2f2f2f;"></div>
+                                <div class="color-option color-option-black"></div>
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Tamaño de fuente</label>
                         <div class="options-group">
-                            <input type="radio" id="font20" name="fontsize"><label for="font20"
-                                class="radio-label"><span class="font-size-option">20px</span></label>
-                            <input type="radio" id="font28" name="fontsize" checked><label for="font28"
-                                class="radio-label"><span class="font-size-option">28px</span></label>
-                            <input type="radio" id="font32" name="fontsize"><label for="font32"
-                                class="radio-label"><span class="font-size-option">32px</span></label>
-                            <input type="radio" id="font48" name="fontsize"><label for="font48"
-                                class="radio-label"><span class="font-size-option">48px</span></label>
-                            <input type="radio" id="font60" name="fontsize"><label for="font60"
-                                class="radio-label"><span class="font-size-option">60px</span></label>
+                            <input type="radio" id="font20" name="fontsize">
+                            <label for="font20" class="radio-label">
+                                <span class="font-size-option">20px</span>
+                            </label>
+                            <input type="radio" id="font28" name="fontsize" checked>
+                            <label for="font28" class="radio-label">
+                                <span class="font-size-option">28px</span>
+                            </label>
+                            <input type="radio" id="font32" name="fontsize">
+                            <label for="font32" class="radio-label">
+                                <span class="font-size-option">32px</span>
+                            </label>
+                            <input type="radio" id="font48" name="fontsize"><label for="font48" class="radio-label">
+                                <span class="font-size-option">48px</span>
+                            </label>
+                            <input type="radio" id="font60" name="fontsize">
+                            <label for="font60"class="radio-label">
+                                <span class="font-size-option">60px</span>
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="amount">Monto $</label>
-                        <input type="number" id="amount" placeholder="Ingrese el monto" required>
+                        <input type="number" id="amount" placeholder="Ingrese el monto" min="0000" max="9999999" required>
                     </div>
                     <div class="form-group">
                         <label>Ubicación</label>
                         <div class="options-group">
-                            <input type="radio" id="loc-tl" name="location" checked required>
-                            <label for="loc-tl" class="radio-label">
+                            <input type="radio" id="location-topleft" name="location" checked required>
+                            <label for="location-topleft" class="radio-label">
                                 <div class="location-option top-left">
                                     <div class="inner-box"></div>
                                 </div>
                             </label>
-                            <input type="radio" id="loc-tr" name="location" required>
-                            <label for="loc-tr" class="radio-label">
+                            <input type="radio" id="location-topright" name="location" required>
+                            <label for="location-topright" class="radio-label">
                                 <div class="location-option top-right">
                                     <div class="inner-box"></div>
                                 </div>
                             </label>
-                            <input type="radio" id="loc-c" name="location" required>
-                            <label for="loc-c" class="radio-label">
+                            <input type="radio" id="location-center" name="location" required>
+                            <label for="location-center" class="radio-label">
                                 <div class="location-option center">
                                     <div class="inner-box"></div>
                                 </div>
@@ -143,20 +149,25 @@
                     <div class="form-group">
                         <label>Fondo</label>
                         <div class="options-group">
-                            <input type="radio" id="bg1" name="background" required><label for="bg1" class="radio-label">
-                                <div class="background-option" style="background-color: #1565c0;"></div>
+                            <input type="radio" id="bg1" name="background" required>
+                            <label for="bg1" class="radio-label">
+                                <div class="background-option background-color-lightblue"></div>
                             </label>
-                            <input type="radio" id="bg2" name="background" checked required><label for="bg2" class="radio-label">
-                                <div class="background-option" style="background-color: #2a2b3f;"></div>
+                            <input type="radio" id="bg2" name="background" checked required>
+                            <label for="bg2" class="radio-label">
+                                <div class="background-option background-color-blue "></div>
                             </label>
-                            <input type="radio" id="bg3" name="background" required><label for="bg3" class="radio-label">
-                                <div class="background-option" style="background-color: #171717;"></div>
+                            <input type="radio" id="bg3" name="background" required>
+                            <label for="bg3" class="radio-label">
+                                <div class="background-option  background-color-purple "></div>
                             </label>
-                            <input type="radio" id="bg4" name="background" required><label for="bg4" class="radio-label">
-                                <div class="background-option" style="background-color: #5499c7;"></div>
+                            <input type="radio" id="bg4" name="background" required>
+                            <label for="bg4" class="radio-label">
+                                <div class="background-option  background-color-black"></div>
                             </label>
-                            <input type="radio" id="bg5" name="background" required><label for="bg5" class="radio-label">
-                                <div class="background-option" style="background-color: #0a0a0a;"></div>
+                            <input type="radio" id="bg5" name="background" required>
+                            <label for="bg5" class="radio-label">
+                                <div class="background-option background-color-red"></div>
                             </label>
                         </div>
                     </div>

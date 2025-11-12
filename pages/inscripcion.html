@@ -1,176 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/headerFooter.css">
-    <link rel="stylesheet" href="/css/inscripcion.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet">
-    <title>Inscripción</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/headerFooter.css">
+  <link rel="stylesheet" href="/css/inscripcion.css">
+  <title>Inscripción Empresa</title>
 </head>
 
 <body>
-    <!--Inicio Header-->
-    <header class="header">
-        <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
-        <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
+  <!--Inicio Header-->
+  <header class="header">
+    <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
+    <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
 
-        <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
+    <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
-        <nav class="navbar">
-            <a href="#lista__cursos">Cursos</a>
-            <a href="./contacto.html">Contacto</a>
-            <a href="./giftcard.html">GiftCards</a>
-            <a href="./calendario.html">Calendario</a>
+    <nav class="navbar">
+      <a href="/home.html">Home</a>
+      <a href="./contacto.html">Contacto</a>
+      <a href="./giftcard.html">GiftCards</a>
+      <a href="./calendario.html">Calendario</a>
+    </nav>
 
-            <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
-                <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
-                </datalist>
-                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
-            </form>
-        </nav>
+    <div class="header__iconos">
+      <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
+    </div>
+  </header>
+  <!--Fin Header-->
 
-        <div class="header__iconos">
-            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
-                    id="userName"></strong></span>
-            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
-            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+  <main class="main-inscripcion">
+    <section class="inscripcion">
+      <h2>Inscripción de Empresa</h2>
 
-            <!-- icono usuario: por defecto va a la página de ingreso; si está logueado, JS lo dirigirá al perfil -->
-            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
-        </div>
-    </header>
-    <!--Fin Header-->
-
-    <main>
-        <section class="inscripcion">
-            <h2>Inscripción</h2>
-            <form action="#personas_cargados" method="get">
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" value="Nombre" required />
-                </div>
-
-                <div>
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" placeholder="Apellido" value="Apellido" required />
-                </div>
-
-                <div>
-                    <label for="dni">DNI:</label>
-                    <input type="number" id="dni" name="dni" placeholder="22333444" value="22333444" required />
-                </div>
-
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="nombre" name="email" placeholder="hola@unlam.com" value="hola@unlam.com"
-                        required />
-                </div>
-
-                <div>
-                    <label for="curso">Curso:</label>
-                    <select id="curso" name="curso" required>
-                        <option value="Desarrollo Web" selected>Desarrollo Web</option>
-                        <option value="Introducción a IA">Introducción a IA</option>
-                        <option value="Introducción a Java">Introducción a Java</option>
-                        <option value="Introducción a JavaScript">Introducción a JavaScript</option>
-                        <option value="JavaScript Avanzado">JavaScript Avanzado</option>
-                    </select>
-                </div>
-
-                <div>
-                    <button class="agregar" type="submit">Agregar persona</button>
-                </div>
-            </form>
-        </section>
-
-        <section class="personas_cargados" id="personas_cargados">
-            <h2>Datos cargados</h2>
-            <div class="persona">
-                <div class="datos_persona">
-                    <p class="dato">Juan</p>
-                    <p class="dato">Perez</p>
-                    <p class="dato">22333444</p>
-                </div>
-                <div class="circulo">
-                    <div class="menos"></div>
-                </div>
-            </div>
-
-            <div class="persona">
-                <div class="datos_persona">
-                    <p class="dato">Juan</p>
-                    <p class="dato">Perez</p>
-                    <p class="dato">22333444</p>
-                </div>
-                <div class="circulo">
-                    <div class="menos"></div>
-                </div>
-            </div>
-
-            <div class="persona">
-                <div class="datos_persona">
-                    <p class="dato">Juan</p>
-                    <p class="dato">Perez</p>
-                    <p class="dato">22333444</p>
-                </div>
-                <div class="circulo">
-                    <div class="menos"></div>
-                </div>
-            </div>
-
-        </section>
-        <section class="total">
-            <h2>Total:</h2>
-            <p class="precio">$300.000</p>
-            <a class="inscribir" href="./pagoInscripcion.html">Inscribir</a>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="footer__datos">
-            <div class="footer__datos__contenedores">
-                <h3>Datos del Grupo</h3>
-                <p>Martina Diaz: 43718797</p>
-                <p>Oriana Casteluche: 45871864</p>
-                <p>Sebastian Staropoli: 41543579</p>
-                <p>Ramiro Velardez: 43103976</p>
-                <p>Tomas Amaya: 42673374</p>
-            </div>
-            <div class="footer__datos__contenedores">
-                <h3>Nuestros Links</h3>
-                <a href="../home.html">Home</a>
-                <a href="./calendario.html">Cursos</a>
-                <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target=_blank">
-                    Mapa
-                </a>
-                <a href="./contacto.html">Preguntas</a>
-            </div>
-            <div class="footer__datos__contenedores">
-                <h3>Redes Sociales</h3>
-                <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
-                <a href="#">Instagram</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Gmail</a>
-            </div>
+      <form id="formPersona" class="form-inscripcion">
+        <div class="campo">
+          <label for="personaNombre">Nombre:</label>
+          <input type="text" id="personaNombre" placeholder="Ej: Juan" required />
         </div>
 
-        <div class="footer__creditos">
-            <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+        <div class="campo">
+          <label for="personaApellido">Apellido:</label>
+          <input type="text" id="personaApellido" placeholder="Ej: Pérez" required />
         </div>
-    </footer>
-    <script type="module" src="../js/script.js"></script>
+
+        <div class="campo">
+          <label for="personaDni">DNI:</label>
+          <input type="number" id="personaDni" placeholder="22333444" required />
+        </div>
+
+        <div class="campo">
+          <label for="personaEmail">Email:</label>
+          <input type="email" id="personaEmail" placeholder="ejemplo@empresa.com" required />
+        </div>
+
+        <div class="campo">
+          <label for="curso">Curso:</label>
+          <select id="curso" required>
+            <option value="" disabled selected>Elegí un curso</option>
+            <option value="Desarrollo Web">Desarrollo Web</option>
+            <option value="Introducción a IA">Introducción a IA</option>
+            <option value="Introducción a Java">Introducción a Java</option>
+            <option value="Introducción a JavaScript">Introducción a JavaScript</option>
+            <option value="JavaScript Avanzado">JavaScript Avanzado</option>
+          </select>
+        </div>
+
+        <button id="agregarPersona" type="submit" class="agregar">Agregar participante</button>
+      </form>
+    </section>
+
+    <section class="personas_cargados">
+      <h2>Participantes cargados</h2>
+      <ul id="listaPersonas" class="lista-personas"></ul>
+    </section>
+
+    <section class="total">
+      <h2>Total a pagar</h2>
+      <p id="total" class="precio">$0</p>
+      <a class="inscribir" href="./pagoInscripcion.html">Inscribir</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__datos">
+      <div class="footer__datos__contenedores">
+        <h3>Datos del Grupo</h3>
+        <p>Martina Diaz: 43718797</p>
+        <p>Oriana Casteluche: 45871864</p>
+        <p>Sebastian Staropoli: 41543579</p>
+        <p>Ramiro Velardez: 43103976</p>
+        <p>Tomas Amaya: 42673374</p>
+      </div>
+      <div class="footer__datos__contenedores">
+        <h3>Nuestros Links</h3>
+        <a href="../home.html">Home</a>
+        <a href="./calendario.html">Cursos</a>
+        <a href="https://maps.app.goo.gl/J559o8RC6uQiyENMA" target="_blank">Mapa</a>
+        <a href="./contacto.html">Preguntas</a>
+      </div>
+      <div class="footer__datos__contenedores">
+        <h3>Redes Sociales</h3>
+        <a href="https://github.com/SebaUnlam/ProgramacionWeb1-FechaLibre.git">GitHub</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Gmail</a>
+      </div>
+    </div>
+
+    <div class="footer__creditos">
+      <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/script.js"></script>
 </body>
-
 </html>

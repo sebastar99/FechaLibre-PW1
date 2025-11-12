@@ -27,14 +27,16 @@
             <a href="./contacto.html">Contacto</a>
             <a href="./calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+             <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+                <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
+                    autocomplete="off" />
                 <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
+                    <option value="Introducción a JavaScript"></option>
+                    <option value="JavaScript Avanzado"></option>
+                    <option value="Introducción a la IA"></option>
+                    <option value="Curso de Diseño Web"></option>
+                    <option value="Introducción a Java"></option>
+                    <option value="Introducción a C#"></option>
                 </datalist>
                 <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>

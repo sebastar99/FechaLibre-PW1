@@ -27,22 +27,23 @@
             <a href="./pages/contacto.html">Contacto</a>
             <a href="./pages/calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+                <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
+                    autocomplete="off" />
                 <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
+                    <option value="Introducción a JavaScript"></option>
+                    <option value="JavaScript Avanzado"></option>
+                    <option value="Introducción a la IA"></option>
+                    <option value="Curso de Diseño Web"></option>
+                    <option value="Introducción a Java"></option>
+                    <option value="Introducción a C#"></option>
                 </datalist>
                 <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </nav>
 
         <div class="header__iconos">
-            <span id="mensaje" style="display:none; margin-right:10px;"><strong
-                    id="userName"></strong></span>
+            <span id="mensaje" style="display:none; margin-right:10px;"><strong id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
             <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
@@ -51,13 +52,13 @@
     <!--Fin Header-->
     <!--Inicio Main-->
     <div class="foto-fondo">
-        
+
         <div class="slider-container">
 
             <div class="slide active" style="background-image: url('./multimedia/imagenhero.jpg');"></div>
             <div class="slide" style="background-image: url('./multimedia/carrusel5.jpg');"></div>
             <div class="slide" style="background-image: url('./multimedia/carrusel8.jpg');"></div>
-            
+
 
             <div class="dots-container">
                 <span class="dot active" data-index="0"></span>
@@ -94,7 +95,7 @@
     <section class="cursos" id="lista__cursos">
         <h2> Nuestros cursos</h2>
         <div class="cursos-contenedor" id="cursosContenedor">
-            
+
         </div>
     </section>
     <section class="medios-de-pago">

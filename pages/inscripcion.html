@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +19,29 @@
     <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
     <nav class="navbar">
-      <a href="/home.html">Home</a>
-      <a href="./contacto.html">Contacto</a>
-      <a href="./giftcard.html">GiftCards</a>
-      <a href="./calendario.html">Calendario</a>
+      <a href="#lista__cursos">Cursos</a>
+      <a href="./pages/contacto.html">Contacto</a>
+      <a href="./pages/calendario.html">Calendario</a>
+      <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+        <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
+          autocomplete="off" />
+        <datalist id="cursos">
+          <option value="Introducción a JavaScript"></option>
+          <option value="JavaScript Avanzado"></option>
+          <option value="Introducción a la IA"></option>
+          <option value="Curso de Diseño Web"></option>
+          <option value="Introducción a Java"></option>
+          <option value="Introducción a C#"></option>
+        </datalist>
+        <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+      </form>
     </nav>
 
     <div class="header__iconos">
-      <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
+      <span id="mensaje" style="display:none; margin-right:10px;"><strong id="userName"></strong></span>
+      <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+      <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+      <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
     </div>
   </header>
   <!--Fin Header-->
@@ -116,4 +132,5 @@
 
   <script type="module" src="../js/script.js"></script>
 </body>
+
 </html>

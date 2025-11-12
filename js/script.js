@@ -6,7 +6,8 @@ import { Giftcard } from "./giftcard.js";
 import { Contacto } from "./contacto.js";
 import { Slider } from "./slider.js";
 import { InscripcionEmpresa } from "./inscripcionEmpresa.js";
-import Pago from "./pago.js"; // ✅ importación agregada
+import Pago from "./pago.js";
+import { Detailist } from "./datalist.js";
 
 export let ingreso;
 
@@ -19,7 +20,7 @@ function actualizarIconoCarrito() {
         carritoIcon.style.display = 'inline-block';
     } else {
         carritoIcon.style.display = 'none';
-        return; 
+        return;
     }
 
     let contador = parseInt(sessionStorage.getItem('contadorCarrito')) || 0;
@@ -77,10 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const formPago = document.querySelector('#paymentForm');
     if (formPago) {
         const pago = new Pago({
-            montoKey: 'montoSeleccionado',   // puedes cambiar si usas otra key
+            montoKey: 'montoSeleccionado',
             montoInputSelector: '#monto',
             formSelector: '#paymentForm'
         });
         pago.init();
     }
+
+    // 12. logica detailist 
+    new Detailist();
 });

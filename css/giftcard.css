@@ -160,6 +160,7 @@ main {
     min-width: 18.75em;
     text-align: center;
 }
+/* --- PREVIEW ---*/
 
 .giftcard-preview {
     background-color: #cccccc;
@@ -172,12 +173,13 @@ main {
     justify-content: center;
     align-items: center;
     color: #fff;
+    
 }
 
 .giftcard-price {
     position: absolute;
     top: 0.9375em;
-    right: 0.9375em;
+    
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0.3125em 0.625em;
     border-radius: 0.3125em;
@@ -194,6 +196,9 @@ main {
     font-size: 2em;
     font-weight: bold;
     margin-top: 0.3125em;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .preview-title {
@@ -203,6 +208,8 @@ main {
     font-weight: 500;
     letter-spacing: 0.03125em;
 }
+
+/* --- FORM ---*/
 
 .form-column {
     flex: 1;
@@ -228,6 +235,7 @@ main {
     font-size: 0.875em;
 }
 
+/* ---name & mount ---*/
 input[type="text"],
 input[type="number"] {
     width: 100%;
@@ -255,16 +263,35 @@ input[type="number"] {
     justify-content: center;
 }
 
+/* --- COLOR OPTION ---*/
+
 .color-option {
     width: 1.875em;
     height: 1.875em;
     border-radius: 50%;
     border: 0.125em solid transparent;
 }
+.color-option-white {
+    background-color: #f9f9f9;
+}
+.color-option-lightgrey {
+    background-color: #cccccc;
+}
+.color-option-grey {
+    background-color: #676767;
+}
+.color-option-lightblack {
+    background-color: #2f2f2f;
+}
+.color-option-black {
+    background-color: #000000;
+}
 
 input[type="radio"]:checked+.radio-label .color-option {
     border-color: var(--color__newsletter);
 }
+
+/* --- FONT OPTION ---*/
 
 .font-size-option {
     font-size: 0.875em;
@@ -275,6 +302,7 @@ input[type="radio"]:checked+.radio-label .font-size-option {
     color: var(--color__newsletter);
     font-weight: bold;
 }
+/* --- LOCATION OPTION ---*/
 
 .location-option {
     width: 2.5em;
@@ -300,6 +328,8 @@ input[type="radio"]:checked+.radio-label .location-option {
     background-color: var(--color__sombra);
 }
 
+/* ---BACKGROUND OPTION--- */
+
 .background-option {
     width: 1.875em;
     height: 1.875em;
@@ -310,6 +340,23 @@ input[type="radio"]:checked+.radio-label .location-option {
 input[type="radio"]:checked+.radio-label .background-option {
     border-color: var(--color__newsletter);
 }
+.background-color-blue {
+    background-color: #1565c0;
+}
+.background-color-purple {
+    background-color: #2a2b3f;
+}
+.background-color-black {
+    background-color: #0a0a0a;
+}
+.background-color-red {
+    background-color: #a72929;
+}
+.background-color-lightblue {
+    background-color: #5499c7;
+}
+
+/* --- CONFIRM BUTTOM ---*/
 
 .confirm-button {
     width: 100%;
@@ -529,5 +576,4 @@ input[type="radio"]:checked+.radio-label .background-option {
     }
 
 }
-
 

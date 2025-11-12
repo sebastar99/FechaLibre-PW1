@@ -38,7 +38,7 @@ html {
     overflow-x: hidden;
 }
 
-.profile-container {
+.perfil-contenedor {
     margin-top: 6em;
     width: 100%;
     padding: 0 1rem;
@@ -48,9 +48,9 @@ html {
 }
 
 /* ===== Tarjetas (secciones) ===== */
-.profile-info,
-.profile-favoritos,
-.profile-compras {
+.perfil-info,
+.perfil-carrito,
+.perfil-compras {
     background: white;
     padding: 1.5rem;
     border-radius: 10px;
@@ -58,16 +58,16 @@ html {
 }
 
 /* ===== Títulos ===== */
-.profile-info h1,
-.profile-favoritos h2,
-.profile-compras h2 {
+.perfil-info h1,
+.perfil-carrito h2,
+.perfil-compras h2 {
     margin-top: 0;
     margin-bottom: 1em;
     font-weight: 600;
     color: #0077ff;
 }
 
-.profile-info p {
+.perfil-info p {
     margin: 0.4rem 0;
     line-height: 1.5;
 }
@@ -83,7 +83,7 @@ html {
     font-weight: 500;
 }
 
-#btnEliminar {
+#EliminarCuenta {
     background: #e74c3c;
     color: #fff;
     border: none;
@@ -122,7 +122,7 @@ footer {
         font-size: 70%;
     }
 
-    .profile-container {
+    .perfil-contenedor {
         grid-template-columns: 1fr, 1fr, 1fr;
         gap: 1.5rem;
         margin-top: 5em;
@@ -137,7 +137,7 @@ footer {
     }
 
     /*FIN RESPONSIVE HEADER*/
-    .profile-container {
+    .perfil-contenedor {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         margin-top: 5em;
@@ -151,7 +151,7 @@ footer {
         font-size: 50%;
     }
 
-    .profile-container {
+    .perfil-contenedor {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         margin-top: 5em;

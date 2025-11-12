@@ -20,24 +20,24 @@
         <nav class="navbar" role="navigation" aria-label="Navegación principal">
             <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
-            <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get" style="display:inline-block; margin-left:12px;">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
-                <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
-                </datalist>
-                <button type="submit" aria-label="Buscar"><i class="fas fa-search" aria-hidden="true"></i></button>
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+              <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos" autocomplete="off" />
+             <datalist id="cursos">
+                 <option value="Introducción a JavaScript"></option>
+                 <option value="JavaScript Avanzado"></option>
+                 <option value="Introducción a la IA"></option>
+                 <option value="Curso de Diseño Web"></option>
+                 <option value="Introducción a Java"></option>
+                 <option value="Introducción a C#"></option>
+               </datalist>
+             <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </nav>
 
         <div class="header__iconos" aria-hidden="false">
-            <span id="welcomeMsg" style="display:none; margin-right:10px;">Bienvenido: <strong
+            <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none; margin-right:8px;"></a>
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito"
@@ -46,29 +46,29 @@
         </div>
     </header>
 
-    <main class="profile-container" role="main">
+    <main class="perfil-contenedor" role="main">
 
         <!-- Información del usuario y acciones -->
-        <section class="profile-info" aria-labelledby="infoTitle">
-            <h1 id="infoTitle">Mi perfil</h1>
+        <section class="perfil-info" aria-labelledby="infoTitle">
+            <h1 id="infoTitulo">Mi perfil</h1>
             <p><strong>Nombre:</strong> <span id="perfilNombre">-</span></p>
             <p><strong>Email:</strong> <span id="perfilEmail">-</span></p>
             <div style="margin-top:12px;">
                 <button id="btnLogout" aria-label="Cerrar sesión">Cerrar sesión</button>
-                <button id="btnEliminar" aria-label="Eliminar cuenta">Eliminar cuenta</button>
+                <button id="EliminarCuenta" aria-label="Eliminar cuenta">Eliminar cuenta</button>
             </div>
         </section>
 
-        <!-- Favoritos -->
-        <section class="profile-favoritos" aria-labelledby="favTitle">
-            <h2 id="favTitle">Carrito</h2>
-            <ul id="listaFavoritos" aria-live="polite">
+        <!-- Carrtio -->
+        <section class="perfil-carrito" aria-labelledby="carTiulo">
+            <h2 id="carTiulo">Carrito</h2>
+            <ul id="listaCarrito" aria-live="polite">
             </ul>
         </section>
 
         <!-- Compras -->
-        <section class="profile-compras" aria-labelledby="compTitle">
-            <h2 id="compTitle">Cursos</h2>
+        <section class="perfil-compras" aria-labelledby="compTitulo">
+            <h2 id="compTitulo">Cursos</h2>
             <ul id="listaCompras" aria-live="polite">
             </ul>
         </section>

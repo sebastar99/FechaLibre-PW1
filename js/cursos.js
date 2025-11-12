@@ -3,103 +3,247 @@ export class Cursos {
     const datosDeLosCursos = [
       {
         id: 1,
-        nombre: "Introduccion a JavaScript",
+        nombre: "Introducción a JavaScript",
         duracion: "38 horas",
         precio: "$158.000",
         img: "/multimedia/cursoDestacado.png",
-        imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
-          "En este curso aprenderás los fundamentos de JavaScript y cómo usarlos para crear páginas web interactivas. Verás sintaxis básica, variables, tipos de datos, operadores y estructuras de control (condicionales y bucles). Aprenderás a crear y usar funciones, manejar arreglos y objetos, y trabajar con el DOM para responder a eventos del usuario. También cubrirás conceptos modernos de ES6+ (let/const, arrow functions, template literals) y técnicas básicas de depuración. Al final desarrollarás pequeños proyectos prácticos (calculadoras, listas interactivas y consumo de APIs) que te permitirán aplicar lo aprendido y empezar a construir tu portafolio.",
+          "En este curso aprenderás los fundamentos de JavaScript y cómo usarlos para crear páginas web interactivas.",
         requisitos: "HTML y CSS básicos",
         duracionSemanas: "15 semanas",
         dedicacionSemanal: "4 a 6 hs semanales",
-        clasesEnVivo: "1 clase semanal de 2hs"
+        clasesEnVivo: "1 clase semanal de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Fundamentos del Lenguaje",
+            items: [
+              "Sintaxis básica, variables y tipos de datos",
+              "Estructuras de control y funciones",
+              "Buenas prácticas en programación"
+            ]
+          },
+          {
+            titulo: "Unidad 2: DOM y Eventos",
+            items: [
+              "Selección y manipulación de elementos del DOM",
+              "Eventos y manejo de interacciones del usuario",
+              "Creación de interfaces dinámicas"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Proyecto Final",
+            items: [
+              "Desarrollo de aplicación interactiva",
+              "Depuración y optimización del código",
+              "Entrega y presentación del proyecto"
+            ]
+          }
+        ]
       },
       {
         id: 2,
-        nombre: "JavaScript avanzado",
+        nombre: "JavaScript Avanzado",
         duracion: "38 horas",
         precio: "$150.000",
         img: "/multimedia/cursoJavaScript.png",
         imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
-          "Curso avanzado donde profundizarás en patrones de diseño, asincronismo avanzado (async/await), Node.js, y desarrollo de aplicaciones web complejas con frameworks modernos. Ideal para quienes buscan ser desarrolladores Full-Stack.",
-        requisitos: "JavaScript basico",
+          "Curso avanzado donde profundizarás en asincronismo, patrones de diseño y frameworks modernos.",
+        requisitos: "JavaScript básico",
         duracionSemanas: "20 semanas",
         dedicacionSemanal: "6 a 8 hs semanales",
-        clasesEnVivo: "2 clases semanal de 2hs"
+        clasesEnVivo: "2 clases semanales de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Asincronismo y APIs",
+            items: [
+              "Promesas, async/await y fetch",
+              "Consumo de APIs REST",
+              "Manejo de errores y tiempo de espera"
+            ]
+          },
+          {
+            titulo: "Unidad 2: Arquitectura y Patrones",
+            items: [
+              "Patrones de diseño comunes (Module, Observer, MVC)",
+              "Programación funcional y clases ES6",
+              "Optimización del rendimiento"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Aplicación Completa",
+            items: [
+              "Proyecto con Node.js o framework front-end",
+              "Persistencia de datos y routing",
+              "Despliegue en entorno productivo"
+            ]
+          }
+        ]
       },
       {
         id: 3,
-        nombre: "Introduccion a la IA",
+        nombre: "Introducción a la IA",
         duracion: "20 horas",
         precio: "$130.000",
         img: "/multimedia/cursoIA.png",
         descripcion:
-          "En este curso aprenderás los conceptos fundamentales de la Inteligencia Artificial y el aprendizaje automático, desde la teoría básica hasta su aplicación práctica. Trabajarás con técnicas clave como regresión, clasificación, árboles de decisión, clustering y redes neuronales, y aprenderás a elegir la técnica adecuada según el problema.",
+          "Aprende los conceptos fundamentales de la Inteligencia Artificial y el aprendizaje automático.",
         requisitos: "Ninguno",
         duracionSemanas: "10 semanas",
         dedicacionSemanal: "2 a 4 hs semanales",
-        clasesEnVivo: "1 clase semanal de 2hs"
+        clasesEnVivo: "1 clase semanal de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Conceptos Básicos de IA",
+            items: [
+              "Historia y aplicaciones de la IA",
+              "Tipos de aprendizaje: supervisado y no supervisado",
+              "Modelos y algoritmos más comunes"
+            ]
+          },
+          {
+            titulo: "Unidad 2: Machine Learning Práctico",
+            items: [
+              "Entrenamiento y validación de modelos",
+              "Uso de datasets reales",
+              "Evaluación con métricas"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Proyecto de Clasificación",
+            items: [
+              "Implementación de modelo simple",
+              "Visualización de resultados",
+              "Análisis y mejora del modelo"
+            ]
+          }
+        ]
       },
       {
         id: 4,
-        nombre: "Curso Diseño Web",
+        nombre: "Curso de Diseño Web",
         duracion: "24 horas",
         precio: "$100.000",
         img: "/multimedia/cursoDiseñoWeb.png",
-        imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
-          "Aprenderás a crear tu sitio web partiendo del prototipo. Te sumergirás en las mejores prácticas de HTML y CSS, optimización, versionado con GIT, SASS y Bootstrap. Al finalizar, sabrás cómo presentar un presupuesto y atender a tu cliente final.",
+          "Aprenderás a crear sitios web desde cero con HTML, CSS, SASS y Bootstrap.",
         requisitos: "Ninguno",
         duracionSemanas: "12 semanas",
         dedicacionSemanal: "2 a 4 hs semanales",
-        clasesEnVivo: "1 clase semanal de 2hs"
+        clasesEnVivo: "1 clase semanal de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Estructura y Maquetado",
+            items: [
+              "HTML5 semántico y accesible",
+              "Diseño adaptable (responsive)",
+              "Uso de Flexbox y Grid"
+            ]
+          },
+          {
+            titulo: "Unidad 2: Estilos y Componentes",
+            items: [
+              "CSS avanzado y animaciones",
+              "SASS y variables personalizadas",
+              "Bootstrap y componentes reutilizables"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Proyecto Final",
+            items: [
+              "Creación de un sitio completo",
+              "Optimización de rendimiento y SEO básico",
+              "Publicación en hosting gratuito"
+            ]
+          }
+        ]
       },
       {
         id: 5,
-        nombre: "Introduccion a Java",
+        nombre: "Introducción a Java",
         duracion: "80 horas",
         precio: "$200.000",
         img: "/multimedia/cursoPoo.png",
-        imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
-          "Aprenderás los fundamentos de la programación orientada a objetos (POO) con Java. Cubrirás sintaxis, clases, herencia, polimorfismo, manejo de excepciones y colecciones. Ideal para construir aplicaciones robustas de back-end.",
+          "Aprenderás los fundamentos de la programación orientada a objetos con Java.",
         requisitos: "Ninguno",
         duracionSemanas: "18 semanas",
         dedicacionSemanal: "4 a 5 hs semanales",
-        clasesEnVivo: "2 clases semanal de 2hs"
+        clasesEnVivo: "2 clases semanales de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Fundamentos del Lenguaje Java",
+            items: [
+              "Sintaxis básica y estructuras de control",
+              "Clases, objetos y métodos",
+              "Tipos de datos y operadores"
+            ]
+          },
+          {
+            titulo: "Unidad 2: POO y Colecciones",
+            items: [
+              "Herencia, polimorfismo y encapsulamiento",
+              "Interfaces y clases abstractas",
+              "Uso de colecciones y genéricos"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Proyecto Final con Java",
+            items: [
+              "Desarrollo de aplicación de consola",
+              "Manejo de archivos y excepciones",
+              "Buenas prácticas de programación"
+            ]
+          }
+        ]
       },
       {
         id: 6,
-        nombre: "Introduccion a C#",
+        nombre: "Introducción a C#",
         duracion: "30 horas",
         precio: "$180.000",
         img: "/multimedia/cursoC.png",
-        imgBanner: "/multimedia/cursoDestacado.png",
         descripcion:
-          "Sumérgete en C# y aprende los fundamentos esenciales de la programación moderna. Este curso cubre la sintaxis básica, el manejo de variables y tipos de datos, y el uso de estructuras de control como condicionales y bucles. Adquirirás una introducción práctica a la Programación Orientada a Objetos (POO), creando clases y objetos, preparándote para construir tus primeras aplicaciones en el ecosistema .NET.",
+          "Sumérgete en C# y aprende los fundamentos esenciales de la programación moderna.",
         requisitos: "Ninguno",
         duracionSemanas: "18 semanas",
         dedicacionSemanal: "4 a 5 hs semanales",
-        clasesEnVivo: "2 clases semanal de 2hs"
+        clasesEnVivo: "2 clases semanales de 2hs",
+        unidades: [
+          {
+            titulo: "Unidad 1: Fundamentos de C#",
+            items: [
+              "Sintaxis básica, variables y tipos",
+              "Estructuras de control y bucles",
+              "Manejo de entrada/salida"
+            ]
+          },
+          {
+            titulo: "Unidad 2: Programación Orientada a Objetos",
+            items: [
+              "Clases, objetos y métodos",
+              "Constructores y sobrecarga",
+              "Encapsulamiento y herencia"
+            ]
+          },
+          {
+            titulo: "Unidad 3: Proyecto Práctico",
+            items: [
+              "Aplicación simple con C# y .NET",
+              "Depuración y testing básico",
+              "Optimización del código"
+            ]
+          }
+        ]
       }
     ];
 
-    // Guardar en localStorage solo si no existe (evita sobrescribir durante dev)
-    if (!localStorage.getItem("cursos")) {
-      localStorage.setItem("cursos", JSON.stringify(datosDeLosCursos));
-    }
+    localStorage.setItem("cursos", JSON.stringify(datosDeLosCursos));
   }
 
-  // helpers
+  // Metodos de Busqueda
   static leerCursos() {
-    try {
-      return JSON.parse(localStorage.getItem("cursos") || "[]");
-    } catch (e) {
-      console.error("Error parseando cursos:", e);
-      return [];
-    }
+    return JSON.parse(localStorage.getItem("cursos") || "[]");
   }
 
   static obtenerCursoPorId(id) {
@@ -107,8 +251,8 @@ export class Cursos {
     return cursos.find(c => Number(c.id) === Number(id)) || null;
   }
 
-  // inicializa la vista de detalle: toma ?id=... y reemplaza el contenido del HTML
-  static inicializarDetalle() {
+  // Informacion del curso
+  inicializarDetalle() {
     const params = new URLSearchParams(window.location.search);
     const cursoId = params.has("id") ? parseInt(params.get("id"), 10) : null;
     const curso = cursoId ? Cursos.obtenerCursoPorId(cursoId) : Cursos.leerCursos()[0];
@@ -119,6 +263,11 @@ export class Cursos {
     const botones = document.querySelectorAll(".curso__boton");
     const contenidoEl = document.querySelector(".curso__info__contenido");
     const barras = document.querySelectorAll(".curso__barra__info");
+
+    if (imgEl && curso.img) {
+      imgEl.src = curso.img;
+      imgEl.alt = curso.nombre || "Imagen del curso";
+    }
 
 
     if (tituloEl) tituloEl.textContent = curso.nombre || "Sin título";
@@ -147,57 +296,97 @@ export class Cursos {
         const btn = botones[0].cloneNode(true);
         botones[0].parentNode.replaceChild(btn, botones[0]);
         btn.addEventListener("click", () => {
-          localStorage.setItem("cursoSeleccionado", JSON.stringify({ id: curso.id, nombre: curso.nombre, precio: curso.precio }));
-          window.location.href = "./inscripcion.html";
-        });
-      }
-      if (botones[1]) {
-        const btn2 = botones[1].cloneNode(true);
-        botones[1].parentNode.replaceChild(btn2, botones[1]);
-        btn2.addEventListener("click", () => {
-          localStorage.setItem("cursoParaRegalo", JSON.stringify({ id: curso.id, nombre: curso.nombre, precio: curso.precio }));
-          window.open("./giftcard.html", "_blank");
+          // Verificar usuario logueado
+          const usuarioActual = JSON.parse(localStorage.getItem("UsuarioActual"));
+          if (!usuarioActual) {
+            mostrarDialogoVerde("Debes iniciar sesión para inscribirte");
+            return;
+          }
+
+          // Obtener todos los usuarios
+          const usuarios = JSON.parse(localStorage.getItem("Usuarios")) || [];
+          const indiceUsuario = usuarios.findIndex(us => us.email === usuarioActual.email);
+
+          if (indiceUsuario === -1) {
+            mostrarDialogoVerde("Error al cargar usuario");
+            return;
+          }
+
+          const usuario = usuarios[indiceUsuario];
+          usuario.carrito = usuario.carrito || [];
+
+          // Verificar si el curso ya está en el carrito
+          const yaEsta = usuario.carrito.some(c => Number(c.id) === Number(curso.id));
+          if (yaEsta) {
+            mostrarDialogoVerde("El curso ya está en tu carrito");
+            return;
+          }
+
+          // Agregar el curso
+          usuario.carrito.push({
+            id: curso.id,
+            nombre: curso.nombre,
+            precio: curso.precio
+          });
+
+          // ✅ Actualizar el usuario en el array
+          usuarios[indiceUsuario] = usuario;
+
+          // ✅ Guardar cambios en localStorage
+          localStorage.setItem("Usuarios", JSON.stringify(usuarios));
+
+          mostrarDialogoVerde("Curso agregado al carrito ✅");
         });
       }
     }
 
+    // --- Función auxiliar para mostrar el diálogo ---
+    function mostrarDialogoVerde(mensaje) {
+      // Crear contenedor
+      const dialogo = document.createElement("div");
+      dialogo.textContent = mensaje;
+      dialogo.style.position = "fixed";
+      dialogo.style.bottom = "20px";
+      dialogo.style.right = "20px";
+      dialogo.style.backgroundColor = "#2ecc71"; // verde
+      dialogo.style.color = "#fff";
+      dialogo.style.padding = "10px 16px";
+      dialogo.style.borderRadius = "8px";
+      dialogo.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+      dialogo.style.fontSize = "14px";
+      dialogo.style.fontWeight = "500";
+      dialogo.style.zIndex = "1000";
+      dialogo.style.opacity = "0";
+      dialogo.style.transition = "opacity 0.3s ease";
+
+      document.body.appendChild(dialogo);
+
+      // Animar entrada
+      requestAnimationFrame(() => {
+        dialogo.style.opacity = "1";
+      });
+
+      // Ocultar automáticamente
+      setTimeout(() => {
+        dialogo.style.opacity = "0";
+        setTimeout(() => dialogo.remove(), 300);
+      }, 2000);
+    }
+
     if (contenidoEl) {
-      // siempre dejamos espacio en blanco y luego generamos 3 detalles
       contenidoEl.innerHTML = "";
-
-      // tomar unidades definidas en el curso (si las hay)
       const unidadesCurso = Array.isArray(curso.unidades) ? curso.unidades : [];
-
-      // helper para crear un listado de items seguro
       const safeItems = (arr) => {
         if (!Array.isArray(arr) || arr.length === 0) return null;
         return arr.map(i => String(i));
       };
 
-      // generar exactamente 3 <details>
       for (let i = 0; i < 3; i++) {
         const unidadExistente = unidadesCurso[i] || null;
-
-        // si existe la unidad en los datos, use su título + items; si no, crear contenido por defecto
         const titulo = unidadExistente?.titulo || `UNIDAD ${i + 1}`;
         let items = safeItems(unidadExistente?.items);
 
-        if (!items) {
-          // si no hay items, intentamos extraer fragmentos útiles:
-          if (i === 0 && curso.descripcion) {
-            // primer detalle: usar parte de la descripción como items útiles
-            const desc = String(curso.descripcion);
-            const primeraLinea = desc.split('.').slice(0, 2).join('.').trim();
-            items = primeraLinea ? [primeraLinea + (primeraLinea.endsWith('.') ? '' : '.'), 'Ejercicios prácticos', 'Material descargable'] : ['Contenido próximamente'];
-          } else {
-            items = ['Contenido próximamente', 'Próximas actualizaciones', 'Contacto para más info'];
-          }
-        }
-
         const details = document.createElement("details");
-        // Abrir el primer detalle por defecto
-        if (i === 0) details.open = true;
-
         const summary = document.createElement("summary");
         summary.textContent = titulo;
         details.appendChild(summary);
@@ -239,7 +428,7 @@ export class Cursos {
 
   mostrarRecomendados(containerSelector = '#recomendadosContenedor', detailPage = '/pages/detalleCurso.html') {
     const contenedor = document.querySelector(containerSelector);
-    if (!contenedor) return; // si no existe el contenedor, salir silenciosamente
+    if (!contenedor) return;
     const cursos = Cursos.leerCursos() || [];
     contenedor.innerHTML = '';
 

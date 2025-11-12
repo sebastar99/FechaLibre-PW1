@@ -1,4 +1,3 @@
-
 export class Slider {
   constructor(sliderContainer, autoPlayInterval = 5000) {
     this.container = sliderContainer;

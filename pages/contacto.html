@@ -24,17 +24,19 @@
             <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
-                <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
-                </datalist>
-                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+              <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos" autocomplete="off" />
+             <datalist id="cursos">
+                 <option value="Introducción a JavaScript"></option>
+                 <option value="JavaScript Avanzado"></option>
+                 <option value="Introducción a la IA"></option>
+                 <option value="Curso de Diseño Web"></option>
+                 <option value="Introducción a Java"></option>
+                 <option value="Introducción a C#"></option>
+               </datalist>
+             <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
+
         </nav>
 
         <div class="header__iconos">
@@ -63,11 +65,14 @@
                     Uno de nuestros asesores se comunicará con vos para brindarte mayor información
                 </p>
 
-                <form class="formulario" method="get">
-                    <input class="formulario_input" type="text" name="username" required placeholder="Nombre">
-                    <input class="formulario_input" type="text" name="surname" required placeholder="Apellido">
-                    <input class="formulario_input" type="email" name="email" required placeholder="email@gmail.com">
-                    <input class="formulario_input" type="tel" name="phone" placeholder="Telefono (formato:1143537612)">
+                <form class="formulario" id= "form"  method="get">
+
+
+
+                    <input class="formulario_input" type="text" name="username" id="username" required placeholder="Nombre">
+                    <input class="formulario_input" type="text" name="surname" id="surname"  required placeholder="Apellido">
+                    <input class="formulario_input" type="email" name="email" id="email" required placeholder="email@gmail.com">
+                    <input class="formulario_input" type="tel" name="phone" id="phone" placeholder="Telefono (formato:4353-7612)">
                     <select class="formulario_input" name="course" required>
                         <option value="" disabled selected> Motivo de consulta </option>
                         <option value="info_curso">Información sobre un curso</option>
@@ -76,10 +81,13 @@
                         <option value="tecnico">Problemas técnicos</option>
                         <option value="asesoramiento">Asesoramiento para elegir curso</option>
                         <option value="otros">Otros</option>
+
                     </select>
-                    <textarea class="formulario_input formulario_consulta" name="consulta" required
-                        placeholder="Consulta..."></textarea>
+                    <textarea class="formulario_input formulario_consulta" name="consulta" id="consulta"
+                        maxlength="1000" placeholder="Consulta..."></textarea>
+                    <p id="contadorConsulta">0 / 1000 caracteres</p>
                     <input class="formulario_submit" type="submit" value="Enviar ">
+                    
                 </form>
             </section>
 
@@ -163,6 +171,14 @@
             <p>Creado por <span>FechaLibre</span> | todos los derechos reservados.</p>
         </div>
     </footer>
+
+    
+    <dialog id="dialogo">
+      <p id="dialogoMensaje"></p>
+      <button id="dialogoCerrar">ACEPTAR</button>
+    </dialog>
+
+
     <script type="module" src="../js/script.js"></script>
 </body>
 

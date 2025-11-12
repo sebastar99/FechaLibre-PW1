@@ -20,19 +20,19 @@
         <nav class="navbar" role="navigation" aria-label="Navegación principal">
             <a href="#lista__cursos">Cursos</a>
             <a href="./contacto.html">Contacto</a>
-            <a href="./giftcard.html">GiftCards</a>
             <a href="./calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get" style="display:inline-block; margin-left:12px;">
-                <input type="text" name="q" placeholder="Buscar..." list="cursos" />
-                <datalist id="cursos">
-                    <option value="Introduccion a JavaScript"></option>
-                    <option value="Introduccion a la IA"></option>
-                    <option value="Introduccion a Java"></option>
-                    <option value="Desarrollo web"></option>
-                    <option value="JavaScript avanzado"></option>
-                </datalist>
-                <button type="submit" aria-label="Buscar"><i class="fas fa-search" aria-hidden="true"></i></button>
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+              <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos" autocomplete="off" />
+             <datalist id="cursos">
+                 <option value="Introducción a JavaScript"></option>
+                 <option value="JavaScript Avanzado"></option>
+                 <option value="Introducción a la IA"></option>
+                 <option value="Curso de Diseño Web"></option>
+                 <option value="Introducción a Java"></option>
+                 <option value="Introducción a C#"></option>
+               </datalist>
+             <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </nav>
 

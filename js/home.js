@@ -1,9 +1,5 @@
-// js/CursosSimple.js
 export class Home {
-  /**
-   * containerSelector: selector CSS del contenedor donde insertar (p. ej. '#cursosContenedor')
-   * detailPage: ruta base para los links de detalle (p. ej. '/pages/detalleCurso.html')
-   */
+
   constructor(containerSelector, detailPage = '/pages/detalleCurso.html') {
     this.container = document.querySelector(containerSelector);
     this.detailPage = detailPage;

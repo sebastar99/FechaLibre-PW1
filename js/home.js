@@ -18,7 +18,6 @@ export class Home {
         const claseCurso = `curso-card curso-${index + 1}-frente`;
         const usuarios = this.usuariosArr[index] || this.usuariosArr[this.usuariosArr.length - 1];
         const link = `${this.detailPage}?id=${curso.id}`;
-        // Botón Comprar con data-id para identificar el curso
         return `
           <div class="${claseCurso}">
             <div class="header-curso-info">
@@ -47,14 +46,12 @@ export class Home {
       .join('');
     this.container.innerHTML = cursosHTML;
 
-    // Inicializar contador desde sessionStorage
     const carritoIcon = document.querySelector('.fa-shopping-cart');
     let contador = parseInt(sessionStorage.getItem('contadorCarrito')) || 0;
     if (carritoIcon) {
       carritoIcon.setAttribute('data-contador', contador);
     }
 
-    // Asignar evento a todos los botones Comprar
     const botonesComprar = this.container.querySelectorAll('.comprar-btn');
     botonesComprar.forEach(btn => {
       btn.addEventListener('click', () => {

@@ -1,3 +1,14 @@
+function actualizarContadorCarritoGlobal() {
+    const carritoIcon = document.querySelector('.fa-shopping-cart');
+    if (carritoIcon) {
+        let contador = parseInt(sessionStorage.getItem('contadorCarrito')) || 0;
+        carritoIcon.setAttribute('data-contador', contador);
+        if (contador > 0) {
+            carritoIcon.style.display = '';
+        }
+    }
+}
+
 import { Ingreso } from "./ingreso.js";
 import { Cursos } from "./cursos.js";
 import { Calendario } from "./calendario.js";
@@ -7,6 +18,7 @@ import { Slider } from "./slider.js";
 export let ingreso;
 
 document.addEventListener('DOMContentLoaded', () => {
+    actualizarContadorCarritoGlobal();
 
     const cursos = new Cursos();
     cursos.inicializarDetalle();

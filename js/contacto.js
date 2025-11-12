@@ -14,8 +14,11 @@ export class Contacto{
          contador.textContent = `${total} / 1000 caracteres`;
        });
 
-         // Cerrar el diálogo
-         btnCerrar.addEventListener("click", () => dialogo.close());
+        
+         btnCerrar.addEventListener("click", () => {
+            dialogo.close()
+         window.location.href = "/home.html"
+        });
 
 
         form.addEventListener("submit", (event)=>{
@@ -68,7 +71,8 @@ export class Contacto{
 
         
          if (validaCampos()){
-             form.submit ();
+             mostrarDialogo("Consulta enviada");
+
             }
             
         })

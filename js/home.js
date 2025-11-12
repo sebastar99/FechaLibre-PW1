@@ -4,7 +4,6 @@ export class Home {
     this.detailPage = detailPage;
     this.usuariosArr = [1000, 800, 600, 400, 200];
 
-    // Opciones para compatibilidad con la clase Ingreso
     this.storageKey = options.storageKey || 'Usuarios';
     this.sessionKey = options.sessionKey || 'UsuarioActual';
   }
@@ -14,10 +13,13 @@ export class Home {
     const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
     const cursosHTML = cursos
       .map((curso, index) => {
+        // --- FIX: construir 'link' aquí ---
+        const link = `${this.detailPage}?id=${encodeURIComponent(curso.id)}`;
+
         const claseCurso = `curso-card curso-${index + 1}-frente`;
         const usuarios = this.usuariosArr[index] || this.usuariosArr[this.usuariosArr.length - 1];
-        const link = `${this.detailPage}?id=${curso.id}`;
-        const textoBoton = 'Inscribirse';
+        const esPresencial = curso.tipo === 'Presencial';
+        const textoBoton = esPresencial ? 'Inscribirse' : 'Comprar';
         return `
           <div class="${claseCurso}">
             <div class="header-curso-info">
@@ -47,7 +49,6 @@ export class Home {
 
     this.container.innerHTML = cursosHTML;
 
-    // Ícono carrito y contador: sincronizar con sesión/usuario si existe
     const carritoIcon = document.querySelector('.fa-shopping-cart');
     const usuarioSesion = JSON.parse(localStorage.getItem(this.sessionKey));
     let contador = 0;
@@ -61,7 +62,6 @@ export class Home {
     sessionStorage.setItem('contadorCarrito', contador);
     if (carritoIcon) carritoIcon.setAttribute('data-contador', contador);
 
-    // listeners para "Inscribirse" -> agregar al carrito del usuario
     const botonesComprar = this.container.querySelectorAll('.comprar-btn');
     botonesComprar.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -73,7 +73,6 @@ export class Home {
           return;
         }
 
-        // verificar usuario en sesión
         const usuarioSesion = JSON.parse(localStorage.getItem(this.sessionKey));
         if (!usuarioSesion) {
           window.location.href = '/pages/ingreso.html';
@@ -90,12 +89,10 @@ export class Home {
 
         usuarios[uIndex].carrito = usuarios[uIndex].carrito || [];
 
-        // prevenir duplicados
         const yaEnCarrito = usuarios[uIndex].carrito.some(c => String(c.id) === String(cursoObj.id));
         if (yaEnCarrito) {
           this._notify('El curso ya está en tu carrito.');
         } else {
-          // agregar curso
           const item = {
             id: cursoObj.id,
             nombre: cursoObj.nombre,
@@ -106,15 +103,12 @@ export class Home {
           usuarios[uIndex].carrito.push(item);
           localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
 
-          // actualizar contador
           const nuevoContador = usuarios[uIndex].carrito.length;
           sessionStorage.setItem('contadorCarrito', nuevoContador);
           if (carritoIcon) carritoIcon.setAttribute('data-contador', nuevoContador);
 
-          // 🔔 Disparar evento global para que otras páginas actualicen su vista
           window.dispatchEvent(new Event('carritoActualizado'));
 
-          // re-render local (si estamos en perfil)
           const listaCarritoEl = document.getElementById('listaCarrito');
           if (listaCarritoEl) {
             this._simpleRenderListaCarrito(listaCarritoEl, usuarios[uIndex].carrito);
@@ -126,7 +120,6 @@ export class Home {
     });
   }
 
-  // Render simple del carrito (solo si existe en DOM)
   _simpleRenderListaCarrito(ulElement, items = []) {
     if (!ulElement) return;
     ulElement.innerHTML = '';
@@ -175,7 +168,7 @@ export class Home {
       div.style.zIndex = 99999;
       div.textContent = msg;
       document.body.appendChild(div);
-      setTimeout(() => { try { div.remove(); } catch (e) {} }, 1600);
+      setTimeout(() => { try { div.remove(); } catch (e) { } }, 1600);
     }
   }
 }

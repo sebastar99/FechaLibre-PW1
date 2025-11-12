@@ -282,12 +282,14 @@ export class Cursos {
       const precio = curso.precio || "$0";
       const duracionTexto = curso.duracion || curso.duracionSemanas || "N/D";
       const requisitos = curso.requisitos || "Ninguno";
+      const tipo = curso.tipo || "Sin especificar";
       const descripcion = curso.descripcion || "Descripción no disponible.";
       const certificadoHref = curso.certificadoImage || "/multimedia/ejemploCertificado.png";
 
       descripcionContainer.innerHTML = `
         <p><strong>Valor:</strong> ${precio}</p>
         <p><strong>Tiempo de dedicación necesario:</strong> ${duracionTexto}</p>
+        <p><strong>Modalidad de cursada:</strong> ${tipo}</p>
         <p><strong>Descripción del curso:</strong> ${descripcion}</p>
         <p><strong>Requisitos Previos:</strong> ${requisitos}</p>
         <p><strong>Certificado:</strong>

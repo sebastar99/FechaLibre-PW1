@@ -1,181 +1,246 @@
 :root {
     --color__boton: #5499c7;
     --color__boton-hover: #0277bd;
-    --color__circulo-hover: red;
-    --color__persona-hover: rgba(255, 0, 0, 0.351);
+    --color__alerta: #e74c3c; /* Nuevo: Rojo para eliminar */
+    --color__alerta-hover: #c0392b;
 }
 
-.inscripcion{
+/* --- Configuración del Contenedor Principal --- */
+.main-inscripcion {
+    /* Centrado general */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.inscripcion {
     width: 90%;
+    max-width: 1200px; /* Tope de ancho para pantallas grandes */
     background-color: white;
     padding: 2em;
     border-radius: 0.5em;
-    margin: 6em auto;
+    margin: 6em auto 2em auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra suave para profundidad */
 }
 
-.inscripcion form {
-    padding: 0 1em;
+/* Títulos */
+.inscripcion h2, .total h2 {
+    margin-bottom: 1em;
+    color: #333;
 }
 
-.inscripcion div {
-    margin-top: 1.8em;
-}
-
+/* --- Estilos de Inputs Generales --- */
 .inscripcion label {
     display: block;
-    margin-bottom: 0.7em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #555;
 }
 
+.inscripcion select,
 .inscripcion input {
     display: block;
     width: 100%;
     padding: 1em;
     border: 1px solid lightgray;
     border-radius: 0.5em;
+    margin-bottom: 1em; /* Espacio por defecto */
 }
 
-.inscripcion select {
-    display: block;
-    width: 100%;
+/* Campo específico para el selector de curso */
+.campo-curso {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 2px dashed #eee; /* Separador visual */
+}
+
+/* --- NÚCLEO: Filas Dinámicas de Participantes --- */
+#contenedorParticipantes {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.persona-row {
+    display: flex;
+    align-items: center; /* Centra verticalmente inputs y botón */
+    gap: 1em;
     padding: 1em;
-    border: 1px solid lightgray;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
     border-radius: 0.5em;
+    animation: fadeIn 0.4s ease-out; /* Animación de entrada suave */
+}
+
+/* Grupo de inputs (para que se adapten al ancho) */
+.inputs-grupo {
+    display: flex;
+    flex-wrap: wrap; /* Permite que bajen si no hay espacio */
+    gap: 10px;
+    width: 100%;
+}
+
+/* Ajuste de los inputs dentro de la fila */
+.inputs-grupo input {
+    flex: 1 1 150px; /* Crecen para ocupar espacio, mínimo 150px */
+    margin-bottom: 0; /* El margen lo maneja el gap del padre */
+}
+
+/* Botón Circular Eliminar */
+.btn-eliminar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color__alerta);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0; /* Evita que el botón se aplaste */
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-eliminar:hover {
+    background-color: var(--color__alerta-hover);
+    transform: scale(1.1); /* Pequeño efecto pop al pasar el mouse */
+}
+
+.btn-eliminar i {
+    pointer-events: none; /* Asegura que el clic lo reciba el botón */
+}
+
+/* --- Botones de Acción --- */
+.acciones {
+    margin-top: 1.5em;
 }
 
 .agregar {
-    display: block;
-    width: 100%;
-    padding: 1em;
-    background-color: var(--color__boton);
-    border-radius: 0.5em;
-}
-.agregar:hover {
-    background-color: var(--color__boton-hover);
-    color: white;
-    cursor: pointer;
-}
-
-.personas_cargados{
-    width: 90%;
-    padding: 0 2em;
-    margin: 0 auto;
-}
-
-.persona {
-    width: 100%;
-    display: flex;
-    padding: 1em;
-    border-radius: 0.5em;
-}
-
-.datos_persona{
-    display: flex;
-    width: 90%;
-}
-
-.dato{
-    align-items: flex-start;
-    width: 30%;
-    margin: 0 auto;
-    padding: 1em;
-    border-radius: 0.5em;
-    border: 1px solid lightgray;
-    background-color: white;
-}
-
-.circulo{
-    display: flex;
-    width: 3em;
-    margin-left: 2%;
-    padding: .6em;
-    border-radius: 50%;
-    border: 1px solid black;
-    background-color: var(--color__circulo-hover);
-}
-.persona:has(.circulo:hover) {
-    background-color: var(--color__persona-hover)
-}
-
-.circulo:hover{
-    cursor: pointer;
-}
-.menos{
-    margin: auto;
-    width: 100%;
-    height: 30%;
-    background-color: white;
-}
-
-.total{
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 90%;
-    padding: 0 2em;
-    margin: 2em auto ;    
+    gap: 0.5em;
+    width: 100%;
+    padding: 1em;
+    background-color: var(--color__boton);
+    color: white;
+    border: none;
+    border-radius: 0.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.precio{
-    margin: 1em;
+.agregar:hover {
+    background-color: var(--color__boton-hover);
 }
-.inscribir{  
+
+/* --- Sección Total e Inscribir --- */
+.total {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 4em auto;
     text-align: center;
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 0.5em;
+}
+
+.precio {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin: 1em 0;
+}
+
+.inscribir {  
     display: block;
     width: 100%;
-    max-width: 10em;
+    max-width: 300px;
+    margin: 0 auto;
     padding: 1em;
     border-radius: 0.5em;
-    background-color: var(--color__boton);
-    color: black;
+    background-color: var(--color__boton); /* Reutilizamos variable */
+    color: white; /* Texto blanco para mejor contraste */
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
 }
 
 .inscribir:hover {
     background-color: var(--color__boton-hover);
-    color: white;
+}
+
+/* --- Modal (Ventana Emergente) --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro */
+    backdrop-filter: blur(5px); /* Efecto borroso moderno */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10vh auto; /* 10% desde arriba */
+    padding: 2em;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    animation: slideDown 0.4s;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-@media (min-width: 28em) {
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* --- Animaciones --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive --- */
+@media (min-width: 768px) {
     .inscripcion {
-        width: 80%;
         margin-top: 8em;
+        padding: 3em;
     }
-}
 
-@media (min-width: 47em) {
-    main {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+    .agregar {
+        width: auto; /* Botón más pequeño en escritorio */
+        padding: 1em 2em;
     }
     
-    .personas_cargados {
-        width: 45%;
-        margin: 8em 0;
-        padding: 0;
-        padding-top: 2em;
-        max-width: 60em;
-    }
-
-    .persona{
-        padding-right: 0;
-    }
-    
-    .inscripcion {
-        width: 45%;
-        margin: 8em 2em 1em 0;
-        max-width: 60em;
-    }
-
-    .inscripcion form {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-
-    .inscripcion div {
-        width: 47.5%;
+    .inputs-grupo input {
+        /* En pantallas grandes, aseguramos que no se estiren demasiado si son pocos */
+        flex: 1 1 18%; 
     }
 }
-

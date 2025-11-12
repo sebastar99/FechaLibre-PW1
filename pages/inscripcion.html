@@ -46,58 +46,50 @@
   </header>
   <!--Fin Header-->
 
-  <main class="main-inscripcion">
+<main class="main-inscripcion">
     <section class="inscripcion">
       <h2>Inscripción de Empresa</h2>
 
+      <div class="campo-curso">
+    <label for="curso">Seleccioná el curso para el grupo:</label>
+    <select id="curso" required>
+      <option value="" disabled selected>Elegí un curso</option>
+      <option value="Curso de Diseño Web">Curso de Diseño Web</option>
+      <option value="Introducción a la IA">Introducción a la IA</option>
+      <option value="Introducción a Java">Introducción a Java</option>
+      <option value="Introducción a JavaScript">Introducción a JavaScript</option>
+      <option value="JavaScript Avanzado">JavaScript Avanzado</option>
+      <option value="Introducción a C#">Introducción a C#</option>
+    </select>
+</div>
+
       <form id="formPersona" class="form-inscripcion">
-        <div class="campo">
-          <label for="personaNombre">Nombre:</label>
-          <input type="text" id="personaNombre" placeholder="Ej: Juan" required />
-        </div>
+        <div id="contenedorParticipantes"></div>
 
-        <div class="campo">
-          <label for="personaApellido">Apellido:</label>
-          <input type="text" id="personaApellido" placeholder="Ej: Pérez" required />
+        <div class="acciones">
+            <button id="agregarPersona" type="button" class="agregar">
+                <i class="fas fa-plus"></i> Agregar participante
+            </button>
         </div>
-
-        <div class="campo">
-          <label for="personaDni">DNI:</label>
-          <input type="number" id="personaDni" placeholder="22333444" required />
-        </div>
-
-        <div class="campo">
-          <label for="personaEmail">Email:</label>
-          <input type="email" id="personaEmail" placeholder="ejemplo@empresa.com" required />
-        </div>
-
-        <div class="campo">
-          <label for="curso">Curso:</label>
-          <select id="curso" required>
-            <option value="" disabled selected>Elegí un curso</option>
-            <option value="Desarrollo Web">Desarrollo Web</option>
-            <option value="Introducción a IA">Introducción a IA</option>
-            <option value="Introducción a Java">Introducción a Java</option>
-            <option value="Introducción a JavaScript">Introducción a JavaScript</option>
-            <option value="JavaScript Avanzado">JavaScript Avanzado</option>
-          </select>
-        </div>
-
-        <button id="agregarPersona" type="submit" class="agregar">Agregar participante</button>
       </form>
     </section>
 
-    <section class="personas_cargados">
-      <h2>Participantes cargados</h2>
-      <ul id="listaPersonas" class="lista-personas"></ul>
-    </section>
-
     <section class="total">
-      <h2>Total a pagar</h2>
+      <h2>Resumen de inscripción</h2>
       <p id="total" class="precio">$0</p>
-      <a class="inscribir" href="./pagoInscripcion.html">Inscribir</a>
+      <button id="btnInscribir" class="inscribir">Inscribir</button>
     </section>
   </main>
+
+  <div id="modalResumen" class="modal" style="display:none;">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3>Resumen de Inscripción</h3>
+          <ul id="listaResumen"></ul>
+          <p id="totalModal"></p>
+          <button id="confirmarPago">Ir a Pagar</button>
+      </div>
+  </div>
 
   <footer class="footer">
     <div class="footer__datos">

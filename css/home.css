@@ -258,9 +258,10 @@ html {
 }
 
 .curso-card a {
-    display: block;
+    display: inline-block;
     text-align: center;
-    padding-bottom: 1.5em;
+    padding: 0;
+    vertical-align: middle;
 }
 
 .caracteristicas {
@@ -312,6 +313,15 @@ html {
 
 .estrellas i {
     color: #0277BD;
+}
+
+.botones-curso-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    margin-bottom: 1.5em;
 }
 
 
@@ -405,6 +415,14 @@ html {
         font-size: 50%;
     }
 
+}
+
+@media (max-width: 600px) {
+    .botones-curso-home {
+        flex-direction: column;
+        gap: 0.5em;
+        width: 100%;
+    }
 }
 
 /*FIN RESPONSIVE*/

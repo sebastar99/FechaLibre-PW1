@@ -11,18 +11,19 @@
 </head>
 
 <body class="profile-page">
+    <!--Inicio Header-->
     <header class="header">
         <input type="checkbox" id="toggler" class="header__toggler" aria-label="Abrir menú" />
         <label for="toggler" class="header__menu fa fa-bars" aria-hidden="true"></label>
 
         <a href="/home.html" class="logo">FechaLibre <span>.</span></a>
 
-        <nav class="navbar" role="navigation" aria-label="Navegación principal">
+        <nav class="navbar">
             <a href="#lista__cursos">Cursos</a>
-            <a href="./contacto.html">Contacto</a>
-            <a href="./calendario.html">Calendario</a>
+            <a href="./pages/contacto.html">Contacto</a>
+            <a href="./pages/calendario.html">Calendario</a>
 
-            <form class="header__buscador" action="#" method="get" style="display:inline-block; margin-left:12px;">
+            <form class="header__buscador" action="#" method="get">
                 <input type="text" name="q" placeholder="Buscar..." list="cursos" />
                 <datalist id="cursos">
                     <option value="Introduccion a JavaScript"></option>
@@ -31,19 +32,19 @@
                     <option value="Desarrollo web"></option>
                     <option value="JavaScript avanzado"></option>
                 </datalist>
-                <button type="submit" aria-label="Buscar"><i class="fas fa-search" aria-hidden="true"></i></button>
+                <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
             </form>
         </nav>
 
-        <div class="header__iconos" aria-hidden="false">
+        <div class="header__iconos">
             <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
-            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none; margin-right:8px;"></a>
-            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito"
-                style="display:none; margin-right:8px;"></a>
-            <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
+            <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+            <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+            <a href="./pages/ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
+    <!--Fin Header-->
 
     <main class="perfil-contenedor" role="main">
 

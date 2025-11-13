@@ -82,4 +82,6 @@ export class Contacto{
 
     }
 }
-document.addEventListener("DOMContentLoaded", () => new Contacto());
+document.addEventListener("DOMContentLoaded", () => {
+  new Contacto();
+});

@@ -25,7 +25,6 @@ export class Detailist {
   }
 }
 
-// ✅ Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', () => {
   new Detailist();
 });

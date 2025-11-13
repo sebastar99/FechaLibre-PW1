@@ -1,33 +1,34 @@
 import { Cursos } from './cursos.js';
 import { Detailist } from "./datalist.js";
 import { Ingreso } from "./ingreso.js";
+//import { Carrito } from "./carrito.js";
 
 export class Home {
-    constructor(containerSelector, detailPage = '/pages/detalleCurso.html', options = {}) {
-        this.container = document.querySelector(containerSelector);
-        this.detailPage = detailPage;
-        this.usuariosArr = [1000, 800, 600, 400, 200];
+  constructor(containerSelector, detailPage = '/pages/detalleCurso.html', options = {}) {
+    this.container = document.querySelector(containerSelector);
+    this.detailPage = detailPage;
+    this.usuariosArr = [1000, 800, 600, 400, 200];
 
-        this.storageKey = options.storageKey || 'Usuarios';
-        this.sessionKey = options.sessionKey || 'UsuarioActual';
+    this.storageKey = options.storageKey || 'Usuarios';
+    this.sessionKey = options.sessionKey || 'UsuarioActual';
+  }
+
+  mostrarCursosHome() {
+    if (!this.container) return;
+    let cursos = Cursos.leerCursos();
+    if (cursos.length === 0) {
+      new Cursos();
+      cursos = Cursos.leerCursos();
     }
 
-    mostrarCursosHome() {
-        if (!this.container) return;
-        let cursos = Cursos.leerCursos();
-        if (cursos.length === 0) {
-            new Cursos();
-            cursos = Cursos.leerCursos();
-        }
+    const cursosHTML = cursos.map((curso, index) => {
+      const link = `${this.detailPage}?id=${encodeURIComponent(curso.id)}`;
+      const claseCurso = `curso-card curso-${index + 1}-frente`;
+      const usuarios = this.usuariosArr[index] || this.usuariosArr[this.usuariosArr.length - 1];
+      const esPresencial = curso.tipo === 'Presencial';
+      const textoBoton = esPresencial ? 'Inscribirse' : 'Comprar';
 
-        const cursosHTML = cursos.map((curso, index) => {
-            const link = `${this.detailPage}?id=${encodeURIComponent(curso.id)}`;
-            const claseCurso = `curso-card curso-${index + 1}-frente`;
-            const usuarios = this.usuariosArr[index] || this.usuariosArr[this.usuariosArr.length - 1];
-            const esPresencial = curso.tipo === 'Presencial';
-            const textoBoton = esPresencial ? 'Inscribirse' : 'Comprar';
-
-            return `
+      return `
       <div class="${claseCurso}">
         <div class="header-curso-info">
           <div class="usuarios">
@@ -51,19 +52,22 @@ export class Home {
         </div>
       </div>
     `;
-        }).join('');
+    }).join('');
 
-        this.container.innerHTML = cursosHTML;
-    }
+    this.container.innerHTML = cursosHTML;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    //MOSTRAR CURSOS HOME
-    const home = new Home('#cursosContenedor');
-    home.mostrarCursosHome();
-    //FUNCIONALIDAD DATALIST
-    new Detailist();
-    //ACTUALIZAR HEADER
-    const ingreso = new Ingreso();
-    ingreso.updateHeader();
+  //MOSTRAR CURSOS HOME
+  const home = new Home('#cursosContenedor');
+  home.mostrarCursosHome();
+  //FUNCIONALIDAD DATALIST
+  new Detailist();
+  //ACTUALIZAR HEADER
+  const ingreso = new Ingreso({ setupEventListeners: false });
+  ingreso.updateHeader();
+  //FUNCIONALIDAD CARRITO
+  //const carrito = new Carrito();
+  //carrito.init();
 });

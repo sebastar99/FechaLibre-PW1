@@ -1,3 +1,4 @@
+import { Ingreso } from "./ingreso.js";
 export default class Pago {
 
     constructor({ montoKey = 'montoSeleccionado', montoInputSelector = '#monto', formSelector = '#paymentForm' } = {}) {
@@ -42,7 +43,7 @@ export default class Pago {
                     const found = cursos.find(c => String(c.id) === String(selId));
                     if (found) return found.precio || found.price || found.monto || JSON.stringify(found);
                 }
-            } catch (e) {  }
+            } catch (e) { }
         }
 
 
@@ -95,7 +96,7 @@ export default class Pago {
 
         if (this.form) {
             this.form.addEventListener('submit', (e) => {
-                
+
                 if (!this.montoInput || !this.montoInput.value) {
                     e.preventDefault();
                     alert('No hay monto disponible para procesar el pago.');
@@ -109,4 +110,6 @@ export default class Pago {
 document.addEventListener('DOMContentLoaded', () => {
     const pago = new Pago();
     pago.init();
+    const ingreso = new Ingreso({ setupEventListeners: false });
+    ingreso.updateHeader();
 });

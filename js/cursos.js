@@ -1,3 +1,5 @@
+import { Ingreso } from "./ingreso.js";
+
 export class Cursos {
   constructor() {
     const datosDeLosCursos = [
@@ -330,17 +332,14 @@ export class Cursos {
             return;
           }
 
-          // Agregar el curso
           usuario.carrito.push({
             id: curso.id,
             nombre: curso.nombre,
             precio: curso.precio
           });
 
-          // ✅ Actualizar el usuario en el array
           usuarios[indiceUsuario] = usuario;
 
-          // ✅ Guardar cambios en localStorage
           localStorage.setItem("Usuarios", JSON.stringify(usuarios));
 
           mostrarDialogoVerde("Curso agregado al carrito ✅");
@@ -348,9 +347,8 @@ export class Cursos {
       }
     }
 
-    // --- Función auxiliar para mostrar el diálogo ---
+
     function mostrarDialogoVerde(mensaje) {
-      // Crear contenedor
       const dialogo = document.createElement("div");
       dialogo.textContent = mensaje;
       dialogo.style.position = "fixed";
@@ -462,4 +460,16 @@ export class Cursos {
       contenedor.appendChild(div);
     });
   }
-} 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  //DETALLE DE LOS CURSOS
+  const cursos = new Cursos();
+  cursos.inicializarDetalle();
+  //MOSTRAR CURSOS RECOMENDADOS
+  cursos.mostrarRecomendados();
+  //ACTUALIZAR HEADER
+  const ingreso = new Ingreso({ setupEventListeners: false });
+  ingreso.updateHeader();
+});
+

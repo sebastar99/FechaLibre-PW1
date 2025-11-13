@@ -1,3 +1,5 @@
+import { Ingreso } from "./ingreso.js";
+
 export class Calendario {
     constructor(options = {}) {
         this.detailPage = options.detailPage || './detalleCurso.html';
@@ -10,9 +12,9 @@ export class Calendario {
         this.prevMesBtn = document.getElementById('prevMes');
         this.nextMesBtn = document.getElementById('nextMes');
 
-    if (!this.contenedorDias || !this.mesTitulo || !this.tooltip) {
-      return;
-    }
+        if (!this.contenedorDias || !this.mesTitulo || !this.tooltip) {
+            return;
+        }
 
         this.cursosData = this.cargarCursosDesdeStorage();
         this.eventos = this.mapearCursosAEventos(this.cursosData);
@@ -20,7 +22,7 @@ export class Calendario {
         this.meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         this.fechaActual = new Date();
         // Nota: Si quieres que inicie en Noviembre 2025 (como indica tu código original), mantenlo
-        this.fechaActual.setFullYear(2025, 10, 1); 
+        this.fechaActual.setFullYear(2025, 10, 1);
 
         this.setupListeners();
         this.generarCalendario(this.fechaActual);
@@ -47,16 +49,16 @@ export class Calendario {
         }
     }
 
-  mapearCursosAEventos(cursos) {
-    const eventosMapeados = {};
-    const fechasNoviembre = [
-      "2025-11-25",
-      "2025-11-30",
-      "2025-12-12",
-      "2025-12-15",
-      "2025-12-18",
-      "2025-12-25"
-    ];
+    mapearCursosAEventos(cursos) {
+        const eventosMapeados = {};
+        const fechasNoviembre = [
+            "2025-11-25",
+            "2025-11-30",
+            "2025-12-12",
+            "2025-12-15",
+            "2025-12-18",
+            "2025-12-25"
+        ];
 
         const diaCurso = new Set(Object.values(eventosMapeados).map(e => Number(e.cursoData.id)));
         let fallbackIndex = 0;
@@ -114,7 +116,7 @@ export class Calendario {
         const ultimoDia = new Date(año, mes + 1, 0);
 
         let diaSemana = primerDia.getDay();
-        diaSemana = (diaSemana === 0) ? 7 : diaSemana; // Lunes = 1, Domingo = 7 (para empezar en Lunes)
+        diaSemana = (diaSemana === 0) ? 7 : diaSemana;
 
         for (let i = 1; i < diaSemana; i++) {
             const v = document.createElement('div');
@@ -175,26 +177,27 @@ export class Calendario {
     }
 
     mostrarPopUp(evt, evData) {
-        const curso = evData.cursoData;
+        const curso = evData?.cursoData || {};
+        const inscripcionParams = `?curso=${encodeURIComponent(curso.nombre || '')}&id=${encodeURIComponent(curso.id || '')}`;
+        const urlInscripcion = `${this.inscripcionPage || '/pages/inscripcion.html'}${inscripcionParams}`;
+        const urlDetalle = evData?.link || '#';
 
-        const urlInscripcion = `${this.inscripcionPage}?curso=${encodeURIComponent(curso.nombre)}&id=${encodeURIComponent(curso.id)}`;
-        const urlDetalle = evData.link;
-        const titulo = this.escapeHtml(curso.nombre);
+        const titulo = this.escapeHtml(curso.nombre || '');
         const duracion = this.escapeHtml(curso.duracion || curso.duracionSemanas || 'N/D');
         const precio = this.escapeHtml(curso.precio || 'N/D');
         const descripcionCorta = this.escapeHtml((curso.descripcion || '').slice(0, 150));
 
         this.tooltip.innerHTML = `
-            <div style="max-width:420px;">
-                <h4 style="margin:0 0 6px 0;">${titulo}</h4>
-                <p style="margin:0 0 6px 0;"><strong>Duración:</strong> ${duracion} — <strong>Precio:</strong> ${precio}</p>
-                <p style="margin:0 0 8px 0;">${descripcionCorta}${(curso.descripcion || '').length > 150 ? '...' : ''}</p>
-                <div style="display:flex; gap:8px;">
-                    <a href="${this.escapeHtml(urlDetalle)}" target="_blank" class="btn btn-detalle" style="flex:1;">Ver Detalle</a>
-                    <a href="${this.escapeHtml(urlInscripcion)}" target="_blank" class="btn btn-inscribirse" style="flex:1;">Inscribirse</a>
-                </div>
-            </div>
-        `;
+    <div style="max-width:420px;">
+      <h4 style="margin:0 0 6px 0;">${titulo}</h4>
+      <p style="margin:0 0 6px 0;"><strong>Duración:</strong> ${duracion} — <strong>Precio:</strong> ${precio}</p>
+      <p style="margin:0 0 8px 0;">${descripcionCorta}${(curso.descripcion || '').length > 150 ? '...' : ''}</p>
+      <div style="display:flex; gap:8px;">
+        <a href="${this.escapeHtml(urlDetalle)}" target="_blank" class="btn btn-detalle" style="flex:1;">Ver Detalle</a>
+        <button type="button" id="btnAddCart" class="btn btn-inscribirse" style="flex:1;">Agregar</button>
+      </div>
+    </div>
+  `;
 
         this.tooltip.setAttribute('aria-hidden', 'false');
         this.tooltip.classList.add('visible');
@@ -208,7 +211,94 @@ export class Calendario {
             rect = { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
         }
         requestAnimationFrame(() => this.positionTooltip(rect));
+
+        const btn = this.tooltip.querySelector('#btnAddCart');
+        if (!btn) return;
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            try {
+                const ingreso = window.ingreso instanceof Object ? window.ingreso : new Ingreso();
+
+                let usuarioSesion = null;
+                try { usuarioSesion = ingreso.getCurrentUser(); } catch (err) { usuarioSesion = null; }
+                if (!usuarioSesion) {
+                    const maybeKey = ingreso.sessionKey || 'UsuarioActual';
+                    try { usuarioSesion = JSON.parse(localStorage.getItem(maybeKey)); } catch (e) { usuarioSesion = null; }
+                }
+
+                if (!usuarioSesion || !usuarioSesion.email) {
+                    const msg = 'Debes iniciar sesión para agregar cursos al carrito.';
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({ icon: 'info', title: msg, toast: true, position: 'bottom-end', showConfirmButton: true });
+                    } else {
+                        alert(msg);
+                    }
+                    return;
+                }
+
+                const storageKey = ingreso.storageKey || 'Usuarios';
+                const usuarios = JSON.parse(localStorage.getItem(storageKey)) || [];
+                const uIndex = usuarios.findIndex(u => u.email === usuarioSesion.email);
+
+                if (uIndex === -1) {
+                    const msg = 'No se encontró tu cuenta en el sistema. Intenta volver a iniciar sesión.';
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({ icon: 'error', title: msg, toast: true, position: 'bottom-end', showConfirmButton: true });
+                    } else {
+                        alert(msg);
+                    }
+                    return;
+                }
+
+                usuarios[uIndex].carrito = usuarios[uIndex].carrito || [];
+
+                const existe = usuarios[uIndex].carrito.some(c => Number(c.id) === Number(curso.id));
+                if (existe) {
+                    const msg = 'El curso ya está en tu carrito.';
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({ icon: 'info', title: msg, toast: true, position: 'bottom-end', showConfirmButton: false, timer: 1400 });
+                    } else {
+                        alert(msg);
+                    }
+                    btn.disabled = true;
+                    btn.textContent = 'En el carrito ✓';
+                    return;
+                }
+
+                const cursoParaCarrito = {
+                    id: curso.id,
+                    nombre: curso.nombre,
+                    precio: curso.precio
+                };
+                usuarios[uIndex].carrito.push(cursoParaCarrito);
+
+                // guardar cambios
+                localStorage.setItem(storageKey, JSON.stringify(usuarios));
+
+                // feedback visual
+                btn.disabled = true;
+                btn.textContent = 'Añadido ✓';
+                btn.style.opacity = '0.9';
+
+                // actualizar header/perfil si existe la función
+                try { if (typeof ingreso.updateHeader === 'function') ingreso.updateHeader(); } catch (e) { /* noop */ }
+
+                // mostrar notificación
+                const notMsg = `Curso "${curso.nombre}" agregado al carrito.`;
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({ toast: true, position: 'bottom-end', icon: 'success', title: notMsg, showConfirmButton: false, timer: 1400 });
+                } else {
+                    alert(notMsg);
+                }
+            } catch (err) {
+                console.error('Error al agregar al carrito:', err);
+                alert('Ocurrió un error al agregar al carrito. Revisa la consola.');
+            }
+        }, { once: true });
     }
+
 
     esconderPopUp() {
         this.tooltip.classList.remove('visible');
@@ -249,5 +339,7 @@ export class Calendario {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const calendario = new Calendario(); 
+    const calendario = new Calendario();
+    const ingreso = new Ingreso({ setupEventListeners: false });
+    ingreso.updateHeader();
 });

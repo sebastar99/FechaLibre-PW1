@@ -21,38 +21,53 @@ export class Ingreso {
   }
 
   // ---------- EVENT LISTENERS ----------
+  // evita multiple binding si se instancia Ingreso varias veces
   setupEventListeners() {
+    if (this._eventsAttached) return; // ya agregado
+    this._eventsAttached = true;
+
+    // Bindear handlers para poder remover/identificarlos si hace falta
+    this._boundRegistro = this.registro.bind(this);
+    this._boundLogin = this.login.bind(this);
+
     // registro
     const registroForm = document.getElementById('signupForm');
     if (registroForm) {
-      registroForm.addEventListener('submit', (e) => this.registro(e));
+      // quitar posible inline onsubmit que pueda existir
+      registroForm.removeAttribute('onsubmit');
+      // addEventListener con referencia reproducible
+      registroForm.addEventListener('submit', this._boundRegistro);
     }
 
     // login
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-      loginForm.addEventListener('submit', (e) => this.login(e));
+      loginForm.removeAttribute('onsubmit');
+      loginForm.addEventListener('submit', this._boundLogin);
     }
 
     // logout
     const btnLogout = document.getElementById(this.ids.btnLogout);
     if (btnLogout) {
-      btnLogout.addEventListener('click', () => this.logout());
+      btnLogout.removeEventListener('click', this._boundLogout);
+      this._boundLogout = () => this.logout();
+      btnLogout.addEventListener('click', this._boundLogout);
     }
 
     // eliminar
     const btnEliminar = document.getElementById(this.ids.btnEliminar);
     if (btnEliminar) {
-      btnEliminar.addEventListener('click', () => this.eliminar());
+      btnEliminar.removeEventListener('click', this._boundEliminar);
+      this._boundEliminar = () => this.eliminar();
+      btnEliminar.addEventListener('click', this._boundEliminar);
     }
 
     // Recuperar contraseña
     const forgotLink = document.querySelector(".olvidar");
     if (forgotLink) {
-      forgotLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.recuperarContrasena();
-      });
+      forgotLink.removeEventListener('click', this._boundRecuperar);
+      this._boundRecuperar = (e) => { e.preventDefault(); this.recuperarContrasena(); };
+      forgotLink.addEventListener("click", this._boundRecuperar);
     }
   }
 
@@ -80,7 +95,6 @@ export class Ingreso {
       pass,
       carrito: [],
       compras: [],
-      favoritos: []
     };
 
     usuarios.push(nuevoUsuario);

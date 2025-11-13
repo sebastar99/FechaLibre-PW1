@@ -11,7 +11,6 @@ export class Calendario {
     this.nextMesBtn = document.getElementById('nextMes');
 
     if (!this.contenedorDias || !this.mesTitulo || !this.tooltip) {
-      console.warn("Inicialización de Calendario omitida: faltan elementos DOM.");
       return;
     }
 
@@ -50,11 +49,11 @@ export class Calendario {
   mapearCursosAEventos(cursos) {
     const eventosMapeados = {};
     const fechasNoviembre = [
-      "2025-11-03",
-      "2025-11-07",
-      "2025-11-12",
-      "2025-12-05",
+      "2025-11-25",
+      "2025-11-30",
+      "2025-12-12",
       "2025-12-15",
+      "2025-12-18",
       "2025-12-25"
     ];
 

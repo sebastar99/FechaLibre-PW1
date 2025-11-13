@@ -1,11 +1,11 @@
 import { Ingreso } from "./ingreso.js";
 import { Cursos } from "./cursos.js";
 import { Calendario } from "./calendario.js";
-import { Home } from "./home.js";
+import { Home } from "./_home.js";
 import { Giftcard } from "./giftcard.js";
 import { Contacto } from "./contacto.js";
 import { Slider } from "./slider.js";
-import { InscripcionEmpresa } from "./inscripcionEmpresa.js";
+/*import { InscripcionEmpresa } from "./inscripcionEmpresa.js";*/
 import Pago from "./pago.js";
 import { Detailist } from "./datalist.js";
 
@@ -62,19 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
         new Contacto();
     }
 
-    // 6. Logica para carrousel
-    const sliderContainer = document.querySelector('.slider-container');
-    if (sliderContainer) {
-        new Slider(sliderContainer, 5000);
-    }
-
     // 8. Logica giftcard
     new Giftcard();
 
     // 9. Logica inscripcion para empresas
-    new InscripcionEmpresa();
-
-    
+    //new InscripcionEmpresa();
 
     // 11. Logica del pago
     const formPago = document.querySelector('#paymentForm');

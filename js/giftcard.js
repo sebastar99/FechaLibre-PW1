@@ -138,3 +138,4 @@ export class Giftcard {
         });
     }
 }
+document.addEventListener("DOMContentLoaded", () => new Giftcard());

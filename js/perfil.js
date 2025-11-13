@@ -1,9 +1,7 @@
-// /js/perfil.js
 import { Ingreso } from './ingreso.js';
 
 export class Perfil extends Ingreso {
   constructor(options = {}) {
-    // evitamos que Ingreso autodetermine event listeners (porque en esta página ya no hay forms de login/signup)
     super(Object.assign({ setupEventListeners: false }, options));
 
     this.ids = Object.assign(this.ids || {}, {
@@ -57,11 +55,9 @@ export class Perfil extends Ingreso {
       btnEliminar._hasHandler = true;
     }
 
-    // mantener header actualizado (por si el conteo o visibilidad cambia)
     if (typeof this.updateHeader === 'function') this.updateHeader();
   }
 
-  // (incluye _renderLista, addFavorito, addCompra, modales; pego implementaciones mínimas y robustas)
   _renderLista(ulElement, items = [], textoVacio = '') {
     if (!ulElement) return;
     ulElement.innerHTML = '';
@@ -313,7 +309,6 @@ export class Perfil extends Ingreso {
   }
 }
 
-// Auto-inicialización cuando se usa <script type="module" src="/js/perfil.js"></script>
 document.addEventListener('DOMContentLoaded', () => {
   const perfil = new Perfil();
   perfil.populateProfile();

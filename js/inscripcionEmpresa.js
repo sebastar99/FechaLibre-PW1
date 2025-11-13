@@ -1,4 +1,4 @@
-export class InscripcionEmpresa {
+/*export class InscripcionEmpresa {
   constructor() {
     // Selectores del nuevo HTML
     this.contenedor = document.getElementById('contenedorParticipantes');
@@ -174,4 +174,4 @@ _obtenerPrecioCurso() {
       // Por ahora solo mostramos el modal
       if(this.modal) this.modal.style.display = "block";
   }
-}
+}*/

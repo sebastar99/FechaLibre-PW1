@@ -49,3 +49,10 @@ export class Slider {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.slider-container');
+  if (container) {
+    new Slider(container, 5000);
+  }
+});

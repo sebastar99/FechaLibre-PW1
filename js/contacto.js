@@ -1,3 +1,5 @@
+import { Ingreso } from "./ingreso.js"; 
+
 export class Contacto{
 
     constructor(){
@@ -83,5 +85,7 @@ export class Contacto{
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
-  new Contacto();
+    const ingreso = new Ingreso();
+    ingreso.updateHeader();
+    new Contacto();
 });

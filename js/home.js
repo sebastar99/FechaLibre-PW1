@@ -1,4 +1,6 @@
 import { Cursos } from './cursos.js';
+import { Detailist } from "./datalist.js";
+import { Ingreso } from "./ingreso.js";
 
 export class Home {
     constructor(containerSelector, detailPage = '/pages/detalleCurso.html', options = {}) {
@@ -56,6 +58,12 @@ export class Home {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    //MOSTRAR CURSOS HOME
     const home = new Home('#cursosContenedor');
     home.mostrarCursosHome();
+    //FUNCIONALIDAD DATALIST
+    new Detailist();
+    //ACTUALIZAR HEADER
+    const ingreso = new Ingreso();
+    ingreso.updateHeader();
 });

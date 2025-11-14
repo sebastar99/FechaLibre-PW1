@@ -1,0 +1,145 @@
+#calendario {
+  position: fixed;
+  inset: 0;
+  display: none;       
+  align-items: center;
+  justify-content: center;
+  z-index: 12000;
+  pointer-events: none;
+  font-family: inherit;
+}
+
+#calendario .cal-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,10,20,0.45);
+  pointer-events: all;
+  transition: opacity .18s ease;
+  opacity: 0;
+}
+
+#calendario .cal-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 32.5em;
+  background: linear-gradient(180deg,#ffffff 0%, #fbfdff 100%);
+  border-radius: 0.75em;
+  box-shadow: 0 1.125em 2.5em rgba(10,20,30,0.18);
+  padding: 1.125em 1.125em 0.875em 1.125em;
+  z-index: 12010;
+  transform: translateY(0,375em) scale(.995);
+  opacity: 0;
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: all;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: #1f2937;
+}
+
+#calendario.visible {
+  display: flex;
+  pointer-events: all;
+}
+#calendario.visible .cal-modal-backdrop { opacity: 1; }
+#calendario.visible .cal-modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+#calendario .cal-modal-close {
+  position: absolute;
+  right: 0.625em;
+  top: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 1.05em;
+  cursor: pointer;
+  color: #374151;
+  line-height: 1;
+}
+
+#calendario .cal-modal-card h4 {
+  margin: 0 0 0.5em 0;
+  font-size: 1.06em;
+  color: #0f172a;
+}
+#calendario .cal-modal-meta {
+  color: #475569;
+  font-size: 0.92rem;
+  margin-bottom: 0.5em;
+}
+
+#calendario .cal-modal-desc {
+  color: #334155;
+  font-size: 0.95rem;
+  margin-bottom: 0.75em;
+  max-height: 7.6rem;
+  overflow: auto;
+  line-height: 1.35;
+}
+
+#calendario .cal-modal-actions {
+  display: flex;
+  gap: 0.625em;
+  margin-top: 0.625em;
+}
+#calendario .cal-modal-actions .btn {
+  flex: 1;
+  padding: 0.55em 0.7em;
+  border-radius: 0.5em;
+  border: 1px solid rgba(0,0,0,0.08);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95em;
+  text-decoration: none;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+#calendario .btn-detalle {
+  background: transparent;
+  color: #0b57d0;
+  border: 1px solid rgba(11,87,208,0.12);
+}
+#calendario .btn-inscribirse,
+#calendario .btn-agregar {
+  background: linear-gradient(180deg,#3aa76d,#2d9556);
+  color: #fff;
+  border: none;
+}
+
+#calendario .btn-disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+#calendario .small-muted {
+  font-size: 0.88em;
+  color: #6b7280;
+}
+
+.cal-toast {
+  position: fixed;
+  right: 1.25em;
+  bottom: 1.25em;
+  background: #2ecc71;
+  color: #fff;
+  padding: 0.625em 1em;
+  border-radius: 0.5em;;
+  box-shadow: 0 0,375em 1,375em rgba(0,0,0,0.16);
+  font-size: 0.875em;
+  font-weight: 600;
+  z-index: 13000;
+  opacity: 0;
+  transform: translateY(0.5em);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.cal-toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 41.25em) {
+  #calendario .cal-modal-card { padding: 0.875em; }
+  #calendario .cal-modal-desc { max-height: 6rem; }
+  #calendario .cal-modal-actions { gap: 0.5em; }
+}

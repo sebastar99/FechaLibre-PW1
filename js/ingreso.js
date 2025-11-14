@@ -19,23 +19,17 @@ export class Ingreso {
 
     this.updateHeader();
   }
-
-  // ---------- EVENT LISTENERS ----------
-  // evita multiple binding si se instancia Ingreso varias veces
   setupEventListeners() {
-    if (this._eventsAttached) return; // ya agregado
+    if (this._eventsAttached) return; 
     this._eventsAttached = true;
 
-    // Bindear handlers para poder remover/identificarlos si hace falta
     this._boundRegistro = this.registro.bind(this);
     this._boundLogin = this.login.bind(this);
 
     // registro
     const registroForm = document.getElementById('signupForm');
     if (registroForm) {
-      // quitar posible inline onsubmit que pueda existir
       registroForm.removeAttribute('onsubmit');
-      // addEventListener con referencia reproducible
       registroForm.addEventListener('submit', this._boundRegistro);
     }
 
@@ -432,3 +426,7 @@ export class Ingreso {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  new Ingreso();
+});

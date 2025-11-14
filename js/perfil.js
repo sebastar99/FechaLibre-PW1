@@ -119,6 +119,7 @@ export class Perfil extends Ingreso {
 
         usuarios[uIndex].carrito = (usuarios[uIndex].carrito || []).filter(c => c.id !== item.id);
         localStorage.setItem(self.storageKey, JSON.stringify(usuarios));
+        document.dispatchEvent(new CustomEvent('carrito:updated'));
         self._renderLista(ulElement, usuarios[uIndex].carrito || [], textoVacio);
         if (typeof self.updateHeader === 'function') self.updateHeader();
       });

@@ -27,7 +27,7 @@
             <a href="./contacto.html">Contacto</a>
             <a href="./calendario.html">Calendario</a>
 
-             <form id="buscadorCursos" class="header__buscador" action="#" method="get">
+            <form id="buscadorCursos" class="header__buscador" action="#" method="get">
                 <input type="text" name="inputBusqueda" id="inputBusqueda" placeholder="Buscar..." list="cursos"
                     autocomplete="off" />
                 <datalist id="cursos">
@@ -43,12 +43,17 @@
         </nav>
 
         <div class="header__iconos">
-            <span id="mensaje" style="display:none; margin-right:10px;">Bienvenido: <strong
+            <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+            <!-- opcional: el span puede estar en el HTML o lo crea el módulo -->
+            <span id="cartCounter" class="hidden-cart-counter" aria-hidden="true"></span>
+
             <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
+
     </header>
     <!--Fin Header-->
     <!--Inicio Main-->
@@ -95,7 +100,11 @@
                     </p>
                     <p>Cargando descripción completa...</p>
                 </div>
-                <button class="curso__boton">Agregar al Carrito</button>
+                <!-- QUITAR data-id hardcodeado -->
+                <button id="btnAgregarCarrito" class="curso__boton" data-add-carrito>
+                    Agregar al Carrito
+                </button>
+
                 <h2>CONTENIDOS POR CLASE</h2>
 
                 <div class="curso__info__contenido">
@@ -243,6 +252,7 @@
     <!--Fin Footer-->
     <script type="module" src="../js/datalist.js"></script>
     <script type="module" src="../js/cursos.js"></script>
+    <script type="module" src="../js/carrito.js"></script>
 </body>
 
 </html>

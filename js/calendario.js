@@ -1,9 +1,35 @@
 import { Ingreso } from "./ingreso.js";
 
+function aplicarCSS() {
+    const id = 'calendario-popup-css';
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = '/css/calendario-popup.css';
+    document.head.appendChild(link);
+}
+
+function mostrarDialogoVerde(mensaje) {
+    const dialogo = document.createElement("div");
+    dialogo.className = 'cal-toast';
+    dialogo.textContent = mensaje;
+    document.body.appendChild(dialogo);
+
+
+    requestAnimationFrame(() => dialogo.classList.add('show'));
+
+    setTimeout(() => {
+        dialogo.classList.remove('show');
+        setTimeout(() => dialogo.remove(), 260);
+    }, 2000);
+}
+
 export class Calendario {
     constructor(options = {}) {
         this.detailPage = options.detailPage || './detalleCurso.html';
         this.inscripcionPage = options.inscripcionPage || './perfil.html';
+        aplicarCSS();
 
         this.contenedorDias = document.getElementById('calendarioDias');
         this.mesTitulo = document.getElementById('mesTitulo');
@@ -21,7 +47,6 @@ export class Calendario {
 
         this.meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         this.fechaActual = new Date();
-        // Nota: Si quieres que inicie en Noviembre 2025 (como indica tu código original), mantenlo
         this.fechaActual.setFullYear(2025, 10, 1);
 
         this.setupListeners();
@@ -186,15 +211,16 @@ export class Calendario {
         const duracion = this.escapeHtml(curso.duracion || curso.duracionSemanas || 'N/D');
         const precio = this.escapeHtml(curso.precio || 'N/D');
         const descripcionCorta = this.escapeHtml((curso.descripcion || '').slice(0, 150));
-
         this.tooltip.innerHTML = `
-    <div style="max-width:420px;">
-      <h4 style="margin:0 0 6px 0;">${titulo}</h4>
-      <p style="margin:0 0 6px 0;"><strong>Duración:</strong> ${duracion} — <strong>Precio:</strong> ${precio}</p>
-      <p style="margin:0 0 8px 0;">${descripcionCorta}${(curso.descripcion || '').length > 150 ? '...' : ''}</p>
-      <div style="display:flex; gap:8px;">
-        <a href="${this.escapeHtml(urlDetalle)}" target="_blank" class="btn btn-detalle" style="flex:1;">Ver Detalle</a>
-        <button type="button" id="btnAddCart" class="btn btn-inscribirse" style="flex:1;">Agregar</button>
+    <div class="cal-modal-backdrop" data-role="backdrop"></div>
+    <div class="cal-modal-card" role="dialog" aria-modal="true" aria-label="Detalle del curso">
+      <button class="cal-modal-close" aria-label="Cerrar">&times;</button>
+      <h4>${titulo}</h4>
+      <div class="cal-modal-meta"><strong>Duración:</strong> ${duracion} — <strong>Precio:</strong> ${precio}</div>
+      <div class="cal-modal-desc">${descripcionCorta}${(curso.descripcion || '').length > 150 ? '...' : ''}</div>
+      <div class="cal-modal-actions">
+        <a href="${this.escapeHtml(urlDetalle)}" target="_blank" class="btn btn-detalle">Ver Detalle</a>
+        <button type="button" id="btnAddCart" class="btn btn-inscribirse">Agregar</button>
       </div>
     </div>
   `;
@@ -212,118 +238,62 @@ export class Calendario {
         }
         requestAnimationFrame(() => this.positionTooltip(rect));
 
+        const backdrop = this.tooltip.querySelector('[data-role="backdrop"]');
+        const closeBtn = this.tooltip.querySelector('.cal-modal-close');
+        const cerrar = () => this.esconderPopUp();
+        backdrop?.addEventListener('click', cerrar);
+        closeBtn?.addEventListener('click', cerrar);
+
         const btn = this.tooltip.querySelector('#btnAddCart');
-        if (!btn) return;
+        if (btn) {
+            btn.replaceWith(btn.cloneNode(true));
+            const newBtn = this.tooltip.querySelector('#btnAddCart');
 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
+            newBtn.addEventListener("click", () => {
 
-            try {
-                const ingreso = window.ingreso instanceof Object ? window.ingreso : new Ingreso();
-
-                let usuarioSesion = null;
-                try { usuarioSesion = ingreso.getCurrentUser(); } catch (err) { usuarioSesion = null; }
-                if (!usuarioSesion) {
-                    const maybeKey = ingreso.sessionKey || 'UsuarioActual';
-                    try { usuarioSesion = JSON.parse(localStorage.getItem(maybeKey)); } catch (e) { usuarioSesion = null; }
-                }
-
-                if (!usuarioSesion || !usuarioSesion.email) {
-                    const msg = 'Debes iniciar sesión para agregar cursos al carrito.';
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({ icon: 'info', title: msg, toast: true, position: 'bottom-end', showConfirmButton: true });
-                    } else {
-                        alert(msg);
-                    }
+                const usuarioActual = JSON.parse(localStorage.getItem("UsuarioActual"));
+                if (!usuarioActual) {
+                    mostrarDialogoVerde("Debes iniciar sesión para agregar cursos");
                     return;
                 }
 
-                const storageKey = ingreso.storageKey || 'Usuarios';
-                const usuarios = JSON.parse(localStorage.getItem(storageKey)) || [];
-                const uIndex = usuarios.findIndex(u => u.email === usuarioSesion.email);
-
-                if (uIndex === -1) {
-                    const msg = 'No se encontró tu cuenta en el sistema. Intenta volver a iniciar sesión.';
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({ icon: 'error', title: msg, toast: true, position: 'bottom-end', showConfirmButton: true });
-                    } else {
-                        alert(msg);
-                    }
+                if (!window.carritoManager) {
+                    console.error("carritoManager no existe. Asegúrate de cargar carrito.js antes.");
+                    mostrarDialogoVerde("Error interno del carrito");
                     return;
                 }
 
-                usuarios[uIndex].carrito = usuarios[uIndex].carrito || [];
+                const carrito = window.carritoManager.getCarritoActual();
+                const existe = carrito.some(c => Number(c.id) === Number(curso.id));
 
-                const existe = usuarios[uIndex].carrito.some(c => Number(c.id) === Number(curso.id));
                 if (existe) {
-                    const msg = 'El curso ya está en tu carrito.';
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({ icon: 'info', title: msg, toast: true, position: 'bottom-end', showConfirmButton: false, timer: 1400 });
-                    } else {
-                        alert(msg);
-                    }
-                    btn.disabled = true;
-                    btn.textContent = 'En el carrito ✓';
+                    mostrarDialogoVerde("El curso ya está en tu carrito");
+                    newBtn.disabled = true;
+                    newBtn.classList.add('btn-disabled');
+                    newBtn.textContent = "En el carrito ✓";
                     return;
                 }
 
-                const cursoParaCarrito = {
-                    id: curso.id,
-                    nombre: curso.nombre,
-                    precio: curso.precio
-                };
-                usuarios[uIndex].carrito.push(cursoParaCarrito);
+                window.carritoManager.addById(curso.id);
 
-                // guardar cambios
-                localStorage.setItem(storageKey, JSON.stringify(usuarios));
+                mostrarDialogoVerde(`Curso "${curso.nombre}" agregado al carrito`);
 
-                // feedback visual
-                btn.disabled = true;
-                btn.textContent = 'Añadido ✓';
-                btn.style.opacity = '0.9';
-
-                // actualizar header/perfil si existe la función
-                try { if (typeof ingreso.updateHeader === 'function') ingreso.updateHeader(); } catch (e) { /* noop */ }
-
-                // mostrar notificación
-                const notMsg = `Curso "${curso.nombre}" agregado al carrito.`;
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({ toast: true, position: 'bottom-end', icon: 'success', title: notMsg, showConfirmButton: false, timer: 1400 });
-                } else {
-                    alert(notMsg);
-                }
-            } catch (err) {
-                console.error('Error al agregar al carrito:', err);
-                alert('Ocurrió un error al agregar al carrito. Revisa la consola.');
-            }
-        }, { once: true });
+                newBtn.disabled = true;
+                newBtn.classList.add('btn-disabled');
+                newBtn.textContent = "Añadido ✓";
+                document.dispatchEvent(new CustomEvent("carrito:updated"));
+            });
+        }
     }
-
 
     esconderPopUp() {
         this.tooltip.classList.remove('visible');
         this.tooltip.setAttribute('aria-hidden', 'true');
+        setTimeout(() => { if (!this.tooltip.classList.contains('visible')) this.tooltip.innerHTML = ''; }, 220);
     }
 
     positionTooltip(rect) {
-        const padding = 12;
-        const tooltipRect = this.tooltip.getBoundingClientRect();
-
-        let left = rect.left + window.scrollX + (rect.width / 2) - (tooltipRect.width / 2);
-        let top = rect.top + window.scrollY + rect.height + 10;
-
-        if (left < window.scrollX + padding) left = window.scrollX + padding;
-        if (left + tooltipRect.width + padding > window.innerWidth + window.scrollX) {
-            left = window.innerWidth + window.scrollX - tooltipRect.width - padding;
-        }
-        if (top + tooltipRect.height + padding > window.innerHeight + window.scrollY) {
-            top = rect.top + window.scrollY - tooltipRect.height - 12;
-        }
-
-        this.tooltip.style.left = `${left}px`;
-        this.tooltip.style.top = `${top}px`;
-        const arrowLeft = Math.max(12, (rect.left + window.scrollX + (rect.width / 2)) - left);
-        this.tooltip.style.setProperty('--arrow-left', `${arrowLeft}px`);
+        return;
     }
 
     escapeHtml(s) {
@@ -337,9 +307,8 @@ export class Calendario {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const calendario = new Calendario();
+    new Calendario();
     const ingreso = new Ingreso({ setupEventListeners: false });
     ingreso.updateHeader();
 });

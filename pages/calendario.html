@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/ae636eecca.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/headerFooter.css">
     <link rel="stylesheet" href="/css/calendario.css">
+    <link rel="stylesheet" href="/css/calendario-popup.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
@@ -46,7 +47,10 @@
             <span id="mensaje" style="display:none; margin-right:10px;"><strong
                     id="userName"></strong></span>
             <a href="#" id="favIcon" class="fas fa-heart" title="Favoritos" style="display:none;"></a>
+
             <a href="#" id="cartIcon" class="fas fa-shopping-cart" title="Carrito" style="display:none;"></a>
+            <span id="cartCounter" class="hidden-cart-counter" aria-hidden="true"></span>
+
             <a href="./ingreso.html" id="userIcon" class="fas fa-user" title="Tu cuenta"></a>
         </div>
     </header>
@@ -131,6 +135,7 @@
     <!--Fin Footer-->
     <script type="module" src="../js/datalist.js"></script>
     <script type="module" src="../js/calendario.js"></script>
+    <script type="module" src="../js/carrito.js"></script>
 </body>
 
 </html>

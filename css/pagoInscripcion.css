@@ -13,7 +13,7 @@
     width: 100%;
     max-width: 69em;
     background: #fff;
-    padding: 1.6rem;
+    padding: 1.6em;
     border-radius: 10px;
     box-shadow: 0 0.5em 1.25em rgba(0, 0, 0, 0.06);
     align-items: start;
@@ -61,7 +61,7 @@
 .pago__numero {
     font-family: "SUSE Mono", monospace;
     font-size: 1.15em;
-    margin-top: 6px;
+    margin-top: 0.375em;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
     -webkit-font-smoothing: antialiased;
 }

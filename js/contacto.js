@@ -87,4 +87,5 @@ export class Contacto {
 document.addEventListener("DOMContentLoaded", () => {
     const ingreso = new Ingreso({ setupEventListeners: false });
     ingreso.updateHeader();
+    new Contacto();
 });

@@ -325,7 +325,7 @@ export class Cursos {
           const usuario = usuarios[indiceUsuario];
           usuario.carrito = usuario.carrito || [];
 
-          // Verificar si el curso ya está en el carrito
+          
           const yaEsta = usuario.carrito.some(c => Number(c.id) === Number(curso.id));
           if (yaEsta) {
             mostrarDialogoVerde("El curso ya está en tu carrito");
@@ -345,38 +345,6 @@ export class Cursos {
           mostrarDialogoVerde("Curso agregado al carrito ✅");
         });
       }
-    }
-
-
-    function mostrarDialogoVerde(mensaje) {
-      const dialogo = document.createElement("div");
-      dialogo.textContent = mensaje;
-      dialogo.style.position = "fixed";
-      dialogo.style.bottom = "20px";
-      dialogo.style.right = "20px";
-      dialogo.style.backgroundColor = "#2ecc71";
-      dialogo.style.color = "#fff";
-      dialogo.style.padding = "10px 16px";
-      dialogo.style.borderRadius = "8px";
-      dialogo.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-      dialogo.style.fontSize = "14px";
-      dialogo.style.fontWeight = "500";
-      dialogo.style.zIndex = "1000";
-      dialogo.style.opacity = "0";
-      dialogo.style.transition = "opacity 0.3s ease";
-
-      document.body.appendChild(dialogo);
-
-      // Animar entrada
-      requestAnimationFrame(() => {
-        dialogo.style.opacity = "1";
-      });
-
-      // Ocultar automáticamente
-      setTimeout(() => {
-        dialogo.style.opacity = "0";
-        setTimeout(() => dialogo.remove(), 300);
-      }, 2000);
     }
 
     if (contenidoEl) {
@@ -461,6 +429,37 @@ export class Cursos {
     });
   }
 }
+
+export function mostrarDialogoVerde(mensaje) {
+      const dialogo = document.createElement("div");
+      dialogo.textContent = mensaje;
+      dialogo.style.position = "fixed";
+      dialogo.style.bottom = "20px";
+      dialogo.style.right = "20px";
+      dialogo.style.backgroundColor = "#2ecc71";
+      dialogo.style.color = "#fff";
+      dialogo.style.padding = "10px 16px";
+      dialogo.style.borderRadius = "8px";
+      dialogo.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+      dialogo.style.fontSize = "14px";
+      dialogo.style.fontWeight = "500";
+      dialogo.style.zIndex = "1000";
+      dialogo.style.opacity = "0";
+      dialogo.style.transition = "opacity 0.3s ease";
+
+      document.body.appendChild(dialogo);
+
+      // Animar entrada
+      requestAnimationFrame(() => {
+        dialogo.style.opacity = "1";
+      });
+
+      // Ocultar automáticamente
+      setTimeout(() => {
+        dialogo.style.opacity = "0";
+        setTimeout(() => dialogo.remove(), 300);
+      }, 2000);
+    }
 
 document.addEventListener('DOMContentLoaded', () => {
   //DETALLE DE LOS CURSOS

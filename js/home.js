@@ -1,7 +1,7 @@
 import { Cursos } from './cursos.js';
 import { Detailist } from "./datalist.js";
 import { Ingreso } from "./ingreso.js";
-//import { Carrito } from "./carrito.js";
+import { mostrarDialogoVerde } from "./cursos.js";
 
 export class Home {
   constructor(containerSelector, detailPage = '/pages/detalleCurso.html', options = {}) {
@@ -15,6 +15,7 @@ export class Home {
 
   mostrarCursosHome() {
     if (!this.container) return;
+
     let cursos = Cursos.leerCursos();
     if (cursos.length === 0) {
       new Cursos();
@@ -29,34 +30,65 @@ export class Home {
       const textoBoton = esPresencial ? 'Inscribirse' : 'Comprar';
 
       return `
-      <div class="${claseCurso}">
-        <div class="header-curso-info">
-          <div class="usuarios">
-            <h6>+${usuarios} usuarios recibidos</h6>
+        <div class="${claseCurso}">
+          <div class="header-curso-info">
+            <div class="usuarios">
+              <h6>+${usuarios} usuarios recibidos</h6>
+            </div>
+            <div class="estrellas">
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
           </div>
-          <div class="estrellas">
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
+
+          <img src="${curso.img}" alt="foto-${curso.nombre.toLowerCase().replace(/\s+/g, '-')}" />
+          <h3>${curso.nombre}</h3>
+
+          <div class="botones-curso-home">
+            <a href="${link}">
+              <button class="caracteristicas">Ver Curso</button>
+            </a>
+
+            <button class="caracteristicas comprar-btn" data-add-carrito data-id="${curso.id}">
+              ${textoBoton}
+            </button>
           </div>
         </div>
-        <img src="${curso.img}" alt="foto-${curso.nombre.toLowerCase().replace(/\s+/g, '-')}" />
-        <h3>${curso.nombre}</h3>
-        <div class="botones-curso-home">
-          <a href="${link}">
-            <button class="caracteristicas">Ver Curso</button>
-          </a>
-          <button class="caracteristicas comprar-btn" data-id="${curso.id}">${textoBoton}</button>
-        </div>
-      </div>
-    `;
+      `;
     }).join('');
 
     this.container.innerHTML = cursosHTML;
+
+    // ⬇ ACTIVO EVENTOS DESPUÉS DE INSERTAR EL HTML
+    this._mostrarDialogoVerde();
+  }
+
+  _mostrarDialogoVerde() {
+    const botones = this.container.querySelectorAll("[data-add-carrito]");
+
+    botones.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idCurso = btn.dataset.id;
+
+        // Obtener carrito actual del usuario
+        const carrito = window.carritoManager.getCarritoActual();
+
+        const yaExiste = carrito.some(c => String(c.id) === String(idCurso));
+
+        if (yaExiste) {
+          mostrarDialogoVerde("El curso ya está en tu carrito");
+          return;
+        }
+
+        mostrarDialogoVerde("Curso agregado al carrito ✅");
+      });
+    });
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   //MOSTRAR CURSOS HOME
@@ -67,7 +99,4 @@ document.addEventListener('DOMContentLoaded', () => {
   //ACTUALIZAR HEADER
   const ingreso = new Ingreso({ setupEventListeners: false });
   ingreso.updateHeader();
-  //FUNCIONALIDAD CARRITO
-  //const carrito = new Carrito();
-  //carrito.init();
 });

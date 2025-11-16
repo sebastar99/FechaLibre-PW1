@@ -371,7 +371,7 @@ html {
 .transf-bancaria h4,
 .mercado-pago h4,
 .paypal h4,
-.efectivo h4{
+.efectivo h4 {
     padding-top: 1em;
     color: #073e7e4b;
 }
@@ -404,7 +404,7 @@ html {
 /* --- INICIO RESPONSIVE --- */
 @media (max-width: 60em) {
     html {
-        font-size: 70%; 
+        font-size: 70%;
     }
 }
 
@@ -417,30 +417,19 @@ html {
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
     .botones-curso-home {
         flex-direction: column;
         gap: 0.5em;
         width: 100%;
     }
-}
 
-/*FIN RESPONSIVE*/
-
-@media (max-width: 900px) {
-    .medios-de-pago-contenedor {
-        grid-template-columns: repeat(2, 1fr);
-        width: 100%;
-        justify-items: center;
-    }
-}
-
-@media (max-width: 600px) {
     .medios-de-pago-contenedor {
         grid-template-columns: 1fr;
         width: 100%;
         justify-items: center;
     }
+
     .tarj-credito,
     .tarj-debito,
     .transf-bancaria,
@@ -451,3 +440,12 @@ html {
         min-width: 0;
     }
 }
+
+@media (max-width: 56.25em) {
+    .medios-de-pago-contenedor {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        justify-items: center;
+    }
+}
+/*FIN RESPONSIVE*/

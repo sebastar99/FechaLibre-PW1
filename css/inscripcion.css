@@ -1,13 +1,11 @@
 :root {
     --color__boton: #5499c7;
     --color__boton-hover: #0277bd;
-    --color__alerta: #e74c3c; /* Nuevo: Rojo para eliminar */
+    --color__alerta: #e74c3c;
     --color__alerta-hover: #c0392b;
 }
 
-/* --- Configuración del Contenedor Principal --- */
 .main-inscripcion {
-    /* Centrado general */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,21 +14,19 @@
 
 .inscripcion {
     width: 90%;
-    max-width: 1200px; /* Tope de ancho para pantallas grandes */
+    max-width: 75em;
     background-color: white;
     padding: 2em;
     border-radius: 0.5em;
     margin: 6em auto 2em auto;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra suave para profundidad */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Títulos */
 .inscripcion h2, .total h2 {
     margin-bottom: 1em;
     color: #333;
 }
 
-/* --- Estilos de Inputs Generales --- */
 .inscripcion label {
     display: block;
     margin-bottom: 0.5em;
@@ -45,17 +41,15 @@
     padding: 1em;
     border: 1px solid lightgray;
     border-radius: 0.5em;
-    margin-bottom: 1em; /* Espacio por defecto */
+    margin-bottom: 1em;
 }
 
-/* Campo específico para el selector de curso */
 .campo-curso {
     margin-bottom: 2em;
     padding-bottom: 1em;
-    border-bottom: 2px dashed #eee; /* Separador visual */
+    border-bottom: 2px dashed #eee;
 }
 
-/* --- NÚCLEO: Filas Dinámicas de Participantes --- */
 #contenedorParticipantes {
     display: flex;
     flex-direction: column;
@@ -64,33 +58,31 @@
 
 .persona-row {
     display: flex;
-    align-items: center; /* Centra verticalmente inputs y botón */
+    align-items: center;
     gap: 1em;
     padding: 1em;
     background-color: #f9f9f9;
     border: 1px solid #eee;
     border-radius: 0.5em;
-    animation: fadeIn 0.4s ease-out; /* Animación de entrada suave */
+    animation: fadeIn 0.4s ease-out;
 }
 
-/* Grupo de inputs (para que se adapten al ancho) */
 .inputs-grupo {
     display: flex;
-    flex-wrap: wrap; /* Permite que bajen si no hay espacio */
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 0.625em;
     width: 100%;
 }
 
-/* Ajuste de los inputs dentro de la fila */
 .inputs-grupo input {
-    flex: 1 1 150px; /* Crecen para ocupar espacio, mínimo 150px */
-    margin-bottom: 0; /* El margen lo maneja el gap del padre */
+    flex: 1 1 9.375em;
+    margin-bottom: 0;
 }
 
-/* Botón Circular Eliminar */
+/* Botón eliminar participante */
 .btn-eliminar {
-    width: 40px;
-    height: 40px;
+    width: 2.5em;
+    height: 2.5em;
     border-radius: 50%;
     background-color: var(--color__alerta);
     color: white;
@@ -99,20 +91,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0; /* Evita que el botón se aplaste */
+    flex-shrink: 0;
     transition: transform 0.2s, background-color 0.2s;
 }
 
 .btn-eliminar:hover {
     background-color: var(--color__alerta-hover);
-    transform: scale(1.1); /* Pequeño efecto pop al pasar el mouse */
+    transform: scale(1.1);
 }
 
 .btn-eliminar i {
-    pointer-events: none; /* Asegura que el clic lo reciba el botón */
+    pointer-events: none;
 }
 
-/* --- Botones de Acción --- */
+/* Botón agregar participante */
 .acciones {
     margin-top: 1.5em;
 }
@@ -137,10 +129,9 @@
     background-color: var(--color__boton-hover);
 }
 
-/* --- Sección Total e Inscribir --- */
 .total {
     width: 90%;
-    max-width: 1200px;
+    max-width: 75em;
     margin: 0 auto 4em auto;
     text-align: center;
     padding: 2em;
@@ -155,17 +146,16 @@
     margin: 1em 0;
 }
 
-.inscribir {  
+.inscribir {
     display: block;
     width: 100%;
-    max-width: 300px;
+    max-width: 18.75em;
     margin: 0 auto;
     padding: 1em;
     border-radius: 0.5em;
-    background-color: var(--color__boton); /* Reutilizamos variable */
-    color: white; /* Texto blanco para mejor contraste */
+    background-color: var(--color__boton);
+    color: white;
     text-align: center;
-    text-decoration: none;
     border: none;
     font-size: 1.1em;
     cursor: pointer;
@@ -175,72 +165,150 @@
     background-color: var(--color__boton-hover);
 }
 
-/* --- Modal (Ventana Emergente) --- */
+/* =========================================
+   MODAL RESUMEN
+   ========================================= */
+
 .modal {
-    display: none; /* Oculto por defecto */
-    position: fixed; 
-    z-index: 2000; 
+    display: none;
+    position: fixed;
+    z-index: 3000;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0,0,0,0.6); /* Fondo oscuro */
-    backdrop-filter: blur(5px); /* Efecto borroso moderno */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    padding: 1em;
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 10vh auto; /* 10% desde arriba */
-    padding: 2em;
-    border: 1px solid #888;
-    width: 90%; 
-    max-width: 500px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background-color: white;
+    margin: 8vh auto;
+    padding: 2em 2.2em;
+    width: 95%;
+    max-width: 34.375em;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
     position: relative;
-    animation: slideDown 0.4s;
+    animation: slideDown 0.35s ease-out;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
 }
 
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    top: 0.75em;
+    right: 1em;
+    font-size: 26px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+}
+
+.close:hover {
+    color: #222;
+}
+
+/* Lista del resumen */
+#listaResumen {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5em;
+}
+
+#listaResumen li {
+    background: #f5f7fa;
+    border-left: 0.25em solid var(--color__boton);
+    padding: 0.9em 1em;
+    margin-bottom: 0.7em;
+    border-radius: 0.375em;
+    font-size: 0.95em;
+    color: #444;
+    animation: fadeIn 0.3s;
+}
+
+/* Total modal */
+#totalModal {
+    font-size: 1.2em;
+    color: #222;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+/* Botones dentro del modal */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.confirm {
+    flex: 1;
+    background-color: var(--color__boton);
+    color: white;
+    border: none;
+    padding: 0.9em 1.2em;
+    border-radius: 0.5em;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+    font-size: 1em;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+.confirm:hover {
+    background-color: var(--color__boton-hover);
+}
+
+.cancelar {
+    flex: 1;
+    background-color: var(--color__alerta);
+    color: white;
+    border: none;
+    padding: 0.9em 1.2em;
+    border-radius: 0.5em;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+    font-size: 1em;
 }
 
-/* --- Animaciones --- */
+.cancelar:hover {
+    background-color: var(--color__alerta-hover);
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
+    from { opacity: 0; transform: translateY(-0.625em); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-50px); }
+    from { opacity: 0; transform: translateY(-3.125em); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Responsive --- */
-@media (min-width: 768px) {
+@media (min-width: 48em) {
     .inscripcion {
         margin-top: 8em;
         padding: 3em;
     }
 
     .agregar {
-        width: auto; /* Botón más pequeño en escritorio */
+        width: auto;
         padding: 1em 2em;
     }
-    
+
     .inputs-grupo input {
-        /* En pantallas grandes, aseguramos que no se estiren demasiado si son pocos */
-        flex: 1 1 18%; 
+        flex: 1 1 18%;
     }
 }

@@ -46,49 +46,51 @@
   </header>
   <!--Fin Header-->
 
-<main class="main-inscripcion">
+  <main class="main-inscripcion">
     <section class="inscripcion">
       <h2>Inscripción de Empresa</h2>
 
       <div class="campo-curso">
-    <label for="curso">Seleccioná el curso para el grupo:</label>
-    <select id="curso" required>
-      <option value="" disabled selected>Elegí un curso</option>
-      <option value="Curso de Diseño Web">Curso de Diseño Web</option>
-      <option value="Introducción a la IA">Introducción a la IA</option>
-      <option value="Introducción a Java">Introducción a Java</option>
-      <option value="Introducción a JavaScript">Introducción a JavaScript</option>
-      <option value="JavaScript Avanzado">JavaScript Avanzado</option>
-      <option value="Introducción a C#">Introducción a C#</option>
-    </select>
-</div>
+        <label for="curso">Seleccioná el curso para el grupo:</label>
+        <select id="curso" required>
+        </select>
+      </div>
 
-      <form id="formPersona" class="form-inscripcion">
-        <div id="contenedorParticipantes"></div>
+      <form id="formPersona" class="form-inscripcion" novalidate>
+        <div id="contenedorParticipantes" class="contenedor-participantes"></div>
 
         <div class="acciones">
-            <button id="agregarPersona" type="button" class="agregar">
-                <i class="fas fa-plus"></i> Agregar participante
-            </button>
+          <button id="agregarPersona" type="button" class="agregar">
+            <i class="fas fa-plus"></i> Agregar participante
+          </button>
         </div>
       </form>
     </section>
 
-    <section class="total">
+    <aside class="resumen">
       <h2>Resumen de inscripción</h2>
       <p id="total" class="precio">$0</p>
       <button id="btnInscribir" class="inscribir">Inscribir</button>
-    </section>
+    </aside>
   </main>
 
-  <div id="modalResumen" class="modal" style="display:none;">
-      <div class="modal-content">
-          <span class="close">&times;</span>
-          <h3>Resumen de Inscripción</h3>
-          <ul id="listaResumen"></ul>
-          <p id="totalModal"></p>
-          <button id="confirmarPago">Ir a Pagar</button>
+  <div id="modalResumen" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+      <button class="close" aria-label="Cerrar">&times;</button>
+
+      <h3 id="modalTitle">Resumen de Inscripción</h3>
+
+      <ul id="listaResumen"></ul>
+
+      <p id="totalModal"></p>
+
+      <div class="modal-actions">
+        <button id="confirmarPago" class="confirm">Ir a Pagar</button>
+        <button class="cancelar close">Cerrar</button>
       </div>
+
+    </div>
   </div>
 
   <footer class="footer">
@@ -125,6 +127,7 @@
   <script type="module" src="../js/datalist.js"></script>
   <script type="module" src="../js/script.js"></script>
   <script type="module" src="../js/carrito.js"></script>
+  <script type="module" src="../js/inscripcionEmpresa.js"></script>
 </body>
 
 </html>

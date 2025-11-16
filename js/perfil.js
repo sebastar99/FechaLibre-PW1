@@ -297,7 +297,7 @@ export class Perfil extends Ingreso {
         if (listaCarritoEl) this._renderLista(listaCarritoEl, usuarios[uIndex].carrito || [], 'No tienes cursos en el carrito aun.');
         if (listaComprasEl) this._renderLista(listaComprasEl, usuarios[uIndex].compras || [], 'No has comprado cursos aun.');
 
-        this.notify?.(`Pago simulado: ${producto.nombre} añadido a tus compras.`);
+        this.notify?.(`${producto.nombre} añadido a tus compras.`);
       }
       this._itemSeleccionado = null;
 

@@ -41,10 +41,10 @@ html {
 .perfil-contenedor {
     margin-top: 6em;
     width: 100%;
-    padding: 0 1rem;
+    padding: 0 1em;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 2em;
 }
 
 /* ===== Tarjetas (secciones) ===== */
@@ -52,7 +52,7 @@ html {
 .perfil-carrito,
 .perfil-compras {
     background: white;
-    padding: 1.5rem;
+    padding: 1.5em;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -68,7 +68,7 @@ html {
 }
 
 .perfil-info p {
-    margin: 0.4rem 0;
+    margin: 0.4em 0;
     line-height: 1.5;
 }
 
@@ -76,7 +76,7 @@ html {
     background: #0077ff;
     color: #fff;
     border: none;
-    padding: 0.6rem 1.2em;
+    padding: 0.6em 1.2em;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 1em;
@@ -87,7 +87,7 @@ html {
     background: #e74c3c;
     color: #fff;
     border: none;
-    padding: 0.6rem 1.2em;
+    padding: 0.6em 1.2em;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 1em;
@@ -124,7 +124,7 @@ footer {
 
     .perfil-contenedor {
         grid-template-columns: 1fr, 1fr, 1fr;
-        gap: 1.5rem;
+        gap: 1.5em;
         margin-top: 5em;
     }
 }
@@ -139,7 +139,7 @@ footer {
     /*FIN RESPONSIVE HEADER*/
     .perfil-contenedor {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.5em;
         margin-top: 5em;
     }
 
@@ -153,7 +153,7 @@ footer {
 
     .perfil-contenedor {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.5em;
         margin-top: 5em;
     }
 }

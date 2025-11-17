@@ -224,6 +224,7 @@ export class Perfil extends Ingreso {
     ventana.addEventListener('click', (e) => { if (e.target === ventana) cerrar(); });
 
     ventana.querySelector('#botonEmpresa').addEventListener('click', () => {
+      localStorage.setItem('cursoAPagar', this._itemSeleccionado.id);
       cerrar();
       window.location.href = '/pages/inscripcion.html';
     });

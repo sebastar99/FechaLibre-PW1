@@ -50,6 +50,10 @@ export class InscripcionEmpresa {
       option.textContent = curso.nombre;
       this.cursoSelect.appendChild(option);
     });
+  
+    const seleccionado = localStorage.getItem('cursoAPagar')
+    if (this.cursoSelect.querySelector(`[value="${seleccionado}"]`)) 
+      this.cursoSelect.value = seleccionado;
   }
 
   _agregarEventos() {
@@ -236,14 +240,21 @@ export class InscripcionEmpresa {
     usuarios[idx].carrito = usuarios[idx].carrito || [];
     usuarios[idx].compras = usuarios[idx].compras || [];
     usuarios[idx].carrito = usuarios[idx].carrito.filter(c => Number(c.id) !== Number(curso.id));
-    usuarios[idx].compras.push({
-      ...curso,
-      compradoEn: new Date().toISOString(),
-      participantes
-    });
+
+    if (!usuarios[idx].compras.some(c => c.id === (curso.id))) {    
+      usuarios[idx].compras.push({
+        ...curso,
+        compradoEn: new Date().toISOString(),
+        participantes
+      });
+    }
 
     localStorage.setItem(storageKey, JSON.stringify(usuarios));
     localStorage.setItem(sessionKey, JSON.stringify(usuarios[idx]));
+
+    
+    const total = filas.length * this._obtenerPrecioCurso();
+    localStorage.setItem('totalAPagar', total);
 
     mostrarDialogoVerde(`Compra registrada: ${curso.nombre}`);
 

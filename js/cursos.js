@@ -407,9 +407,10 @@ export class Cursos {
     contenedor.innerHTML = '';
 
     cursos.forEach(curso => {
-      const div = document.createElement('div');
-      div.className = 'curso__tarjeta';
-      div.innerHTML = `
+      const a = document.createElement('a');
+      a.className = 'curso__tarjeta';
+      a.href = `${detailPage}?id=${curso.id}`;
+      a.innerHTML = `
         <div class="curso__tarjeta__img">
             <img src="${curso.img}" alt="Imagen de ${curso.nombre}">
             <div class="curso__tarjeta__precio">${curso.precio}</div>
@@ -418,14 +419,13 @@ export class Cursos {
         <div class="curso__tarjeta__info">
             <h3>${curso.nombre}</h3>
             <div class="curso__tarjeta__links">
-                <a href="${detailPage}?id=${curso.id}">Ver Detalle</a>
-                <a href="/pages/inscripcion.html">
-                    <button type="button">Inscribirse</button>
+                <a href="${detailPage}?id=${curso.id}">
+                    <button type="button">Ver Detalle</button>
                 </a>
             </div>
         </div>
       `;
-      contenedor.appendChild(div);
+      contenedor.appendChild(a);
     });
   }
 }

@@ -77,8 +77,8 @@ export default class Pago {
                 candidate = raw;
             }
         }
-
-        const amount = this._parsePrice(candidate);
+        
+        const amount = this._parsePrice(localStorage.getItem('totalAPagar'));
         if (amount != null) {
             this.montoInput.value = amount;
             this.montoInput.readOnly = true;
